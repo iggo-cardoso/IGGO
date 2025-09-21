@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Figtree", sans-serif;
+    /* border: 1px solid rgb(255, 0, 0); */
+}
+
+:root {
+    /* --brand-color: #003ec5; */
+    --brand-color: #000;
+    /* --brand-color: rgba(2, 61, 0); */
+    /* --page-color: #000; */
+    --page-color: rgb(229, 229, 234);
+    /* --color: rgb(229, 229, 234); */
+    --color: rgb(0, 0, 0);
+    --white-color: #ffffff;
+}
+
+.effectBlur1 {
+    position: fixed;
+    top: -190px;
+    left: -50px;
+    width: 600px;
+    height: 1000px;
+    border-radius: 100%;
+    filter: blur(50px);
+    background: radial-gradient(circle at top, /*rgba(0, 126, 174, 0.81)*/ var(--brand-color), transparent);
+    transform: rotate(-50deg);
+    animation: moveGradient 7s ease infinite;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.effectBlur2 {
+    position: fixed;
+    bottom: -190px;
+    right: -50px;
+    width: 600px;
+    height: 1000px;
+    border-radius: 100%;
+    filter: blur(50px);
+    background: radial-gradient(circle at top, rgba(2, 61, 0, 0.91), transparent);
+    transform: rotate(150deg);
+    animation: moveGradient 7s ease infinite;
+    animation-delay: 2s;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+@keyframes moveGradient {
+    0%, 100% {
+        opacity: .3;
+        height: 1000px;
+    }
+    50% {
+        opacity: .3;
+        height: 500px;
+    } 
+    80% {
+        opacity: 0.7;
+    }
+}
+
+.marker-mouse {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: #000000;
+    border-radius: 8em;
+    border: 1px solid rgb(255, 255, 255);
+    box-shadow: 4px 4px 8px rgba(133, 133, 133, 0.2);
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0s;
+    z-index: 100000;
+    i {
+        color: #ffffff;
+        font-size: 1.1em;
+    }
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.gradient {
+    /* background: linear-gradient(
+        to right,
+        #00fdf8,
+        #07bbff,
+        #0a84ff,
+        #6070fd,
+        #0600fa,
+        #0099ff,
+        #1bd6ff
+    ); */
+    font-weight: 800;
+    background: linear-gradient(
+    to right,
+    #000000,
+    #0c84ff,
+    #0c3fff,
+    #0c64ff,
+    #0C84FF,
+    #000000,
+    #0C84FF,
+    #0c64ff,
+    #0c3fff,
+    #0c84ff,
+    #000000
+  );
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate-gradient 7s linear infinite;
+}
+@keyframes animate-gradient {
+    to {
+        background-position: 200%;
+    }
+}
+
+
+.button-hover-animation:hover {
+    transition: all .2s ease;
+}
+
+.button-hover-animation:hover {
+    opacity: .8;
+    cursor: pointer;
+}
+
+/* 
+#starfield {
+    position: absolute;
+    right: 0;
+    top: 150px;
+    z-index: -2;
+    display: block;
+    border: 0;
+    outline: 0;
+    transform: scale(1.2);
+    transition-duration: 1s;
+    display: none;
+} GALAXY VIDEO BACKGROUND */
+
+.gray-142 {
+    color: rgb(108, 108, 112);
+}

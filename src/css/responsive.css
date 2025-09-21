@@ -1,0 +1,99 @@
+/* ================================ MEDIA QUERIES – RESPONSIVIDADE ================================ */
+
+@media screen and (max-width: 1020px) { 
+  
+}
+
+@media screen and (max-width: 840px) {
+  header {
+    position: fixed;
+    backdrop-filter: blur(2px);
+    width: 100%;
+    ul {
+      position: absolute;
+      margin: auto;
+      right: 25px;
+      padding-right: 240px;
+      margin-right: 0;
+      border: .9px solid #8888888c;
+    } /* UL */
+    
+    .button-containment {
+      gap: 10px;
+    } /* BUTTON CONTAINMENT */
+  }
+}
+
+@media screen and (max-width: 755px) {
+  header {
+    position: fixed;
+    
+    ul {
+      position: absolute;
+      right: 25px;
+      padding-right: 240px;
+      margin-right: 0;
+    } /* UL */
+    
+    .button-containment {
+      gap: 10px;
+    } /* BUTTON CONTAINMENT */
+  }
+}
+
+@media screen and (max-width: 700px) {
+  header {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .logo-brand {
+      position: absolute;
+      left: calc(55% - 80px);
+    }
+    .menu-icon {
+      display: inline;
+      position: absolute;
+      left: 10px;
+      &:after {
+        position: absolute;
+        left: 0;
+        top: -4px;
+        content: '';
+        width: 20px;
+        height: 2.5px;
+        background: var(--color);
+        border-radius: 8em;
+      } /* AFTER */
+      &:before {
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        content: '';
+        width: 20px;
+        height: 2px;
+        background: var(--color);
+        border-radius: 8em;
+      } /* BEFORE */
+    } /* MENU ICON */
+    ul {
+      display: none;
+    } /* UL */
+    .button-containment {
+      display: none;
+    } /* BUTTON CONTAINMENT */
+  } /* HEADER */
+}
+
+@media screen and (max-width: 560px) {
+  
+}
+
+@media (max-aspect-ratio: 16/9) { 
+  
+}
+
+@media (min-aspect-ratio: 16/9) {
+  
+}
+
