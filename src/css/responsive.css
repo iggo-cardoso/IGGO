@@ -6,9 +6,6 @@
 
 @media screen and (max-width: 840px) {
   header {
-    position: fixed;
-    backdrop-filter: blur(2px);
-    width: 100%;
     ul {
       position: absolute;
       margin: auto;
@@ -26,8 +23,6 @@
 
 @media screen and (max-width: 755px) {
   header {
-    position: fixed;
-    
     ul {
       position: absolute;
       right: 25px;
@@ -43,7 +38,6 @@
 
 @media screen and (max-width: 700px) {
   header {
-    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
