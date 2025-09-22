@@ -7,6 +7,7 @@ function markerMouseCursor() {
     document.addEventListener('mousemove', (e) => {
         markerMouse.style.left = `${e.pageX + 2}px`;
         markerMouse.style.top = `${e.pageY + 18}px`;
+        markerMouse.style.opacity = "1";
     });
 }
 

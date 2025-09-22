@@ -8,6 +8,25 @@ body {
     width: 100%;
     overflow: hidden;
     overflow-y: scroll;
+    padding-top: 70px;
+}
+
+.textfloat1 {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    text-align: right;
+    max-width: 370px;
+    font-size: .8em;
+    font-weight: 400;
+    font-family: 'Roboto Condensed', sans-serif;
+    i {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: rotate(180deg);
+        font-size: 2.2em;
+    }
 }
 
 .name-brand {
@@ -18,6 +37,14 @@ body {
     opacity: .1;
     user-select: none;
     text-align: center;
+    overflow: hidden;
+    text-wrap: nowrap;
+    height: 330px;
+    transition: all 1s ease-out;
+    &:hover {
+        margin-top: -20px;
+        height: 350px;
+    }
 }
 
 header {
@@ -191,6 +218,9 @@ main {
             text-align: center;
             font-size: 3.5em;
             color: var(--color);
+            span {
+                text-shadow: none;
+            }
         }
         p {
             margin: 20px 0 0 0;
@@ -218,11 +248,12 @@ main {
                 font-size: 1em;
                 font-weight: 300;
                 &:nth-child(2) {
-                    background: transparent;
-                    border: 1px solid #8888888c;
+                    background: rgba(0, 0, 0, 0.527);
                     font-size: 1em;
-                    padding-left: 20px;
-                    color: var(--color);
+                    color: var(--page-color);
+                    i {
+                        width: 70px;
+                    }
                 } /* NTH CHILD */
                 i {
                     font-size: 1.2em;
@@ -481,16 +512,18 @@ main {
         align-items: center;
         justify-content: space-between;
         box-sizing: border-box;
-        padding: 0 46px 0 46px;
+        padding: 0 120px 0 120px;
         margin: 20px auto;
         .content-1 {
             width: 46%;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            align-items: left;
+            flex-direction: column;
             div {
-                font-size: .9em;
-                font-weight: 400;
+                font-size: .7em;
+                font-weight: 200;
+                font-family: 'Stretch Pro', sans-serif;
+                opacity: .6;
             }
         }
         .content-2 {
@@ -501,13 +534,13 @@ main {
             gap: 10px;
             width: 7%;
             div {
-                background: #000;
+                background: rgb(108, 108, 112);
                 width: 30px;
                 height: 30px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border-radius: 8em;
+                border-radius: 8px;
                 i {
                     color: #ffffff;
                 }

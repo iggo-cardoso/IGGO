@@ -7,11 +7,7 @@
 @media screen and (max-width: 840px) {
   .name-brand {
       font-size: 9em;
-      font-weight: 800;
-      color: var(--brand-color);
-      z-index: 9999;
-      opacity: .1;
-      user-select: none;
+      height: 110px;
       text-align: center;
   }
   header {
@@ -31,6 +27,9 @@
 }
 
 @media screen and (max-width: 755px) {
+  .marker-mouse {
+      display: none;
+  }
   header {
     ul {
       position: absolute;
@@ -46,36 +45,45 @@
   main {
     .content-cards {
       display: grid; 
-
-   grid-template-rows: 1fr 1fr;
-   grid-template-columns: 1fr 1fr;
-   
-   gap: 5px;
-   height: 100%;
+      grid-template-rows: 1fr 1fr ;
+      grid-template-columns: 1fr 2.7fr;
+      
+      gap: 10px;
+      height: 100%;
     }
     .card {
       width: 100% !important;
       grid-row-start: 1;
-   grid-column-start: 1;
+      grid-column-start: 1;
 
-   grid-row-end: 2;
-   grid-column-end: 3;
+      grid-row-end: 2;
+      grid-column-end: 5;
       &:nth-child(2) {
         grid-row-start: 2;
-   grid-column-start: 1;
+        grid-column-start: 1;
 
-   grid-row-end: 3;
-   grid-column-end: 2;
+        grid-row-end: 3;
+        grid-column-end: 2;
+        &::before {
+          margin: 10px auto;
+        }
       }
       &:nth-child(3) {
         grid-row-start: 2;
-   grid-column-start: 2;
+        grid-column-start: 2;
 
-   grid-row-end: 3;
-   grid-column-end: 3;
+        grid-row-end: 3;
+        grid-column-end: 5;
+        &::after {
+          display: none;
+        }
       }
       &:nth-child(4) {
-          display: none;
+        grid-row-start: 3;
+        grid-column-start: 1;
+
+        grid-row-end: 5;
+        grid-column-end: 5;
       }
         
     }

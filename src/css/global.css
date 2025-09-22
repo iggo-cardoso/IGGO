@@ -1,12 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.cdnfonts.com/css/stretch-pro');
+
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Figtree", sans-serif;
+    font-family: 'Figtree', sans-serif;
     /* border: 1px solid rgb(255, 0, 0); */
 }
+
 
 :root {
     /* --brand-color: #003ec5; */
@@ -29,7 +32,7 @@
     filter: blur(50px);
     background: radial-gradient(circle at top, /*rgba(0, 126, 174, 0.81)*/ var(--brand-color), transparent);
     transform: rotate(-50deg);
-    animation: moveGradient 7s ease infinite;
+    animation: moveGradient 6s ease infinite;
     opacity: 0.3;
     z-index: -1;
 }
@@ -44,7 +47,7 @@
     filter: blur(50px);
     background: radial-gradient(circle at top, rgba(2, 61, 0, 0.91), transparent);
     transform: rotate(150deg);
-    animation: moveGradient 7s ease infinite;
+    animation: moveGradient 6s ease infinite;
     animation-delay: 2s;
     opacity: 0.3;
     z-index: -1;
@@ -76,7 +79,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0s;
+    transition: all .3s ease-out;
     z-index: 100000;
     i {
         color: #ffffff;
