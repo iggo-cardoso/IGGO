@@ -192,13 +192,12 @@
     }
   }
 
-  
   .effectBlur1 {
       background: radial-gradient(circle at top, /*rgba(0, 126, 174, 0.81)*/ var(--white-color), transparent);
   }
 
   .effectBlur2 {
-      background: radial-gradient(circle at top, rgba(2, 61, 0, 0.91), transparent);
+      display: none;
   }
 
 }
