@@ -183,11 +183,23 @@ linkAddress.forEach(link => {
 // animate();
 // // ANIMAÇÃO DE ESTRELAS DE FUNDO
 
+const desktopQuery = window.matchMedia("(min-width: 769px)");
+const mobileQuery = window.matchMedia("(max-width: 768px)");
 
-window.addEventListener('scroll', (e) => {
-    if (scrollY > 560) {
-        header.classList.add('sticky');
-    } else {
-        header.classList.remove('sticky');
-    }
-});
+function checkSticky() {
+    console.log(scrollY)
+  let limite = 494;
+
+  if (mobileQuery.matches) {
+    limite = 273; 
+  }
+
+  if (scrollY > limite) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+
+window.addEventListener("scroll", checkSticky);
+window.addEventListener("resize", checkSticky);

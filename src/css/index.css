@@ -20,6 +20,8 @@ body {
     font-size: .8em;
     font-weight: 400;
     font-family: 'Roboto Condensed', sans-serif;
+    color: var(--brand-color);
+    opacity: .4;
     i {
         position: absolute;
         top: 0;
@@ -152,17 +154,16 @@ header.sticky::before {
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, #00000000, var(--page-color), #00000000);
-    backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 
-  /* máscara para deixar só o centro visível */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: cover;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: cover;
 
-  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-  mask-repeat: no-repeat;
-  mask-size: cover;
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-repeat: no-repeat;
+    mask-size: cover;
 }
 
 main {
@@ -248,12 +249,11 @@ main {
                 font-size: 1em;
                 font-weight: 300;
                 &:nth-child(2) {
-                    background: rgba(0, 0, 0, 0.527);
+                    background: transparent;
+                    border: 1px solid rgba(0, 0, 0, 0.527);
                     font-size: 1em;
-                    color: var(--page-color);
-                    i {
-                        width: 70px;
-                    }
+                    padding-left: 20px;
+                    color: var(--color);
                 } /* NTH CHILD */
                 i {
                     font-size: 1.2em;
