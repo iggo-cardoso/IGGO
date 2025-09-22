@@ -444,6 +444,7 @@ main {
                 }
             }       
             &:nth-child(5) {
+                display: none;
                 width: 6.3%;
                 background: #000;
                 overflow: hidden;
