@@ -104,7 +104,7 @@ header {
             bottom: -15px;
             left: 20%;
             background: var(--brand-color);
-            border-radius: 8em;
+            border-radius: 0;
             z-index: -1;
             transition: .3s ease;
 
@@ -132,7 +132,7 @@ header {
     button {
       padding: 5px 10px;
       border-radius: 8em;
-      background: var(--brand-color);
+      background: var(--blue-color);
       color: #fff;
       border: none;
       box-sizing: border-box;
@@ -218,10 +218,8 @@ main {
             margin-top: 10px;
             text-align: center;
             font-size: 3.5em;
+            font-weight: 600;
             color: var(--color);
-            span {
-                text-shadow: none;
-            }
         }
         p {
             margin: 20px 0 0 0;
@@ -274,28 +272,12 @@ main {
         gap: 20px;
         .card {
             overflow: hidden;
-            width: 45%;
-            height: 310px;
+            width: 39%;
+            height: 250px;
             background: var(--color);
             position: relative;
-            border-radius: 40px;
             transition: .5s ease;
-            box-shadow: 0px 0px 8px rgba(199, 199, 204);
-            &::before {
-                content: '1';
-                position: absolute;
-                width: 50px;
-                height: 50px;
-                bottom: 15px;
-                right: 15px;
-                border-radius: 25px;
-                background: var(--page-color);
-                z-index: 10;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 800;
-            }
+            border-radius: 12px;
             .img-bg {
                 position: absolute;
                 left: 0;
@@ -305,6 +287,7 @@ main {
                 height: 100%;
                 object-fit: cover;
                 transition: all .3s ease-out;
+                filter: grayscale(100%) brightness(80%);
             }
             .top-line {
                 display: flex;
@@ -361,11 +344,6 @@ main {
                     top: 0;
                     left: 0;
                 }
-                &::before {
-                    content: '2';
-                    top: 15px;
-                    left: 15px;
-                }
                 p {
                     position: absolute;
                     top: 50%;
@@ -379,14 +357,23 @@ main {
                 }
             }
             &:nth-child(3) {
-                background-image: url('../media/img/mg-2.heic');
-                background-size: 100%;
-                background-position: center;
                 padding: 0;
                 width: 6.3%;
                 overflow: hidden;
                 transition: all .5s ease;
                 cursor: pointer;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background-image: url('../media/img/mg-2.heic');
+                    background-size: cover;
+                    background-position: center;
+                    width: 100%;
+                    height: 100%;
+                    filter: grayscale(100%);
+                }
                 &:after {
                     content: '';
                     position: absolute;
@@ -394,55 +381,32 @@ main {
                     height: 100%;  
                     top: 0;
                     left: 0;
-                    background: #0000007e;
-                    backdrop-filter: blur(5px);
-                    transition: all .5s ease;
+                    backdrop-filter: blur(15px);
+                    transition: all .6s ease;
+                    transition-delay: .2s;
                 }
-                &::before {
-                    content: '3';
-                    top: 15px;
-                    left: 15px;
-                }
+                
                 &:hover::after {
                     opacity: 0;
                 }
                 &:hover {
-                    background-size: 120%;
                     width: 24%;
                 }
             }       
             &:nth-child(4) {
-                background:var(--page-color);
-                width: 25%;
+                background: rgba(0, 0, 0, 0.100);
+                width: 30%;
                 padding: 10px;
-                &::before {
-                    content: '4';
-                    top: 15px;
-                    left: 15px;
-                    background: none;
-                    color: var(--page-color);
-                }
+                box-sizing: border-box;
                 .content {
-                    background: var(--white-color);
-                    border-radius: 2em;
                     height: calc(100% - 65px);
                     padding: 8px;
-                    margin-top: 65px;
-                    img {
-                        position: absolute;
-                        left: 15px;
-                        top: 15px;
-                        width: 50px;
-                        height: 50px;
-                        border-radius: 8em;
-                        box-sizing: border-box;
-                        background: #000;
-                        object-fit: cover;
-                    }
+                    margin-top: 15px;
+                    
                     h1 {
                         margin: 20px 0 5px 0;
                         font-size: 2em;
-                        font-weight: 400;
+                        font-weight: 700;
                     }
                     p {
                         font-weight: 400;
@@ -451,8 +415,8 @@ main {
                     }
                     button {
                         position: absolute;
-                        bottom: 20px;
-                        right: 20px;
+                        bottom: 30px;
+                        left: 20px;
                         display: flex;
                         align-items: center;
                         gap: 10px;
@@ -523,7 +487,6 @@ main {
                 font-size: .7em;
                 font-weight: 200;
                 font-family: 'Stretch Pro', sans-serif;
-                opacity: .6;
             }
         }
         .content-2 {

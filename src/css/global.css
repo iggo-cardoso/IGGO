@@ -14,9 +14,10 @@
 :root {
     /* --brand-color: #003ec5; */
     --brand-color: #000;
+    --blue-color: rgb(30, 110, 244);
     /* --brand-color: rgba(2, 61, 0); */
     /* --page-color: #000; */
-    --page-color: rgb(229, 229, 234);
+    --page-color: rgb(242, 242, 247);
     /* --color: rgb(229, 229, 234); */
     --color: rgb(0, 0, 0);
     --white-color: #ffffff;
@@ -45,7 +46,7 @@
     height: 1000px;
     border-radius: 100%;
     filter: blur(50px);
-    background: radial-gradient(circle at top, rgba(2, 61, 0, 0.91), transparent);
+    background: radial-gradient(circle at top, rgba(229, 229, 234), transparent);
     transform: rotate(150deg);
     animation: moveGradient 6s ease infinite;
     animation-delay: 2s;
