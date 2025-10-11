@@ -203,3 +203,12 @@ function checkSticky() {
 
 window.addEventListener("scroll", checkSticky);
 window.addEventListener("resize", checkSticky);
+
+
+const pageLoading = document.querySelector('.loading-page');
+
+setTimeout(() => {
+    pageLoading.classList.add('hidden');
+    document.querySelector('body').style.paddingTop = "70px";
+    document.querySelector('body').style.overflowY = "scroll";
+}, 5200);

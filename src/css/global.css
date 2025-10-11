@@ -14,7 +14,8 @@
 :root {
     /* --brand-color: #003ec5; */
     --brand-color: #000;
-    --blue-color: rgb(30, 110, 244);
+    /* --blue-color: rgb(35, 0, 100); */
+    --blue-color: rgb(0, 52, 141);
     /* --brand-color: rgba(2, 61, 0); */
     /* --page-color: #000; */
     --page-color: rgb(242, 242, 247);
@@ -31,7 +32,7 @@
     height: 1000px;
     border-radius: 100%;
     filter: blur(50px);
-    background: radial-gradient(circle at top, /*rgba(0, 126, 174, 0.81)*/ var(--white-color), transparent);
+    background: radial-gradient(circle at top, rgba(0, 0, 0, 0.418), transparent);
     transform: rotate(-50deg);
     animation: moveGradient 6s ease infinite;
     opacity: 0.3;
@@ -46,7 +47,7 @@
     height: 1000px;
     border-radius: 100%;
     filter: blur(50px);
-    background: radial-gradient(circle at top, rgba(229, 229, 234), transparent);
+    background: radial-gradient(circle at top, rgba(0, 0, 0, 0.418), transparent);
     transform: rotate(150deg);
     animation: moveGradient 6s ease infinite;
     animation-delay: 2s;
@@ -56,15 +57,15 @@
 
 @keyframes moveGradient {
     0%, 100% {
-        opacity: .3;
+        opacity: .2;
         height: 1000px;
     }
     50% {
-        opacity: .3;
+        opacity: .2;
         height: 500px;
     } 
     80% {
-        opacity: 0.7;
+        opacity: 0.3;
     }
 }
 
