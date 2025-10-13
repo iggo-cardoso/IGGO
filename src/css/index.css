@@ -242,7 +242,7 @@ main {
                 gap: 10px;
                 padding: 4px 20px 4px 4px;
                 border-radius: 50px;
-                background: var(--blue-color);
+                background: var(--brand-color);
                 color: var(--page-color);
                 border: none;
                 box-sizing: border-box;
