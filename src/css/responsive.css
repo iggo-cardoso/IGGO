@@ -31,6 +31,10 @@
       font-size: 9em;
       height: 110px;
       text-align: center;
+      &:hover {
+        margin-top: -5px;
+        height: 118px !important;
+      }
   }
   .float-info {
       transform: scale(0.8);
