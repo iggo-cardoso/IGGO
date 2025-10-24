@@ -27,6 +27,16 @@
       grid-template-rows: 2.5fr 2.5fr 2.5fr 2.5fr !important; 
     }
   }
+  
+.philosophy {
+    h1.title {
+        margin: 20px auto;
+        text-align: center;
+        font-size: 3em;
+        font-weight: 500;
+        color: #fff;
+    }
+   }
   .name-brand {
       font-size: 9em;
       height: 110px;

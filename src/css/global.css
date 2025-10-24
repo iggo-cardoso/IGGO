@@ -75,6 +75,7 @@
     height: 24px;
     background: #000000;
     border-radius: 8em;
+    border: .5px solid #ffffff;
     pointer-events: none;
     display: flex;
     justify-content: center;

@@ -189,9 +189,11 @@ const mobileQuery = window.matchMedia("(max-width: 768px)");
 function checkSticky() {
     console.log(scrollY)
   let limite = 494;
+  let colorHEader = 3025;
 
   if (mobileQuery.matches) {
-    limite = 273; 
+    limite = 273;
+    colorHEader = 3919;
   }
 
   if (scrollY > limite) {
@@ -199,6 +201,14 @@ function checkSticky() {
   } else {
     header.classList.remove("sticky");
   }
+
+  if (scrollY > colorHEader) {
+    header.classList.add("sticky-black");
+  } else {
+    header.classList.remove("sticky-black");
+  }
+
+  console.log(scrollY);
 }
 
 window.addEventListener("scroll", checkSticky);
