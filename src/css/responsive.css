@@ -5,11 +5,45 @@
 }
 
 @media screen and (max-width: 840px) {
+  section.services {
+   
+
+    h1.title {
+      font-size: 3em;
+      margin-left: 20px;
+      margin-right: 20px;
+      font-weight: 600;
+    }
+
+    p.subtitle {
+      font-size: 1em;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    
+    .content-cards-services {
+      margin: 0 20px 0 20px;
+      grid-template-columns: 1fr !important; 
+      grid-template-rows: 2.5fr 2.5fr 2.5fr 2.5fr !important; 
+    }
+  }
   .name-brand {
       font-size: 9em;
       height: 110px;
       text-align: center;
   }
+  .float-info {
+      transform: scale(0.8);
+
+      &.info-1 {
+        right: 0px !important;
+      }
+      &.info-2 {
+        top: 145px !important;
+        left: 0px !important;
+      }
+  }
+
   header {
     ul {
       position: absolute;
@@ -28,6 +62,9 @@
 
 @media screen and (max-width: 755px) {
   .marker-mouse {
+      display: none;
+  }
+  .float-info {
       display: none;
   }
   header {

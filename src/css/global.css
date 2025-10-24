@@ -32,7 +32,7 @@
     height: 1000px;
     border-radius: 100%;
     filter: blur(50px);
-    background: radial-gradient(circle at top, rgba(0, 0, 0, 0.418), transparent);
+    background: radial-gradient(circle at top, rgba(0, 77, 4, 0.822), transparent);
     transform: rotate(-50deg);
     animation: moveGradient 6s ease infinite;
     opacity: 0.3;
@@ -47,7 +47,7 @@
     height: 1000px;
     border-radius: 100%;
     filter: blur(50px);
-    background: radial-gradient(circle at top, rgba(0, 0, 0, 0.418), transparent);
+    background: radial-gradient(circle at top, rgba(76, 103, 255, 0.418), transparent);
     transform: rotate(150deg);
     animation: moveGradient 6s ease infinite;
     animation-delay: 2s;
@@ -75,8 +75,6 @@
     height: 24px;
     background: #000000;
     border-radius: 8em;
-    border: 1px solid rgb(255, 255, 255);
-    box-shadow: 4px 4px 8px rgba(133, 133, 133, 0.2);
     pointer-events: none;
     display: flex;
     justify-content: center;
