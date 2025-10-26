@@ -36,6 +36,25 @@
         font-weight: 500;
         color: #fff;
     }
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        .left {
+          padding: 20px;
+        }
+        .right {
+          margin-top: 60px;
+          padding: 0;
+          img {
+            padding: 0;
+            height: auto;
+            width: 100%;
+            transform: scale(1.2);
+            border-radius: 0;
+          }
+        }
+    }
    }
   .name-brand {
       font-size: 9em;

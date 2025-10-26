@@ -33,6 +33,29 @@ body {
     }
 }
 
+.scroll-indicator {
+    position: absolute;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: .2;
+    animation: bounce 2s infinite;
+    img {
+        width: 40px;
+        transform: rotate(180deg);
+        animation: 2s infinite upDown;
+    }
+}
+
+@keyframes upDown {
+    0%, 100% {
+        transform: translateY(0) rotate(180deg);
+    }
+    50% {
+        transform: translateY(-30px) rotate(180deg);
+    }
+}
+
 .name-brand {
     font-size: 25em;
     font-weight: 800;
@@ -134,7 +157,7 @@ header {
     z-index: 3;
     button {
       padding: 5px 10px;
-      border-radius: 8em;
+      border-radius: .8em;
       background: var(--brand-color);
       color: #fff;
       border: none;
@@ -144,6 +167,12 @@ header {
         backdrop-filter: blur(3px);
         border: 1px solid #8888888c;
         color: var(--color);
+        &:hover {
+            border-color: transparent;
+            background: var(--brand-color);
+            color: var(--page-color);
+            opacity: 1;
+        }
       } /* NTH CHILD */
     } /* BUTTON */
   } /* BUTTON CONTAINMENT */
@@ -310,8 +339,8 @@ main {
                 display: flex;
                 align-items: center;
                 gap: 10px;
-                padding: 4px 20px 4px 4px;
-                border-radius: 50px;
+                padding: 6px 22px 6px 6px;
+                border-radius: .8em;
                 background: var(--brand-color);
                 color: var(--page-color);
                 border: none;
@@ -327,10 +356,16 @@ main {
                 } /* NTH CHILD */
                 i {
                     font-size: 1.2em;
-                    padding: 4px;
-                    border-radius: 50px;
+                    padding: 6px;
+                    border-radius: .5em;
                     color: var(--color);
                     background-color: var(--page-color);
+                }
+                &:hover {
+                    background: var(--brand-color);
+                    border-color: transparent;
+                    color: var(--page-color);
+                    opacity: 1;
                 }
             } /* BUTTON */
         } /* BUTTONS */
@@ -565,7 +600,12 @@ main {
                 filter: invert(0);
             } /* IMG */
           } /* ITEM */
-        } /* CONTENT */   
+
+          &:hover {
+            animation-play-state: paused;
+          }
+        } /* CONTENT */  
+
     } /* CARROUSEL SKILLS*/
 }
 
@@ -742,25 +782,44 @@ main {
         font-weight: 500;
         color: #6b7280;
     }
-    .text {
-        margin: 0 auto;
-        text-align: justify;
-        max-width: 700px;
-        font-size: 1em;
-        font-weight: 400;
-        color: #b4b4b4;
-    }
-    ul {
-        margin: 20px auto;
-        max-width: 700px;
-        font-size: 1em;
-        font-weight: 400;
-        color: #b4b4b4;
-        li {
-            margin-bottom: 10px;
-            span {
-                font-weight: 700;
-                color: #fff;
+    .content {
+        display: flex;
+        align-items: center;
+        justify-items: space-between;
+        .left {
+            width: 100%;
+            padding: 100px 0 100px 100px;
+            .text {
+                margin: 0 auto;
+                text-align: justify;
+                max-width: 700px;
+                font-size: 1em;
+                font-weight: 300;
+                color: #eeeeee;
+            }
+            ul {
+                margin: 20px auto;
+                max-width: 700px;
+                font-size: 1em;
+                font-weight: 300;
+                color: #eeeeee;
+                li {
+                    margin-bottom: 10px;
+                    span {
+                        font-weight: 700;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+        .right {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            img {
+                position: relative;
+                height: 600px;
+                border-radius: 20px;
             }
         }
     }
