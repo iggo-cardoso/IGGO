@@ -36,23 +36,31 @@
         font-weight: 500;
         color: #fff;
     }
+    
+    p.subtitle {
+       text-align: justify;
+    }
+
     .content {
         display: flex;
         flex-direction: column;
         justify-items: center;
         .left {
-          padding: 20px;
-        }
-        .right {
           margin-top: 40px;
           padding: 0;
-          img {
-            padding: 0;
-            height: auto;
-            width: 100%;
-            border-radius: .8em;
+          .content-left {
+            
+            img {
+              padding: 0;
+              height: auto;
+              width: 300px;
+            }
           }
         }
+        .right {
+          padding: 5px;
+        }
+        
     }
    }
   .name-brand {

@@ -70,7 +70,6 @@ function checkSticky() {
     header.classList.remove("sticky-black");
   }
 
-  console.log(scrollY);
 }
 
 window.addEventListener("scroll", checkSticky);

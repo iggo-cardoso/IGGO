@@ -97,6 +97,15 @@
   }
 }
 
+@keyframes scroll-left-2 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-66.6% / 2));
+  }
+}
+
 .gradient {
     /* background: linear-gradient(
         to right,

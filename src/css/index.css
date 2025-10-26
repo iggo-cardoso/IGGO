@@ -757,7 +757,7 @@ main {
 
 .philosophy {
     position: relative;
-    padding: 150px 25px 150px 25px;
+    padding: 150px 25px 20px 25px;
     background: #000000;
     height: 100%;
     box-sizing: border-box;
@@ -775,7 +775,7 @@ main {
         color: #fff;
     }
     p.subtitle {
-        margin: 10px auto 50px auto;
+        margin: 80px auto 50px auto;
         text-align: center;
         max-width: 800px;
         font-size: 1.3em;
@@ -784,25 +784,57 @@ main {
     }
     .content {
         display: flex;
-        align-items: center;
-        justify-items: space-between;
+        flex-direction: column;
+        justify-items: center;
+        overflow: hidden;
         .left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            gap: 20px;
+            .content-left {
+                display: flex;
+                width: max-content;
+                animation: scroll-left-2 60s linear infinite;
+                
+                &:hover {
+                    animation-play-state: paused;
+                    img {
+                        filter: grayscale(100%);
+                    }
+                }
+                img {
+                    flex: 0 0 auto;
+                    margin-right: 40px;
+                    position: relative;
+                    height: 450px;
+                    border-radius: 0;
+                    &:hover {
+                        filter: grayscale(0%);
+                    }
+                }
+            }
+            
+        }
+        .right {
             width: 100%;
             padding: 100px 0 100px 100px;
             .text {
                 margin: 0 auto;
                 text-align: justify;
                 max-width: 700px;
-                font-size: 1em;
-                font-weight: 300;
-                color: #eeeeee;
+                font-size: 1.2em;
+                font-weight: 600;
+                color: #6b7280;
             }
             ul {
                 margin: 20px auto;
                 max-width: 700px;
-                font-size: 1em;
-                font-weight: 300;
-                color: #eeeeee;
+                font-size: 1.2em;
+                font-weight: 600;
+                color: #6b7280;
+                text-align: justify;
                 li {
                     margin-bottom: 10px;
                     span {
@@ -812,16 +844,7 @@ main {
                 }
             }
         }
-        .right {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            img {
-                position: relative;
-                height: 600px;
-                border-radius: 20px;
-            }
-        }
+        
     }
 }
 .loading-page {
