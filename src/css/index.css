@@ -201,7 +201,6 @@ header.sticky-black {
     filter: invert(1);
     button {
       padding: 5px 10px;
-      border-radius: 8em;
       background: var(--brand-color);
       color: #fff;
       border: none;
