@@ -18,7 +18,7 @@
       gap: 20px;
       overflow: hidden;
       overflow-x: auto;
-      padding: 20px auto 20px;
+      padding: 20px 0 20px 0;
       height: auto;
       width: 100%;
       scroll-behavior: smooth;
