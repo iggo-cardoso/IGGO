@@ -11,6 +11,7 @@ body {
     padding-top: 100vh;
     transition: 1s ease-in-out;
     
+    
 }
 
 .textfloat1 {
@@ -967,19 +968,19 @@ main {
         align-items: center;
         justify-content: center;
         gap: 50px;
+        background-color: #eeeeee71;
+        width: calc(100% - 60px);
+        height: 80px;
+        margin: auto;
+        border-radius: 2em;
         .card {
             padding: 30px;
-            border-radius: 20px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             gap: 15px;
             .icon-card {
-                border-radius: 15px;
-                background: #000000;
-                color: #ffffff;
-                width: 50px;
-                height: 50px;
+                color: #0059ff;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -988,8 +989,8 @@ main {
                 }
             }
             p {
-                color: #6b7280;
-                font-weight: 500;
+                color: #000;
+                font-weight: 400;
             }
         }
     }
@@ -1055,7 +1056,7 @@ main {
                     margin-right: 40px;
                     position: relative;
                     height: 450px;
-                    border-radius: 0;
+                    border-radius: 1em;
                     &:hover {
                         filter: grayscale(0%);
                     }

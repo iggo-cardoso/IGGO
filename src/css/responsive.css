@@ -165,6 +165,24 @@
       grid-template-columns: 1fr !important; 
       grid-template-rows: 2.5fr 2.5fr 2.5fr 2.5fr !important; 
     }
+    .content-cards-pressets {
+        display: block;
+        width: calc(100% - 60px);
+        height: auto;
+        margin: 30px auto;
+        border-radius: 1.2em;
+        .card {
+            padding: 20px;
+            display: flex;
+            justify-content: left;
+            text-align: left;
+            gap: 15px;
+            p {
+                color: #000000;
+                font-weight: 400;
+            }
+        }
+    }
   }
   
   .philosophy {

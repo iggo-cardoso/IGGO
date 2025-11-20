@@ -8,6 +8,7 @@
     box-sizing: border-box;
     font-family: 'Figtree', sans-serif;
     /* border: 1px solid rgb(255, 0, 0); */
+    scroll-behavior: smooth;
 }
 
 

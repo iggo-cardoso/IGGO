@@ -51,7 +51,7 @@ const mobileQuery = window.matchMedia("(max-width: 768px)");
 function checkSticky() {
     console.log(scrollY)
   let limite = 494;
-  let colorHEader = 4687;
+  let colorHEader = 4526;
 
   if (mobileQuery.matches) {
     limite = 273;
