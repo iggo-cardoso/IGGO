@@ -834,8 +834,8 @@ main {
     h1.title {
         margin: 20px auto;
         text-align: center;
-        font-size: 4em;
-        font-weight: 500;
+        font-size: 3em;
+        font-weight: 400;
     }
     p.subtitle {
         margin: 10px auto 50px auto;
@@ -862,8 +862,8 @@ main {
     h1.title {
         margin: 20px auto;
         text-align: center;
-        font-size: 4em;
-        font-weight: 500;
+        font-size: 3em;
+        font-weight: 400;
     }
     p.subtitle {
         margin: 10px auto 50px auto;
@@ -1007,8 +1007,8 @@ main {
     h1.title {
         margin: 20px auto;
         text-align: center;
-        font-size: 4em;
-        font-weight: 700;
+        font-size: 3em;
+        font-weight: 400;
         color: #fff;
     }
     p.subtitle {
@@ -1066,14 +1066,14 @@ main {
                 margin: 0 auto;
                 text-align: justify;
                 max-width: 700px;
-                font-size: 1.2em;
+                font-size: 1em;
                 font-weight: 600;
                 color: #6b7280;
             }
             ul {
                 margin: 20px auto;
                 max-width: 700px;
-                font-size: 1.2em;
+                font-size: 1em;
                 font-weight: 600;
                 color: #6b7280;
                 text-align: justify;

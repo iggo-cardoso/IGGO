@@ -82,7 +82,7 @@
       font-size: 3em;
       margin-left: 20px;
       margin-right: 20px;
-      font-weight: 600;
+      font-weight: 400;
     }
 
     p.subtitle {
@@ -100,7 +100,7 @@
       font-size: 3em;
       margin-left: 30px;
       margin-right: 45px;
-      font-weight: 600;
+      font-weight: 400;
     }
 
     p.subtitle {
@@ -121,7 +121,7 @@
         margin: 20px auto;
         text-align: center;
         font-size: 3em;
-        font-weight: 500;
+        font-weight: 400;
         color: #fff;
     }
     
@@ -211,10 +211,10 @@
 
     h1.title {
       text-align: left !important;
-      font-size: 3em;
+      font-size: 2em;
       margin-left: 5px;
       margin-right: 20px;
-      font-weight: 600;
+      font-weight: 400;
     }
 
     p.subtitle {
@@ -235,10 +235,10 @@
 
     h1.title {
       text-align: left !important;
-      font-size: 3em;
+      font-size: 2em;
       margin-left: 30px;
       margin-right: 45px;
-      font-weight: 600;
+      font-weight: 400;
     }
 
     p.subtitle {
@@ -256,16 +256,23 @@
   }
   
   .philosophy {
+    p.section-title {
+      margin-left: 5px;
+      text-align: left;
+    }
     h1.title {
-        margin: 20px auto;
+        text-align: left !important;
+        margin: 20px 0 0 5px;
         text-align: center;
-        font-size: 3em;
-        font-weight: 500;
+        font-size: 2em;
+        font-weight: 400;
         color: #fff;
     }
     
     p.subtitle {
-       text-align: justify;
+      margin-top: 50px;
+      font-size: 1em;
+      text-align: justify;
     }
 
     .content {
