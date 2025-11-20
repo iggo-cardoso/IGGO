@@ -655,10 +655,25 @@ main {
             bottom: -20px;
             left: 0;
             width: 100%;
-            height: 30%;
+            height: 25%;
             background: linear-gradient(to top, rgb(255, 255, 255),#00000000);
+            backdrop-filter: blur(30px);
             z-index: 20;
+            mask-image: linear-gradient(
+                to top,
+                black 0%,
+                black 40%,
+                transparent 100%
+            );
+
+            -webkit-mask-image: linear-gradient(
+                to top,
+                black 0%,
+                black 40%,
+                transparent 100%
+            );
         }
+        
 
         .content-top {
             display: flex;
@@ -792,6 +807,18 @@ main {
         }
     }
 }   
+
+@supports not (backdrop-filter: blur(10px)) {
+  #film-page .seasons .episode .blur {
+    background: linear-gradient(
+      to top,
+      rgba(255,255,255,0.237) 0%,
+      rgba(255,255,255,0.119) 30%,
+      rgba(255,255,255,0.098) 60%,
+      rgba(255,255,255,0) 100%
+    );
+  }
+}
 
 .who-we-are {
     position: relative;
