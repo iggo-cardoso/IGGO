@@ -1,13 +1,93 @@
 /* ================================ MEDIA QUERIES – RESPONSIVIDADE ================================ */
 
-@media screen and (max-width: 1020px) { 
+@media screen and (max-width: 1136px) {
+  .skills {
+    h1.title {
+        text-align: center;
+        font-size: 3em;
+        font-weight: 400;
+    }
+    .content-skills {
+      margin-top: 30px;
+      margin: 0;
+      display: flex;
+      flex-direction: row !important;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-wrap: nowrap !important;
+      gap: 20px;
+      overflow: hidden;
+      overflow-x: auto;
+      padding: 0;
+      height: auto;
+      width: 100%;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      &::before {
+        opacity: 0;
+      }
+
+      .content-top,
+      .content-bottom {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 20px;
+      }
+      .content-top {
+        .sub-content {
+          scroll-snap-align: center; 
+        }
+      } 
+      .content-bottom {
+        .sub-content {
+          scroll-snap-align: center; 
+        }
+      } 
+
+      .content-top .sub-content:nth-child(2) {
+        transform: translateY(0);
+      }
+      
+      .content-bottom .sub-content:nth-child(2) {
+        margin-top: 0;
+      }
+    }
+  }
+
   
 }
 
-@media screen and (max-width: 840px) {
-  section.services {
-   
+@media screen and (max-width: 904px) {
+  .skills {
+     h1.title {
+        text-align: left !important;
+        margin: 20px 0 0 20px;
+        text-align: center;
+        font-size: 2em;
+        font-weight: 400;
+    }
+  }
+  section.who-we-are {
+    h1.title {
+      font-size: 3em;
+      margin-left: 20px;
+      margin-right: 20px;
+      font-weight: 600;
+    }
 
+    p.subtitle {
+      font-size: 1em;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  
+  }
+  
+
+  section.services {
     h1.title {
       font-size: 3em;
       margin-left: 20px;
@@ -28,7 +108,7 @@
     }
   }
   
-.philosophy {
+  .philosophy {
     h1.title {
         margin: 20px auto;
         text-align: center;
@@ -101,6 +181,7 @@
 }
 
 @media screen and (max-width: 755px) {
+  
   .marker-mouse {
       display: none;
   }

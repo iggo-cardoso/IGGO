@@ -51,11 +51,11 @@ const mobileQuery = window.matchMedia("(max-width: 768px)");
 function checkSticky() {
     console.log(scrollY)
   let limite = 494;
-  let colorHEader = 3025;
+  let colorHEader = 4687;
 
   if (mobileQuery.matches) {
     limite = 273;
-    colorHEader = 3919;
+    colorHEader = 5015;
   }
 
   if (scrollY > limite) {
@@ -83,3 +83,32 @@ setTimeout(() => {
     document.querySelector('body').style.paddingTop = "70px";
     document.querySelector('body').style.overflowY = "scroll";
 }, 5200);
+
+
+
+
+
+//////////////////////////////////
+
+
+
+
+
+function parallaxBloco() {
+    const paralaxBloco = document.querySelectorAll('.paralax-bloco');
+    paralaxBloco.forEach(element => {
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      const isVisible = rect.top < windowHeight && rect.bottom > 0;
+
+      if (isVisible && window.innerWidth >= 1136) {
+        const scrollRelativo = windowHeight - rect.top;
+        const speed = 7;
+
+        element.style.transform = `translateY(-${scrollRelativo / speed}px)`;
+      }
+    });
+}
+
+window.addEventListener('scroll', parallaxBloco);
