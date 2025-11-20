@@ -33,7 +33,7 @@
     height: 1000px;
     border-radius: 100%;
     filter: blur(50px);
-    background: radial-gradient(circle at top, rgba(0, 77, 4, 0.822), transparent);
+    background: radial-gradient(circle at top, rgba(63, 63, 63, 0.822), transparent);
     transform: rotate(-50deg);
     animation: moveGradient 6s ease infinite;
     opacity: 0.3;
@@ -58,11 +58,11 @@
 
 @keyframes moveGradient {
     0%, 100% {
-        opacity: .2;
+        opacity: .5;
         height: 1000px;
     }
     50% {
-        opacity: .2;
+        opacity: .5;
         height: 500px;
     } 
     80% {
