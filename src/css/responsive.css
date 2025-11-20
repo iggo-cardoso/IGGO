@@ -2,11 +2,55 @@
 
 @media screen and (max-width: 1136px) {
   .skills {
-    
+    padding: 100px 0px 20px 0px;
     h1.title {
         text-align: center;
         font-size: 3em;
         font-weight: 400;
+    }
+    .markers {
+      margin: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 10px;
+      div {
+        width: 7px;
+        height: 7px;
+        background: #000000;
+        border-radius: 50%;
+        &:nth-child(1) {
+          position: relative;
+          width: 20px;
+          height: 2px;
+          opacity: 1;
+          border-radius: 8em;
+          &::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 2px;
+            background: #000000;
+            border-radius: 8em;
+            right: -1px;
+            top: -2.2px;
+            transform: rotate(25deg);
+          }
+          &::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 2px;
+            background: #000000;
+            border-radius: 8em;
+            right: -1px;
+            bottom: -2.2px;
+            transform: rotate(-25deg);
+          }
+        }
+      }
     }
     
     .content-skills {
@@ -20,13 +64,15 @@
       gap: 20px;
       overflow: hidden;
       overflow-x: auto;
-      padding: 20px 0 20px 0;
+      padding: 20px 0 50px 0;
       height: auto;
       width: 100%;
       scroll-behavior: smooth;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
+      position: relative;
+
       &::before {
         opacity: 0;
       }
@@ -40,11 +86,16 @@
       }
       .content-top {
         .sub-content {
+          width: 300px;
           scroll-snap-align: center; 
+          &:nth-child(1) {
+            margin-left: 30px;
+          }
         }
       } 
       .content-bottom {
         .sub-content {
+          width: 300px;
           scroll-snap-align: center; 
         }
       } 
@@ -70,7 +121,7 @@
     }
 
      h1.title {
-        margin: 20px 0 0 5px;
+        margin: 20px auto;
         text-align: center;
         font-size: 2em;
         font-weight: 400;
@@ -191,13 +242,13 @@
 @media screen and (max-width: 600px) {
   .skills {
     p.section-title {
-      margin-left: 5px;
+      margin-left: 30px;
       text-align: left;
     }
 
      h1.title {
         text-align: left !important;
-        margin: 20px 0 0 5px;
+        margin: 20px 30px 0 30px;
         text-align: center;
         font-size: 2em;
         font-weight: 400;

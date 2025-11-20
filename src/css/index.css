@@ -649,6 +649,9 @@ main {
         justify-content: center;
         gap: 30px;
         position: relative;
+        .markers {
+            display: none;
+        }
         &::before {
             content: '';
             position: absolute;
