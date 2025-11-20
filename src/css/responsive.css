@@ -2,11 +2,13 @@
 
 @media screen and (max-width: 1136px) {
   .skills {
+    
     h1.title {
         text-align: center;
         font-size: 3em;
         font-weight: 400;
     }
+    
     .content-skills {
       margin: 0;
       margin-top: 30px;
@@ -62,15 +64,20 @@
 
 @media screen and (max-width: 904px) {
   .skills {
+    p.section-title {
+      margin: auto;
+      text-align: center;
+    }
+
      h1.title {
-        text-align: left !important;
-        margin: 20px 0 0 20px;
+        margin: 20px 0 0 5px;
         text-align: center;
         font-size: 2em;
         font-weight: 400;
     }
   }
   section.who-we-are {
+   
     h1.title {
       font-size: 3em;
       margin-left: 20px;
@@ -88,17 +95,157 @@
   
 
   section.services {
+
     h1.title {
       font-size: 3em;
-      margin-left: 20px;
-      margin-right: 20px;
+      margin-left: 30px;
+      margin-right: 45px;
       font-weight: 600;
     }
 
     p.subtitle {
       font-size: 1em;
-      margin-left: 20px;
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+    
+    .content-cards-services {
+      margin: 0 20px 0 20px;
+      grid-template-columns: 1fr !important; 
+      grid-template-rows: 2.5fr 2.5fr 2.5fr 2.5fr !important; 
+    }
+  }
+  
+  .philosophy {
+    h1.title {
+        margin: 20px auto;
+        text-align: center;
+        font-size: 3em;
+        font-weight: 500;
+        color: #fff;
+    }
+    
+    p.subtitle {
+       text-align: justify;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        .left {
+          margin-top: 40px;
+          padding: 0;
+          .content-left {
+            
+            img {
+              padding: 0;
+              height: auto;
+              width: 300px;
+            }
+          }
+        }
+        .right {
+          padding: 5px;
+        }
+        
+    }
+   }
+  .name-brand {
+      font-size: 9em;
+      height: 110px;
+      text-align: center;
+      &:hover {
+        margin-top: -5px;
+        height: 118px !important;
+      }
+  }
+  .float-info {
+      transform: scale(0.8);
+
+      &.info-1 {
+        right: 0px !important;
+      }
+      &.info-2 {
+        top: 145px !important;
+        left: 0px !important;
+      }
+  }
+
+  header {
+    ul {
+      position: absolute;
+      margin: auto;
+      right: 25px;
+      padding-right: 240px;
+      margin-right: 0;
+      border: .9px solid #8888888c;
+    } /* UL */
+    
+    .button-containment {
+      gap: 10px;
+    } /* BUTTON CONTAINMENT */
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .skills {
+    p.section-title {
+      margin-left: 5px;
+      text-align: left;
+    }
+
+     h1.title {
+        text-align: left !important;
+        margin: 20px 0 0 5px;
+        text-align: center;
+        font-size: 2em;
+        font-weight: 400;
+    }
+  }
+  section.who-we-are {
+    p.section-title {
+      margin-left: 5px;
+      text-align: left;
+    }
+
+    h1.title {
+      text-align: left !important;
+      font-size: 3em;
+      margin-left: 5px;
       margin-right: 20px;
+      font-weight: 600;
+    }
+
+    p.subtitle {
+      text-align: left !important;
+      font-size: 1em;
+      margin-left: 5px;
+      margin-right: 20px;
+    }
+  
+  }
+  
+
+  section.services {
+    p.section-title {
+      margin-left: 30px;
+      text-align: left;
+    }
+
+    h1.title {
+      text-align: left !important;
+      font-size: 3em;
+      margin-left: 30px;
+      margin-right: 45px;
+      font-weight: 600;
+    }
+
+    p.subtitle {
+      text-align: left !important;
+      font-size: 1em;
+      margin-left: 30px;
+      margin-right: 30px;
     }
     
     .content-cards-services {
