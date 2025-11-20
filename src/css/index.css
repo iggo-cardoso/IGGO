@@ -842,8 +842,8 @@ main {
         text-align: center;
         max-width: 800px;
         font-size: 1.3em;
-        font-weight: 500;
-        color: #6b7280;
+        font-weight: 300;
+        color: #000000;
     }
 }   
 
@@ -870,8 +870,8 @@ main {
         text-align: center;
         max-width: 800px;
         font-size: 1.3em;
-        font-weight: 400;
-        color: #6b7280;
+        font-weight: 300;
+        color: #000000;
     }
 
     .content-cards-services {
@@ -1015,9 +1015,10 @@ main {
         margin: 80px auto 50px auto;
         text-align: center;
         max-width: 800px;
-        font-size: 1.3em;
-        font-weight: 400;
-        color: #6b7280;
+        font-size: 1em;
+        font-weight: 300;
+        color: #ffffff;
+        opacity: .7;
     }
     .content {
         display: flex;
@@ -1067,20 +1068,22 @@ main {
                 text-align: justify;
                 max-width: 700px;
                 font-size: 1em;
-                font-weight: 600;
-                color: #6b7280;
+                font-weight: 300;
+                color: #ffffff;
+                opacity: .7;
             }
             ul {
                 margin: 20px auto;
                 max-width: 700px;
                 font-size: 1em;
-                font-weight: 600;
-                color: #6b7280;
+                font-weight: 300;
+                color: #ffffff;
+                opacity: .7;
                 text-align: justify;
                 li {
                     margin-bottom: 10px;
                     span {
-                        font-weight: 700;
+                        font-weight: 500;
                         color: #fff;
                     }
                 }
