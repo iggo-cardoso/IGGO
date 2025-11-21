@@ -647,9 +647,6 @@ main {
         justify-content: center;
         gap: 30px;
         position: relative;
-        .markers {
-            display: none;
-        }
         &::before {
             content: '';
             position: absolute;
@@ -823,7 +820,7 @@ main {
 
 .who-we-are {
     position: relative;
-    padding: 150px 25px 20px 25px;
+    padding: 170px 25px 20px 25px;
     background: var(--white-color);
     height: 10%;
     box-sizing: border-box;
@@ -857,11 +854,10 @@ main {
     position: relative;
 }
 
-
 .services {
     position: relative;
     padding-top: 150px;
-    padding-bottom: 150px;
+    padding-bottom: 50px;
     background: var(--white-color);
     height: 100%;
     box-sizing: border-box;
@@ -1007,11 +1003,15 @@ main {
 .philosophy {
     position: relative;
     padding: 150px 25px 20px 25px;
-    background: #000000;
+    background: #ffffff;
     height: 100%;
     box-sizing: border-box;
-    color: #fff;
+    color: #000000;
     z-index: 140;
+    .divider {
+        margin: 0 auto 150px;
+        border-width: 1.5px;
+    }
     p.section-title {
         color: #9ca3af;
         margin: auto;
@@ -1022,7 +1022,7 @@ main {
         text-align: center;
         font-size: 3em;
         font-weight: 400;
-        color: #fff;
+        color: #000000;
     }
     p.subtitle {
         margin: 80px auto 50px auto;
@@ -1030,8 +1030,7 @@ main {
         max-width: 800px;
         font-size: 1em;
         font-weight: 300;
-        color: #ffffff;
-        opacity: .7;
+        color: #000000;
     }
     .content {
         display: flex;
@@ -1082,22 +1081,20 @@ main {
                 max-width: 700px;
                 font-size: 1em;
                 font-weight: 300;
-                color: #ffffff;
-                opacity: .7;
+                color: #000000;
             }
             ul {
                 margin: 20px auto;
                 max-width: 700px;
                 font-size: 1em;
                 font-weight: 300;
-                color: #ffffff;
-                opacity: .7;
+                color: #000000;
                 text-align: justify;
                 li {
                     margin-bottom: 10px;
                     span {
                         font-weight: 500;
-                        color: #fff;
+                        color: #000000;
                     }
                 }
             }
@@ -1105,6 +1102,7 @@ main {
         
     }
 }
+
 .loading-page {
     position: fixed;
     top: 0;

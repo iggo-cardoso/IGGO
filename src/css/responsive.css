@@ -8,51 +8,7 @@
         font-size: 3em;
         font-weight: 400;
     }
-    .markers {
-      margin: auto;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      margin-bottom: 10px;
-      div {
-        width: 7px;
-        height: 7px;
-        background: #000000;
-        border-radius: 50%;
-        &:nth-child(1) {
-          position: relative;
-          width: 20px;
-          height: 2px;
-          opacity: 1;
-          border-radius: 8em;
-          &::after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 2px;
-            background: #000000;
-            border-radius: 8em;
-            right: -1px;
-            top: -2.2px;
-            transform: rotate(25deg);
-          }
-          &::before {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 2px;
-            background: #000000;
-            border-radius: 8em;
-            right: -1px;
-            bottom: -2.2px;
-            transform: rotate(-25deg);
-          }
-        }
-      }
-    }
-    
+
     .content-skills {
       margin: 0;
       margin-top: 30px;
@@ -110,6 +66,30 @@
     }
   }
 
+  .services {
+    .content-cards-services {
+      display: flex;
+      flex-direction: row !important;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-wrap: nowrap !important;
+      gap: 20px;
+      overflow: hidden;
+      overflow-x: auto;
+      padding: 20px 40px 50px 0;
+      height: auto;
+      width: 100%;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+      .card {
+        min-width: 320px !important;
+        scroll-snap-align: center;
+      }
+    }
+  }
   
 }
 
@@ -191,7 +171,7 @@
         text-align: center;
         font-size: 3em;
         font-weight: 400;
-        color: #fff;
+        color: #000000;
     }
     
     p.subtitle {
@@ -259,6 +239,7 @@
 
 @media screen and (max-width: 600px) {
   .skills {
+    padding-bottom: 0px;
     p.section-title {
       margin-left: 30px;
       text-align: left;
@@ -273,6 +254,7 @@
     }
   }
   section.who-we-are {
+    padding-top: 100px;
     p.section-title {
       margin-left: 5px;
       text-align: left;
@@ -297,6 +279,8 @@
   
 
   section.services {
+    padding-top: 100px;
+    padding-bottom: 0px;
     p.section-title {
       margin-left: 30px;
       text-align: left;
@@ -325,6 +309,8 @@
   }
   
   .philosophy {
+    
+    padding-top: 100px;
     p.section-title {
       margin-left: 5px;
       text-align: left;
@@ -335,7 +321,7 @@
         text-align: center;
         font-size: 2em;
         font-weight: 400;
-        color: #fff;
+        color: #000000;
     }
     
     p.subtitle {

@@ -129,11 +129,14 @@ function parallaxSections() {
     const rect = el.getBoundingClientRect();
     const windowHeight = window.innerHeight;
 
-    const speed = parseFloat(el.dataset.parallaxSpeed) || 4;
+    const isVisible = rect.top < windowHeight && rect.bottom > 0;
 
-    const scrollRel = windowHeight - rect.top;
+    if (isVisible && window.innerWidth >= 1136) {
+      const speed = parseFloat(el.dataset.parallaxSpeed) || 4;
+      const scrollRel = windowHeight - rect.top;
 
-    el.style.transform = `translateY(-${scrollRel / speed}px)`;
+      el.style.transform = `translateY(-${scrollRel / speed}px)`;
+   }
   });
 }
 
