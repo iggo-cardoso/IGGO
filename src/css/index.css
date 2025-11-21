@@ -4,14 +4,12 @@ body {
     background:
     radial-gradient(ellipse at top, #fa69096c, transparent),
     radial-gradient(ellipse at bottom, #899f0c52, transparent);*/
-    background: var(--page-color);
+    background: #fff;
     width: 100%;
     overflow: hidden;
     overflow-y: hidden;
     padding-top: 100vh;
     transition: 1s ease-in-out;
-    
-    
 }
 
 .textfloat1 {
@@ -621,6 +619,7 @@ main {
     background: var(--white-color);
     height: 100%;
     box-sizing: border-box;
+    z-index: 110;
     p.section-title {
         color: #9ca3af;
         margin: auto;
@@ -826,8 +825,9 @@ main {
     position: relative;
     padding: 150px 25px 20px 25px;
     background: var(--white-color);
-    height: 100%;
+    height: 10%;
     box-sizing: border-box;
+    z-index: 120;
     p.section-title {
         color: #9ca3af;
         margin: auto;
@@ -847,7 +847,16 @@ main {
         font-weight: 300;
         color: #000000;
     }
-}   
+    
+    .divider {
+        margin: 20px auto 0;
+    }
+}  
+
+.usability-design {
+    position: relative;
+}
+
 
 .services {
     position: relative;
@@ -856,6 +865,7 @@ main {
     background: var(--white-color);
     height: 100%;
     box-sizing: border-box;
+    z-index: 130;
     p.section-title {
         color: #9ca3af;
         margin: auto;
@@ -1001,6 +1011,7 @@ main {
     height: 100%;
     box-sizing: border-box;
     color: #fff;
+    z-index: 140;
     p.section-title {
         color: #9ca3af;
         margin: auto;

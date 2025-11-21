@@ -11,6 +11,34 @@ function markerMouseCursor() {
     });
 }
 
+function mouseParallax() {
+  const elements = document.querySelectorAll('[data-mouse-shift]');
+
+  window.addEventListener('mousemove', e => {
+    const x = e.clientX;
+    const y = e.clientY;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    elements.forEach(el => {
+      const maxShift = parseFloat(el.dataset.mouseShift) || 20;
+
+      const relX = (x / w - 0.5) * 2;
+      const relY = (y / h - 0.5) * 2;
+
+      const moveX = relX * maxShift;
+      const moveY = relY * maxShift;
+
+      // aplica transform sem mexer no layout
+      el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      el.style.willChange = 'transform';
+    });
+  });
+}
+
+window.addEventListener('load', mouseParallax);
+
+
 markerMouseCursor();
 
 var whatIsUnderMouse = null;
@@ -94,6 +122,22 @@ setTimeout(() => {
 
 
 
+function parallaxSections() {
+  const sections = document.querySelectorAll('[data-parallax-speed]');
+
+  sections.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    const speed = parseFloat(el.dataset.parallaxSpeed) || 4;
+
+    const scrollRel = windowHeight - rect.top;
+
+    el.style.transform = `translateY(-${scrollRel / speed}px)`;
+  });
+}
+
+
 function parallaxBloco() {
     const paralaxBloco = document.querySelectorAll('.paralax-bloco');
     paralaxBloco.forEach(element => {
@@ -111,4 +155,6 @@ function parallaxBloco() {
     });
 }
 
+window.addEventListener('scroll', parallaxSections);
 window.addEventListener('scroll', parallaxBloco);
+

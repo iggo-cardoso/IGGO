@@ -172,3 +172,12 @@
 .gray-142 {
     color: rgb(108, 108, 112);
 }
+
+.divider {
+    width: 90%;
+    border-top: 2px dashed #000;
+    box-sizing: border-box;
+    background: none;
+    opacity: .8;
+}
+
