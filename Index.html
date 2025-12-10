@@ -32,17 +32,31 @@
     <link rel="stylesheet" href="src/css/index.css">
     <link rel="stylesheet" href="src/css/global.css">
     <link rel="stylesheet" href="src/css/responsive.css">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.0/build/spline-viewer.js"></script>
 </head>
 <body>
+    <iframe id="bg" src='https://my.spline.design/r4xbot-8VU1Ig0KTjwkOxKcr0bNkgl9/' frameborder='0' width='100%' height='100%'></iframe>
     <div class="loading-page">
-        <div class="load">
-
-        </div>
+        <div class="load"></div>
         <div class="txt">
             <div class="icon-load">
 
             </div>
-           <div class="logo"></div>
+            
+            <div class="textIntro">
+                <div class="logo"></div>
+                <div class="title">
+                    <span data-animation="left">Tecnologia, </span><span data-animation="right">automação</span><br>
+                 <span data-animation="left">eficiência</span> <span data-animation="right">operacional</span> <br>  e visão de futuro.
+                </div>
+            </div>
+        </div>
+        <div class="btn-wrapper">
+            <button class="btn button">
+                <span class="btn-txt">Iniciar Pagina</span>
+                <div class="dot pulse"></div>
+            </button>
+            <span class="disclaimer-txt">Bem vindo a IGGO® Studios</span>
         </div>
     </div>
     <div class="textfloat1">
@@ -72,19 +86,19 @@
         </div>
     </header>
     <main>
-        <div data-parallax-speed="12" data-mouse-shift="10" class="float-info info-1">
+        <div data-parallax-speed="12-up" data-mouse-shift="20-normal-axisX" class="float-info info-1">
             <h1>5+</h1>
             <p>ANOS DE EXPERIÊNCIA</p>
         </div>
-        <div data-parallax-speed="12" data-mouse-shift="10" class="float-info info-2">
+        <div data-parallax-speed="12-up" data-mouse-shift="20-normal-axisX" class="float-info info-2">
             <h1>98%</h1>
             <p>SATISFAÇÃO</p>
         </div>
         <div class="scroll-indicator">
             <img src="src/media/icon/svg/arrow-up-svgrepo-com.svg" alt="">
         </div>
-        <div class="content-text">
-            <div data-aos="fade-up" data-aos-duration="1000" class="hero-info-title">
+        <div data-parallax-speed="15-down" data-mouse-shift="20-invert-axisX" class="content-text">
+            <div  class="hero-info-title">
                 <!-- <i class="bx bxl-sketch"></i> -->
                 <img src="src/media/icon/png/brand/logo.png">
                 Novas tecnologias
@@ -183,6 +197,9 @@
         
         
     </main>
+    <section class="section-3d">
+        <iframe src='https://my.spline.design/r4xbot-8VU1Ig0KTjwkOxKcr0bNkgl9/' frameborder='0' width='100%' height='100%'></iframe>
+    </section>
     <section class="skills">
         <p class="section-title">PARCEIROS</p>
         <h1 class="title">O que os clientes dizem sobre a IGGO</h1>
@@ -244,19 +261,17 @@
         </div>
     </section>
     <section class="who-we-are">
-        <p data-parallax-speed="4" class="section-title">NOSSOS SERVIÇOS</p>
-        <h1 data-parallax-speed="3.5" class="title">Porque a IGGO existe ?<br></h1>
-        <p data-parallax-speed="3" class="subtitle">
+        <p data-parallax-speed="4-up" class="section-title">NOSSOS SERVIÇOS</p>
+        <h1 data-parallax-speed="3.5-up" class="title">Porque a IGGO existe ?<br></h1>
+        <p data-parallax-speed="3-up" class="subtitle">
             A IGGO nasce de uma mentalidade inquieta: unir design, tecnologia e estratégia para criar produtos digitais que realmente fazem diferença.
              Não seguimos fórmulas prontas. Conectamos técnica com sensibilidade, lógica com criatividade e engenharia com narrativa visual — sempre buscando impacto real.
         </p>
     </section>
     <section class="services ">
-        <p data-parallax-speed="4" class="section-title">NOSSOS SERVIÇOS</p>
-        <h1 data-parallax-speed="3.5" class="title">Como Impulsionamos <br>a Sua Marca</h1>
-        <p data-parallax-speed="3" class="subtitle">
-            Combinamos estratégia, design e tecnologia para criar soluções que geram resultados reais
-        </p>
+        <p data-parallax-speed="10-up" class="section-title">NOSSOS SERVIÇOS</p>
+        <h1 data-parallax-speed="9.5-up" class="title">Como Impulsionamos a Sua Marca</h1>
+        
         <div class="content-cards-services">
             <div class="card">
                 <div class="icon-card service-1">
@@ -418,7 +433,16 @@
             
         </div>
      </section>
-    <div class="marker-mouse"></div>
+    <div class="marker-mouse">
+        <div class="box">
+            <div class="edges"></div>
+            <div class="edges"></div>
+            <div class="edges"></div>
+            <div class="edges"></div>
+        </div>
+
+        <div class="icon"></div>
+    </div>
     <script src="src/js/animations.js"></script>
     <script src="src/js/index.js"></script>
 </body>
