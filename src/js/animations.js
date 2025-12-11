@@ -124,9 +124,11 @@ window.addEventListener("resize", checkSticky);
 const pageLoading = document.querySelector('.loading-page');
 
 document.querySelector('.loading-page  .button').addEventListener('click', () => {
-    pageLoading.classList.add('hidden');
-    document.querySelector('body').style.paddingTop = "70px";
-    document.querySelector('body').style.overflowY = "scroll";
+    setTimeout(() => {
+      pageLoading.classList.add('hidden');
+      document.querySelector('body').style.paddingTop = "70px";
+      document.querySelector('body').style.overflowY = "scroll";
+    }, 1000);
 }, 5200);
 
 

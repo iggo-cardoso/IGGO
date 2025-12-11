@@ -51,13 +51,22 @@
                 </div>
             </div>
         </div>
-        <div class="btn-wrapper">
-            <button class="btn button">
-                <span class="btn-txt">Iniciar Pagina</span>
-                <div class="dot pulse"></div>
-            </button>
-            <span class="disclaimer-txt">Bem vindo a IGGO® Studios</span>
-        </div>
+        <!-- Button -->
+        <button class="button">
+            <span>Iniciar pagina</span>
+        </button>
+            
+
+        <!-- Background -->
+        <svg style="position: absolute; width: 100%; height: 100%; z-index: 0;" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="dottedGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1" fill="rgba(0,0,0,0.15)" />
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#dottedGrid)" />
+        </svg>
+
     </div>
     <div class="textfloat1">
         <i class="bx bx-arrow-up-right-stroke"></i>
