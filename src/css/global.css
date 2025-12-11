@@ -33,7 +33,7 @@
     height: 1000px;
     border-radius: 100%;
     filter: blur(50px);
-    background: radial-gradient(circle at top, rgba(153, 0, 255, 0.822), transparent);
+    background: radial-gradient(circle at top, rgba(85, 85, 85, 0.822), transparent);
     transform: rotate(-50deg);
     animation: moveGradient 4s ease infinite;
     opacity: 0.3;
