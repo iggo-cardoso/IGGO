@@ -115,26 +115,20 @@ window.addEventListener("scroll", checkSticky);
 window.addEventListener("resize", checkSticky);
 
 const pageLoading = document.querySelector('.loading-page');
-const mainWrapper = document.querySelector('.page-wrapper'); 
 const loadBtn = pageLoading?.querySelector('.button');
 
 if (loadBtn) {
     loadBtn.addEventListener('click', () => {
         const transition = "transform 1.2s cubic-bezier(0.85, 0, 0.15, 1)";
         pageLoading.style.transition = transition;
-        if (mainWrapper) mainWrapper.style.transition = transition;
-
+      
         pageLoading.style.transform = "translateY(-100%)";
-        if (mainWrapper) {
-            mainWrapper.style.transform = "translateY(0)";
-        }
+      
 
         setTimeout(() => {
             pageLoading.classList.add('hidden');
             document.body.style.overflowY = "auto";
             
-            if (mainWrapper) mainWrapper.style.transform = "none";
-            if (mainWrapper) mainWrapper.style.transition = "none";
         }, 1200);
     });
 }
