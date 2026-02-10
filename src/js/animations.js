@@ -49,6 +49,7 @@ function mouseParallax() {
     });
   });
 }
+
 markerMouseCursor();
 
 var whatIsUnderMouse = null;
@@ -205,7 +206,9 @@ function parallaxBloco() {
 window.addEventListener('scroll', parallaxBloco);
 
 window.addEventListener('load', () => {
-  mouseParallax();
+  if (window.innerWidth >= 1020) {
+    mouseParallax();
+  }
   parallaxSections();
   window.addEventListener('scroll', parallaxSections);
 });
