@@ -33,6 +33,12 @@
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.0/build/spline-viewer.js"></script>
 </head>
 <body>
+    <svg style="display:none;">
+      <filter id="distortion">
+        <feTurbulence type="turbulence" baseFrequency="0.01 0.1" numOctaves="1" result="turbulence"/>
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </svg>
     <div class="loading-page">
         <div class="load"></div>
         <div class="txt">
@@ -58,17 +64,32 @@
         <svg style="position: absolute; width: 100%; height: 100%; z-index: 0;" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <pattern id="dottedGrid" width="30" height="30" patternUnits="userSpaceOnUse">
-                <circle cx="2" cy="2" r="1" fill="rgba(0,0,0,0.15)" />
+                <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.15)" />
                 </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#dottedGrid)" />
         </svg>
 
     </div>
+    
+    <section class="art">
+        <div class="art-container">
+            <div class="flash-overlay"></div>
+
+            <div data-mouse-shift="70-invert-anyAxis" class="found drawing-effect">
+                <img src="public/img/backgrounds/58db640b-18a4-45f8-840c-3a024747e181-u2_7be55349-a412-43c9-b233-bd5250b0e95e.jpeg" alt="">
+            </div>
+            
+            <div data-mouse-shift="50-invert-anyAxis" class="img-top">
+                <img src="public/img/backgrounds/3e803db7-bd0f-4dd3-aa07-2b989e470094-u1_7c05cb34-3432-407d-8df5-0cd6f9f1ec74.png" alt="">
+            </div>
+        </div>
+    </section>
     <div class="textfloat1">
         <i class="bx bx-arrow-up-right-stroke"></i>
         IGGO ENTREGA DESIGN AUTENTICO, <br> MODERNO E FUNCIONAL PARA GERAR <br> CONEXAO REAL ENTRE PESSOAS E MARCAS
     </div>
+    
     <div class="name-brand">
         IGGO
     </div>
@@ -90,20 +111,21 @@
         <button link="https://api.whatsapp.com/send/?phone=115814290486&text=Ol%C3%A1%21+Vi+seu+portf%C3%B3lio+e+gostaria+de+conversar+sobre+um+projeto.+Poderia+me+dar+mais+informa%C3%A7%C3%B5es%3F&type=phone_number&app_absent=0"  class="link-hover button-hover-animation">Contato</button>
         <button class="link-hover button-hover-animation">Tipos de contrato</button>
         </div>
+        
     </header>
     <main>
-        <div data-parallax-speed="12-up" data-mouse-shift="20-normal-axisX" class="float-info info-1">
+        <div data-parallax-speed="12-up" data-mouse-shift="20-invert-anyAxis" class="float-info info-1">
             <h1>5+</h1>
             <p>ANOS DE EXPERIÊNCIA</p>
         </div>
-        <div data-parallax-speed="12-up" data-mouse-shift="20-normal-axisX" class="float-info info-2">
+        <div data-parallax-speed="12-up" data-mouse-shift="20-invert-anyAxis" class="float-info info-2">
             <h1>98%</h1>
             <p>SATISFAÇÃO</p>
         </div>
         <div class="scroll-indicator">
             <img src="public/icon/svg/arrow-up-svgrepo-com.svg" alt="">
         </div>
-        <div data-parallax-speed="15-down" data-mouse-shift="20-invert-axisX" class="content-text">
+        <div data-parallax-speed="15-down" data-mouse-shift="50-invert-anyAxis" class="content-text">
             <div  class="hero-info-title">
                 <!-- <i class="bx bxl-sketch"></i> -->
                 <img src="public/icon/png/brand/logo.png">

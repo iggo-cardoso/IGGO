@@ -22,7 +22,7 @@
     --page-color: rgb(242, 242, 247);
     /* --color: rgb(229, 229, 234); */
     --color: rgb(0, 0, 0);
-    --white-color: #ffffff;
+    --white-color: rgb(235, 235, 240);
 }
 
 .effectBlur1 {
@@ -58,15 +58,15 @@
 
 @keyframes moveGradient {
     0%, 100% {
-        opacity: .6;
+        opacity: .8;
         height: 1000px;
     }
     50% {
-        opacity: .6;
+        opacity: .8;
         height: 500px;
     } 
     80% {
-        opacity: 0.2;
+        opacity: 0.5;
     }
 }
 
@@ -75,14 +75,7 @@
     position: absolute;
     width: 24px;
     height: 24px;
-    /*
-    background: #000000;
-    border-radius: 8em;
-    border: .5px solid #ffffff;
-    pointer-events: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;*/
+    background: none;
     transition: all .3s ease-out;
     z-index: 10000;
     .box {
@@ -93,26 +86,26 @@
             width: 10px;
             height: 10px;
             &:nth-child(1) {
-                top: -20px;
-                left: -20px;
+                top: -40px;
+                left: -40px;
                 border-top: 2px solid #afafaf;
                 border-left: 2px solid #afafaf;
             }
             &:nth-child(2) {
-                top: -20px;
-                right: -18px;
+                top: -40px;
+                right: -5px;
                 border-top: 2px solid #afafaf;
                 border-right: 2px solid #afafaf;
             }
             &:nth-child(3) {
-                bottom: -40px;
-                right: -18px;
+                bottom: -25px;
+                right: -5px;
                 border-bottom: 2px solid #afafaf;
                 border-right: 2px solid #afafaf;
             }
             &:nth-child(4) {
-                bottom: -40px;
-                left: -20px;
+                bottom: -25px;
+                left: -40px;
                 border-bottom: 2px solid #afafaf;
                 border-left: 2px solid #afafaf;
             }

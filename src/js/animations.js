@@ -5,8 +5,8 @@ const header = document.querySelector('header');
 
 function markerMouseCursor() {
     document.addEventListener('mousemove', (e) => {
-        markerMouse.style.left = `${e.pageX /*+ 2*/}px`;
-        markerMouse.style.top = `${e.pageY /*+ 18*/}px`;
+        markerMouse.style.left = `${e.pageX + 2}px`;
+        markerMouse.style.top = `${e.pageY + 18}px`;
         markerMouse.style.opacity = "1";
     });
 }
@@ -21,8 +21,7 @@ function mouseParallax() {
     const h = window.innerHeight;
 
     elements.forEach(el => {
-
-      // config: "10-normal-anyAxis" ou "10-invert-axisX"
+      el.style.transition = " .5s ease-out";
       const cfg = el.dataset.mouseShift.split("-");
       const speed = Number(cfg[0]) || 20;
       const mode = cfg[1] || "normal"; 
@@ -34,18 +33,15 @@ function mouseParallax() {
       let moveX = relX * speed;
       let moveY = relY * speed;
 
-      // invert ou normal
       if (mode === "normal") {
-        moveX = -moveX;
-        moveY = -moveY;
+        moveX = -moveX * .08;
+        moveY = -moveY * .08;
       }
 
-      // restrição de eixo
       if (axis === "axisX") {
-        moveY = 0; // remove eixo Y
+        moveY = 0; 
       }
 
-      // salva no dataset para combinar depois
       el.dataset.mouseTx = moveX;
       el.dataset.mouseTy = moveY;
 
@@ -53,9 +49,6 @@ function mouseParallax() {
     });
   });
 }
-
-
-
 markerMouseCursor();
 
 var whatIsUnderMouse = null;
@@ -166,11 +159,9 @@ function parallaxSections() {
         scrollTy = scrollRel / speed;
       }
 
-      // salva o offset do scroll
       el.dataset.scrollTx = scrollTx;
       el.dataset.scrollTy = scrollTy;
 
-      // aplica transform combinado
       applyCombinedTransform(el);
     }
   });
@@ -225,49 +216,3 @@ window.addEventListener('load', () => {
 
 
 
-
-
-//////////////////////////////////
-
-
-/*
-const elementsAnimation = document.querySelectorAll('[data-animation]');
-
-function animatonSlides() {
-  const left = document.querySelector('[data-animation="left"]');
-  const right = document.querySelector('[data-animation="right"]');
-  const top = document.querySelector('[data-animation="top"]');
-  const bottom = document.querySelector('[data-animation="bottom"]');
-
-  elementsAnimation.forEach(el => {
-    switch (el.dataset.animation) {
-      case "left":
-        left.style.marginLeft = "-10000px";
-        left.style.opacity = "0";
-        break;
-      case "right":
-        right.style.marginRight = "-100000px";
-        right.style.opacity = "0";
-        break;
-      case "top":
-        top.style.marginTop = "-100%";
-        top.style.opacity = "1";
-        break;
-      case "bottom":
-        bottom.style.marginBottom = "100%";
-        bottom.style.opacity = "1";
-        break;
-      
-      default:
-        break;
-    }
-  });
-
-  setTimeout(() => {
-    left.style.opacity = "0";
-    setTimeout(() => {
-      left.style.marginLeft = "0";
-    }, 1200);
-  }, 1000);
-} animatonSlides();
-*/
