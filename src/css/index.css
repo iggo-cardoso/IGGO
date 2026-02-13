@@ -1362,3 +1362,104 @@ main {
         }
     }
 }
+
+
+@media (max-width: 600px) {
+    .footer {
+        padding: 3rem 1.25rem 2rem;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-col h2 {
+        font-size: 1.4rem;
+    }
+
+    .footer-col h3 {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 430px) {
+    .footer {
+      position: relative;
+      background: var(--brand-fund);
+      color: var(--secondary-color);
+      padding: 4rem 1.5rem 2rem;
+      font-family: inherit;
+      z-index: 200;
+      overflow: hidden;
+      .footer-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(1, 1fr) !important;
+          gap: 2.5rem;
+          .footer-col {
+              a {
+                  color: #C9D6E3;
+                  text-decoration: none;
+                  transition: color 0.3s ease;
+                  &:hover {
+                      color: var(--brand);
+                  }
+              }
+              h2 {
+                  font-size: 1.5rem;
+              }
+              h3 {
+                  font-size: 1.1rem;
+              }
+              h2, h3 {
+                  color: #FFFFFF;
+                  margin-bottom: 1rem;
+                  font-weight: 600;
+                  line-height: 1.2;
+              }
+              p {
+                  font-size: 0.95rem;
+                  line-height: 1.6;
+                  color: #C9D6E3;
+              }
+              ul {
+                  list-style: none;
+                  padding: 0;
+                  margin: 0;
+                  li {
+                      margin-bottom: 0.6rem;
+                      font-size: 0.95rem;
+                      color: #C9D6E3;
+                  }
+              }
+          }
+          address {
+              font-style: normal;
+              p {
+                  margin-bottom: 0.6rem;
+              }
+  
+          }
+      }
+      .footer-bottom {
+          margin-top: 3rem;
+          padding-top: 1.5rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          text-align: center;
+          p {
+              font-size: 0.85rem;
+              color: #9FB2C7;
+              &:nth-child(2) {
+                  margin: 5px 0 0 0;
+                  b {
+                      a {
+                          color: #fff;
+                      }
+                  }
+              }
+          }
+      }
+  }
+}
