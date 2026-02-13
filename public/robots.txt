@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://iggostudios.com.br/sitemap.xml
