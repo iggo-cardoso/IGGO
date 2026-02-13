@@ -1300,7 +1300,7 @@ main {
         gap: 2.5rem;
         .footer-col {
             a {
-                color: #C9D6E3;
+                color: #eee;
                 text-decoration: none;
                 transition: color 0.3s ease;
                 &:hover {
@@ -1322,7 +1322,7 @@ main {
             p {
                 font-size: 0.95rem;
                 line-height: 1.6;
-                color: #C9D6E3;
+                color: #eee;
             }
             ul {
                 list-style: none;
@@ -1331,7 +1331,7 @@ main {
                 li {
                     margin-bottom: 0.6rem;
                     font-size: 0.95rem;
-                    color: #C9D6E3;
+                    color: #eee;
                 }
             }
         }
@@ -1350,7 +1350,7 @@ main {
         text-align: center;
         p {
             font-size: 0.85rem;
-            color: #9FB2C7;
+            color: #eee;
             &:nth-child(2) {
                 margin: 5px 0 0 0;
                 b {
@@ -1386,8 +1386,8 @@ main {
 @media (max-width: 430px) {
     .footer {
       position: relative;
-      background: var(--brand-fund);
-      color: var(--secondary-color);
+      background: #000;
+      color: #fff;
       padding: 4rem 1.5rem 2rem;
       font-family: inherit;
       z-index: 200;
@@ -1400,7 +1400,7 @@ main {
           gap: 2.5rem;
           .footer-col {
               a {
-                  color: #C9D6E3;
+                  color: #eee;
                   text-decoration: none;
                   transition: color 0.3s ease;
                   &:hover {
@@ -1422,7 +1422,7 @@ main {
               p {
                   font-size: 0.95rem;
                   line-height: 1.6;
-                  color: #C9D6E3;
+                  color: #eee;
               }
               ul {
                   list-style: none;
@@ -1431,7 +1431,7 @@ main {
                   li {
                       margin-bottom: 0.6rem;
                       font-size: 0.95rem;
-                      color: #C9D6E3;
+                      color: #eee;
                   }
               }
           }
@@ -1450,7 +1450,7 @@ main {
           text-align: center;
           p {
               font-size: 0.85rem;
-              color: #9FB2C7;
+              color: #eee;
               &:nth-child(2) {
                   margin: 5px 0 0 0;
                   b {
