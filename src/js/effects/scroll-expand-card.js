@@ -1,22 +1,13 @@
-// scroll-expand-card.js
-// Estratégia: sticky + clip-path:polygon() — igual ao Lirio Studio
-// O imgLayer é sempre position:sticky, top:0, width:100vw, height:100vh
-// O efeito de "card pequeno expandindo" é feito pelo clip-path polygon()
-// que vai de um recorte central (initW x initH) até 0%/100% (tela cheia)
-// ZERO mudança de position → ZERO CLS
 
 (function () {
   'use strict';
 
-  const INITIAL_W_VW      = 0.68;  // largura inicial como fração da viewport
-  const INITIAL_H_VH      = 0.62;  // altura inicial como fração da viewport
-  const CARD_RADIUS_PX    = 14;    // border-radius inicial em px
+  const INITIAL_W_VW      = 0.68;
+  const INITIAL_H_VH      = 0.62;
+  const CARD_RADIUS_PX    = 14;
   const IMG_INITIAL_SCALE = 1.18;
   const IMG_FINAL_SCALE   = 1.0;
   const LERP_SPEED        = 6;
-
-  const IS_MOBILE = window.matchMedia('(hover: none) and (pointer: coarse)').matches
-                    || navigator.maxTouchPoints > 0;
 
   function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
   function lerp(a, b, t)  { return a + (b - a) * t; }
@@ -36,10 +27,6 @@
       if (s.objectPosition) img.style.objectPosition = s.objectPosition;
       imgLayer.appendChild(img);
     });
-
-    const flash = document.createElement('div');
-    flash.className = 'ec-flash';
-    imgLayer.appendChild(flash);
 
     const bar = document.createElement('div');
     bar.className = 'ec-bar';
@@ -75,7 +62,7 @@
     imgLayer.appendChild(textLayer);
     section.appendChild(imgLayer);
 
-    return { imgLayer, textLayer, dots, barFill, flash };
+    return { imgLayer, textLayer, dots, barFill };
   }
 
   function initSection(section) {
@@ -87,42 +74,30 @@
 
     const n = slides.length;
     const scrollHeight = parseFloat(section.dataset.scrollHeight) || n * 180;
-
-    // A section precisa de altura suficiente para o scroll acontecer
-    // O sticky vai ocupar 100vh dentro dela
     section.style.height = scrollHeight + 'vh';
     section.style.position = 'relative';
 
-    const { imgLayer, textLayer, dots, barFill, flash } = buildCard(section, slides);
+    const { imgLayer, textLayer, dots, barFill } = buildCard(section, slides);
 
-    // SEMPRE sticky — nunca muda, zero CLS
-    imgLayer.style.cssText = [
-      'position:sticky',
-      'top:0',
-      'width:100%',
-      'height:100vh',
-      'will-change:clip-path',
-      'overflow:hidden',
-    ].join(';') + ';';
+    // Cache de referências — evita querySelectorAll no tick
+    const imgs  = Array.from(imgLayer.querySelectorAll('.ec-img'));
+    const texts = Array.from(textLayer.querySelectorAll('.ec-text'));
+    const dotEls = Array.from(dots.querySelectorAll('.ec-dot'));
 
-    // Geometria cacheada — só recalcula em resize
+    // Sticky — nunca muda, zero CLS
+    imgLayer.style.cssText = 'position:sticky;top:0;width:100%;height:100vh;will-change:clip-path;overflow:hidden;';
+
+    // Geometria cacheada
     var geo = {};
     function recache() {
       geo.vw = window.innerWidth;
       geo.vh = window.innerHeight;
       geo.initW = geo.vw * INITIAL_W_VW;
       geo.initH = geo.vh * INITIAL_H_VH;
-      // insets iniciais em % para o clip-path
-      // inset horizontal: (vw - initW) / 2 / vw * 100
-      geo.insetXpct = ((geo.vw - geo.initW) / 2 / geo.vw * 100);
-      geo.insetYpct = ((geo.vh - geo.initH) / 2 / geo.vh * 100);
-      // Onde começa e termina a animação em relação ao scroll da section
       var rect = section.getBoundingClientRect();
       geo.sectionTop = rect.top + window.scrollY;
-      // Começa a animar assim que o sticky gruda (topo da section chega ao topo da viewport)
       geo.startAt = geo.sectionTop;
-      // Termina quando a section quase acabou (deixa 1vh de margem)
-      geo.endAt = geo.sectionTop + section.offsetHeight - geo.vh;
+      geo.endAt   = geo.sectionTop + section.offsetHeight - geo.vh;
     }
     recache();
     window.addEventListener('resize', recache, { passive: true });
@@ -130,29 +105,29 @@
     var activeSlide    = -1;
     var smoothProgress = 0;
     var lastTime       = null;
+    var activeImg      = imgs[0] || null; // referência direta à img ativa
 
     function setSlide(idx) {
       if (idx === activeSlide) return;
-      var prevIdx = activeSlide;
+
+      // Remove active do anterior
+      if (activeSlide >= 0) {
+        imgs[activeSlide].classList.remove('active');
+        texts[activeSlide].style.display = 'none';
+        texts[activeSlide].classList.remove('active');
+        dotEls[activeSlide].classList.remove('active');
+        // Remove transform da img que saiu
+        imgs[activeSlide].style.transform = '';
+      }
+
       activeSlide = idx;
-      var imgs  = imgLayer.querySelectorAll('.ec-img');
-      var texts = textLayer.querySelectorAll('.ec-text');
-      flash.style.transition = 'opacity 0.18s ease';
-      flash.style.opacity = '1';
-      setTimeout(function() {
-        if (prevIdx >= 0) {
-          imgs[prevIdx].classList.remove('active');
-          texts[prevIdx].style.display = 'none';
-          texts[prevIdx].classList.remove('active');
-        }
-        imgs[idx].classList.add('active');
-        texts[idx].style.display = 'flex';
-        texts[idx].classList.add('active');
-        dots.querySelectorAll('.ec-dot').forEach(function(el, i) {
-          el.classList.toggle('active', i === idx);
-        });
-        flash.style.opacity = '0';
-      }, 180);
+      activeImg   = imgs[idx];
+
+      // Ativa o novo
+      imgs[idx].classList.add('active');
+      texts[idx].style.display = 'flex';
+      texts[idx].classList.add('active');
+      dotEls[idx].classList.add('active');
     }
 
     function update(ts) {
@@ -160,7 +135,7 @@
       var dt = Math.min((ts - lastTime) / 1000, 0.05);
       lastTime = ts;
 
-      var scrollY = window.scrollY;
+      var scrollY     = window.scrollY;
       var rawProgress = clamp((scrollY - geo.startAt) / (geo.endAt - geo.startAt), 0, 1);
 
       smoothProgress = lerp(smoothProgress, rawProgress, 1 - Math.exp(-LERP_SPEED * dt));
@@ -168,34 +143,25 @@
       var p     = smoothProgress;
       var eased = easeInOut(p);
 
-      // clip-path: polygon — insets em %
-      // insetX vai de geo.insetXpct até 0%
-      // insetY vai de geo.insetYpct até 0%
-      var ix = lerp(geo.insetXpct, 0, eased);
-      var iy = lerp(geo.insetYpct, 0, eased);
-
-      // border-radius simulado com inset() — mas usamos polygon() como o Lirio
-      // polygon: top-left, top-right, bottom-right, bottom-left
-      var tl = ix.toFixed(3) + '% ' + iy.toFixed(3) + '%';
-      var tr = (100 - ix).toFixed(3) + '% ' + iy.toFixed(3) + '%';
-      var br = (100 - ix).toFixed(3) + '% ' + (100 - iy).toFixed(3) + '%';
-      var bl = ix.toFixed(3) + '% ' + (100 - iy).toFixed(3) + '%';
-
-      imgLayer.style.clipPath = 'polygon(' + tl + ',' + tr + ',' + br + ',' + bl + ')';
-
-      // border-radius: interpola de CARD_RADIUS_PX até 0
+      // clip-path: inset() — hardware-accelerated, sem piscar no mobile
+      var ix     = lerp((geo.vw - geo.initW) / 2, 0, eased);
+      var iy     = lerp((geo.vh - geo.initH) / 2, 0, eased);
       var radius = lerp(CARD_RADIUS_PX, 0, eased);
-      imgLayer.style.borderRadius = radius.toFixed(1) + 'px';
 
-      // escala das imagens
-      var imgScale = lerp(IMG_INITIAL_SCALE, IMG_FINAL_SCALE, eased).toFixed(4);
-      imgLayer.querySelectorAll('.ec-img').forEach(function(img) {
-        img.style.transform = 'scale(' + imgScale + ')';
-      });
+      imgLayer.style.clipPath =
+        'inset(' + iy.toFixed(1) + 'px ' + ix.toFixed(1) + 'px round ' + radius.toFixed(1) + 'px)';
 
-      // slide ativo
+      // Escala só na imagem ativa — não percorre todas
+      if (activeImg) {
+        var imgScale = lerp(IMG_INITIAL_SCALE, IMG_FINAL_SCALE, eased);
+        activeImg.style.transform = 'scale(' + imgScale.toFixed(4) + ')';
+      }
+
+      // Slide ativo
       var slideIdx = clamp(Math.floor(p * n), 0, n - 1);
       setSlide(slideIdx);
+
+      // Barra de progresso
       var sliceP = (p - slideIdx / n) / (1 / n);
       barFill.style.width = clamp(sliceP * 100, 0, 100).toFixed(1) + '%';
     }

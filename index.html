@@ -188,8 +188,69 @@
         ]
       }
     </script>
+
+    <style>
+      #site-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: #ebebf0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+      }
+
+      #site-loader.loader-done {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .loader-wordmark {
+        font-family: 'Figtree', sans-serif;
+        font-weight: 900;
+        font-size: clamp(2.4rem, 8vw, 5rem);
+        letter-spacing: -0.04em;
+        color: #1a1a1a;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: loader-fadein 0.5s ease 0.1s forwards;
+      }
+
+      .loader-track {
+        width: clamp(120px, 30vw, 240px);
+        height: 1px;
+        background: rgba(0,0,0,0.12);
+        overflow: hidden;
+        border-radius: 1px;
+      }
+
+      #loader-bar {
+        height: 100%;
+        background: #1a1a1a;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.15s ease;
+        border-radius: 1px;
+      }
+
+      @keyframes loader-fadein {
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
 </head>
 <body>
+    <div id="site-loader" aria-hidden="true">
+      <span class="loader-wordmark">IGGO.</span>
+      <div class="loader-track">
+        <div id="loader-bar"></div>
+      </div>
+    </div>
+
+
   <div id="trail-layer"></div>
     <div class="hero">
         <img data-effect="fade-scroll" data-fade-distance="500" data-blur="4" src="icon/png/brand/logo.png" alt="" class="logo">
