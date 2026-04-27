@@ -16,7 +16,11 @@
   const IMG_INITIAL_SCALE = 1.18;
   const IMG_FINAL_SCALE   = 1.0;
   const CARD_RADIUS_PX    = 14;
-  const SMOOTH            = 0.08;
+  const LERP_SPEED        = 6;   // só usado no desktop
+
+  // Mobile = touch + pointer:coarse (sem mouse real)
+  const IS_MOBILE = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+                    || navigator.maxTouchPoints > 0;
 
   function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
   function lerp(a, b, t)  { return a + (b - a) * t; }
@@ -32,9 +36,12 @@
 
     slides.forEach((s, i) => {
       const img = document.createElement('img');
-      img.src   = s.img;
-      img.alt   = s.title || '';
+      img.src      = s.img;
+      img.alt      = s.title || '';
       img.className = 'ec-img' + (i === 0 ? ' active' : '');
+      img.loading  = i === 0 ? 'eager' : 'lazy';
+      img.decoding = 'async';
+      img.style.willChange = 'transform, opacity';
       if (s.objectPosition) img.style.objectPosition = s.objectPosition;
       imgLayer.appendChild(img);
     });
@@ -132,6 +139,7 @@
 
     var activeSlide    = -1;
     var smoothProgress = 0;
+    var lastTickTime   = null;
 
     function setSlide(idx) {
       if (idx === activeSlide) return;
@@ -160,7 +168,12 @@
       }, 180);
     }
 
-    function update() {
+    function update(timestamp) {
+      // Delta de tempo (só usado no desktop)
+      if (!lastTickTime) lastTickTime = timestamp;
+      var dt = Math.min((timestamp - lastTickTime) / 1000, 0.05);
+      lastTickTime = timestamp;
+
       var vw    = geo.vw;
       var vh    = geo.vh;
       var initW = geo.initW;
@@ -170,7 +183,15 @@
       var rawProgress = clamp(
         (scrollY - geo.stickAt) / (geo.endAt - geo.stickAt), 0, 1
       );
-      smoothProgress  = lerp(smoothProgress, rawProgress, SMOOTH);
+
+      // Mobile: progress direto, sem lerp — elimina o atraso no touch
+      // Desktop: lerp exponencial independente de framerate
+      if (IS_MOBILE) {
+        smoothProgress = rawProgress;
+      } else {
+        var factor = 1 - Math.exp(-LERP_SPEED * dt);
+        smoothProgress = lerp(smoothProgress, rawProgress, factor);
+      }
       var progress    = smoothProgress;
       var eased       = easeInOut(progress);
 
@@ -227,11 +248,24 @@
       barFill.style.width = clamp(sliceProgress * 100, 0, 100).toFixed(1) + '%';
     }
 
-    function tick() {
-      update();
-      requestAnimationFrame(tick);
+    var rafId = null;
+
+    function tick(timestamp) {
+      rafId = null;
+      update(timestamp);
+      // No desktop com lerp ativo, re-agenda enquanto smoothProgress não convergiu
+      if (!IS_MOBILE && Math.abs(smoothProgress - clamp((window.scrollY - geo.stickAt) / (geo.endAt - geo.stickAt), 0, 1)) > 0.001) {
+        rafId = requestAnimationFrame(tick);
+      }
     }
-    requestAnimationFrame(tick);
+
+    function scheduleFrame() {
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    }
+
+    // Ambos desktop e mobile: roda no scroll
+    window.addEventListener('scroll', scheduleFrame, { passive: true });
+    scheduleFrame(); // posição inicial
   }
 
   function init() {
