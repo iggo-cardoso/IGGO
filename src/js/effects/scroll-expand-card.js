@@ -163,11 +163,7 @@
       var scrollY = window.scrollY;
       var rawProgress = clamp((scrollY - geo.startAt) / (geo.endAt - geo.startAt), 0, 1);
 
-      if (IS_MOBILE) {
-        smoothProgress = rawProgress;
-      } else {
-        smoothProgress = lerp(smoothProgress, rawProgress, 1 - Math.exp(-LERP_SPEED * dt));
-      }
+      smoothProgress = lerp(smoothProgress, rawProgress, 1 - Math.exp(-LERP_SPEED * dt));
 
       var p     = smoothProgress;
       var eased = easeInOut(p);
@@ -209,12 +205,9 @@
     function tick(ts) {
       rafId = null;
       update(ts);
-      if (!IS_MOBILE) {
-        var raw = clamp((window.scrollY - geo.startAt) / (geo.endAt - geo.startAt), 0, 1);
-        if (Math.abs(smoothProgress - raw) > 0.0005) {
-          rafId = requestAnimationFrame(tick);
-          return;
-        }
+      var raw = clamp((window.scrollY - geo.startAt) / (geo.endAt - geo.startAt), 0, 1);
+      if (Math.abs(smoothProgress - raw) > 0.0005) {
+        rafId = requestAnimationFrame(tick);
       }
     }
 
