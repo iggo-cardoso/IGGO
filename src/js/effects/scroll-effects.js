@@ -226,12 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
     parallaxWrite(parallaxData);
     fadeScrollWrite(fadeScrollData);
     fadeViewportWrite(fadeViewData);
-
-    // Mantém loop ativo enquanto houver elementos
-    if (parallaxEls.length || fadeScrollEls.length || fadeViewportEls.length) {
-      rafActive = true;
-      requestAnimationFrame(masterTick);
-    }
+    // Loop só continua enquanto houver scroll/resize pendente (scheduleFrame re-agenda)
   }
 
   if (parallaxEls.length || fadeScrollEls.length || fadeViewportEls.length) {

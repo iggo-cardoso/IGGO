@@ -130,24 +130,23 @@
       el.style.maskRepeat       = 'no-repeat';
     });
 
-    let rafActive = false;
+    let rafId = null;
 
     function tick() {
-      rafActive = false;
+      rafId = null;
       const vh = window.innerHeight;
-
-      // FASE 1 — todas as leituras
       const measurements = targets.map(el => readElement(el, vh));
-
-      // FASE 2 — todas as escritas
       measurements.forEach(writeElement);
-
-      rafActive = true;
-      requestAnimationFrame(tick);
+      // Não re-agenda — scheduleFrame faz isso no scroll/resize
     }
 
-    rafActive = true;
-    requestAnimationFrame(tick);
+    function scheduleFrame() {
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('scroll', scheduleFrame, { passive: true });
+    window.addEventListener('resize', scheduleFrame, { passive: true });
+    scheduleFrame(); // primeira passagem
   }
 
   if (document.readyState === 'loading') {

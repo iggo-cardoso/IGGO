@@ -24,14 +24,16 @@
       band._baseOffset = direction === -1 ? 0 : -singleWidth;
     });
 
-    let lastScrollY    = window.scrollY;
+    let lastScrollY      = window.scrollY;
     const currentOffsets = Array.from(bands).map((band, i) =>
       i % 2 === 0 ? 0 : -parseFloat(band.dataset.singleWidth || 0)
     );
 
     const SPEED = 0.4;
+    let rafId   = null;
 
     function tick() {
+      rafId = null;
       // FASE 1 — leitura
       const scrollY = window.scrollY;
       const delta   = scrollY - lastScrollY;
@@ -49,11 +51,16 @@
 
         band.style.transform = `translateX(${currentOffsets[i]}px)`;
       });
-
-      requestAnimationFrame(tick);
+      // Não re-agenda aqui — só roda quando há scroll (ver listener abaixo)
     }
 
-    requestAnimationFrame(tick);
+    function scheduleTick() {
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('scroll', scheduleTick, { passive: true });
+    // Roda uma vez inicial para posicionar
+    scheduleTick();
   }
 
   function injectStyles() {
