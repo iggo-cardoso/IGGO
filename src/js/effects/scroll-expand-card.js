@@ -1,38 +1,30 @@
-// scroll-expand-card.js — CLS 0 via clip-path + transform (composited, sem layout writes)
-// Estratégia:
-//   • imgLayer é SEMPRE position:fixed; left:0; top:0; width:100%; height:100%
-//     → definido UMA VEZ no init, NUNCA alterado no tick
-//   • A "forma" da card (posição + tamanho) é simulada por clip-path: inset(...)
-//     → clip-path é 100% composited (GPU), zero layout recalculation, zero CLS
-//   • textLayer usa transform: translate() para centralizar no recorte visível
-//     → também composited, zero CLS
-//   • placeholder é definido UMA VEZ no init, re-definido só no resize
-//   • sectionTop / stickAt / endAt são cacheados e só recalculados em resize
+// scroll-expand-card.js
+// Estratégia: sticky + clip-path:polygon() — igual ao Lirio Studio
+// O imgLayer é sempre position:sticky, top:0, width:100vw, height:100vh
+// O efeito de "card pequeno expandindo" é feito pelo clip-path polygon()
+// que vai de um recorte central (initW x initH) até 0%/100% (tela cheia)
+// ZERO mudança de position → ZERO CLS
+
 (function () {
   'use strict';
 
-  const INITIAL_W_VW      = 0.68;
-  const INITIAL_H_VH      = 0.62;
+  const INITIAL_W_VW      = 0.68;  // largura inicial como fração da viewport
+  const INITIAL_H_VH      = 0.62;  // altura inicial como fração da viewport
+  const CARD_RADIUS_PX    = 14;    // border-radius inicial em px
   const IMG_INITIAL_SCALE = 1.18;
   const IMG_FINAL_SCALE   = 1.0;
-  const CARD_RADIUS_PX    = 14;
-  const LERP_SPEED        = 6;   // só usado no desktop
+  const LERP_SPEED        = 6;
 
-  // Mobile = touch + pointer:coarse (sem mouse real)
   const IS_MOBILE = window.matchMedia('(hover: none) and (pointer: coarse)').matches
                     || navigator.maxTouchPoints > 0;
 
   function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
   function lerp(a, b, t)  { return a + (b - a) * t; }
-  function easeInOut(t)   { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+  function easeInOut(t)   { return t < 0.5 ? 2*t*t : -1 + (4-2*t)*t; }
 
   function buildCard(section, slides) {
     const imgLayer = document.createElement('div');
     imgLayer.className = 'ec-card-imgs';
-    // Definido UMA VEZ — nunca alterado no tick
-    imgLayer.style.cssText =
-      'position:fixed;left:0;top:0;width:100%;height:100%;overflow:hidden;' +
-      'will-change:clip-path;border-radius:0;';
 
     slides.forEach((s, i) => {
       const img = document.createElement('img');
@@ -41,7 +33,6 @@
       img.className = 'ec-img' + (i === 0 ? ' active' : '');
       img.loading  = i === 0 ? 'eager' : 'lazy';
       img.decoding = 'async';
-      img.style.willChange = 'transform, opacity';
       if (s.objectPosition) img.style.objectPosition = s.objectPosition;
       imgLayer.appendChild(img);
     });
@@ -68,8 +59,6 @@
 
     const textLayer = document.createElement('div');
     textLayer.className = 'ec-card-text';
-    textLayer.style.cssText =
-      'position:absolute;inset:0;pointer-events:none;will-change:transform;mix-blend-mode:difference;';
 
     slides.forEach((s, i) => {
       const block = document.createElement('div');
@@ -77,8 +66,7 @@
       if (s.title === 'IGGO.') {
         block.innerHTML = '<img src="public/logos/png/logo.png" alt="" class="logo">';
       } else {
-        block.innerHTML =
-          '<h2 class="ec-title" style="mix-blend-mode:difference;">' + (s.title || '') + '</h2>';
+        block.innerHTML = '<h2 class="ec-title" style="mix-blend-mode:difference;">' + (s.title || '') + '</h2>';
       }
       if (i !== 0) block.style.display = 'none';
       textLayer.appendChild(block);
@@ -93,66 +81,65 @@
   function initSection(section) {
     const cardEl = section.querySelector('.expand-card');
     let slides = [];
-    try { slides = JSON.parse(cardEl?.dataset.slides || '[]'); } catch (e) { return; }
+    try { slides = JSON.parse(cardEl?.dataset.slides || '[]'); } catch(e) { return; }
     if (!slides.length) return;
     cardEl?.remove();
 
     const n = slides.length;
-
-    // Altura da section: definida UMA VEZ
     const scrollHeight = parseFloat(section.dataset.scrollHeight) || n * 180;
+
+    // A section precisa de altura suficiente para o scroll acontecer
+    // O sticky vai ocupar 100vh dentro dela
     section.style.height = scrollHeight + 'vh';
+    section.style.position = 'relative';
 
-    // Placeholder: definido UMA VEZ, re-definido só no resize
-    const placeholder = document.createElement('div');
-    placeholder.className = 'ec-placeholder';
-    section.insertBefore(placeholder, section.firstChild);
+    const { imgLayer, textLayer, dots, barFill, flash } = buildCard(section, slides);
 
-    function setPlaceholderSize() {
-      placeholder.style.width  = (window.innerWidth  * INITIAL_W_VW) + 'px';
-      placeholder.style.height = (window.innerHeight * INITIAL_H_VH) + 'px';
-    }
-    setPlaceholderSize();
+    // SEMPRE sticky — nunca muda, zero CLS
+    imgLayer.style.cssText = [
+      'position:sticky',
+      'top:0',
+      'width:100%',
+      'height:100vh',
+      'will-change:clip-path',
+      'overflow:hidden',
+    ].join(';') + ';';
 
-    // Cache de geometria — atualizado só em resize (fora do tick)
+    // Geometria cacheada — só recalcula em resize
     var geo = {};
-    function recacheGeometry() {
-      geo.vw    = window.innerWidth;
-      geo.vh    = window.innerHeight;
+    function recache() {
+      geo.vw = window.innerWidth;
+      geo.vh = window.innerHeight;
       geo.initW = geo.vw * INITIAL_W_VW;
       geo.initH = geo.vh * INITIAL_H_VH;
-      setPlaceholderSize();
-      var rect       = section.getBoundingClientRect();
+      // insets iniciais em % para o clip-path
+      // inset horizontal: (vw - initW) / 2 / vw * 100
+      geo.insetXpct = ((geo.vw - geo.initW) / 2 / geo.vw * 100);
+      geo.insetYpct = ((geo.vh - geo.initH) / 2 / geo.vh * 100);
+      // Onde começa e termina a animação em relação ao scroll da section
+      var rect = section.getBoundingClientRect();
       geo.sectionTop = rect.top + window.scrollY;
-      geo.stickAt    = geo.sectionTop + placeholder.offsetTop +
-                       geo.initH / 2 - geo.vh / 2;
-      geo.endAt      = geo.sectionTop + section.offsetHeight - geo.vh;
-      // Posicao real do placeholder (left nao muda com scroll vertical)
-      var pr            = placeholder.getBoundingClientRect();
-      geo.placeholderLeft = pr.left;
-      geo.placeholderTop  = (geo.vh - geo.initH) / 2;
+      // Começa a animar assim que o sticky gruda (topo da section chega ao topo da viewport)
+      geo.startAt = geo.sectionTop;
+      // Termina quando a section quase acabou (deixa 1vh de margem)
+      geo.endAt = geo.sectionTop + section.offsetHeight - geo.vh;
     }
-    recacheGeometry();
-    window.addEventListener('resize', recacheGeometry, { passive: true });
-
-    var { imgLayer, textLayer, dots, barFill, flash } = buildCard(section, slides);
+    recache();
+    window.addEventListener('resize', recache, { passive: true });
 
     var activeSlide    = -1;
     var smoothProgress = 0;
-    var lastTickTime   = null;
+    var lastTime       = null;
 
     function setSlide(idx) {
       if (idx === activeSlide) return;
       var prevIdx = activeSlide;
       activeSlide = idx;
-
       var imgs  = imgLayer.querySelectorAll('.ec-img');
       var texts = textLayer.querySelectorAll('.ec-text');
-
       flash.style.transition = 'opacity 0.18s ease';
-      flash.style.opacity    = '1';
-
-      setTimeout(function () {
+      flash.style.opacity = '1';
+      setTimeout(function() {
         if (prevIdx >= 0) {
           imgs[prevIdx].classList.remove('active');
           texts[prevIdx].style.display = 'none';
@@ -161,101 +148,73 @@
         imgs[idx].classList.add('active');
         texts[idx].style.display = 'flex';
         texts[idx].classList.add('active');
-        dots.querySelectorAll('.ec-dot').forEach(function (el, i) {
+        dots.querySelectorAll('.ec-dot').forEach(function(el, i) {
           el.classList.toggle('active', i === idx);
         });
         flash.style.opacity = '0';
       }, 180);
     }
 
-    function update(timestamp) {
-      // Delta de tempo (só usado no desktop)
-      if (!lastTickTime) lastTickTime = timestamp;
-      var dt = Math.min((timestamp - lastTickTime) / 1000, 0.05);
-      lastTickTime = timestamp;
+    function update(ts) {
+      if (!lastTime) lastTime = ts;
+      var dt = Math.min((ts - lastTime) / 1000, 0.05);
+      lastTime = ts;
 
-      var vw    = geo.vw;
-      var vh    = geo.vh;
-      var initW = geo.initW;
-      var initH = geo.initH;
+      var scrollY = window.scrollY;
+      var rawProgress = clamp((scrollY - geo.startAt) / (geo.endAt - geo.startAt), 0, 1);
 
-      var scrollY     = window.scrollY;
-      var rawProgress = clamp(
-        (scrollY - geo.stickAt) / (geo.endAt - geo.stickAt), 0, 1
-      );
-
-      // Mobile: progress direto, sem lerp — elimina o atraso no touch
-      // Desktop: lerp exponencial independente de framerate
       if (IS_MOBILE) {
         smoothProgress = rawProgress;
       } else {
-        var factor = 1 - Math.exp(-LERP_SPEED * dt);
-        smoothProgress = lerp(smoothProgress, rawProgress, factor);
-      }
-      var progress    = smoothProgress;
-      var eased       = easeInOut(progress);
-
-      var w = lerp(initW, vw, eased);
-      var h = lerp(initH, vh, eased);
-
-      var targetLeft, targetTop;
-
-      if (scrollY < geo.stickAt) {
-        // Única leitura de layout, apenas quando ainda não colou
-        var pr     = placeholder.getBoundingClientRect();
-        targetLeft = pr.left;
-        targetTop  = pr.top;
-      } else if (rawProgress < 1) {
-        // lerp do ponto real do placeholder (cacheado) até 0 — sem salto na transição
-        targetLeft = lerp(geo.placeholderLeft, 0, eased);
-        targetTop  = lerp(geo.placeholderTop,  0, eased);
-      } else {
-        var sectionBottom = geo.sectionTop + section.offsetHeight;
-        targetLeft = 0;
-        targetTop  = sectionBottom - scrollY - vh;
+        smoothProgress = lerp(smoothProgress, rawProgress, 1 - Math.exp(-LERP_SPEED * dt));
       }
 
-      // ── clip-path: inset() — 100% composited, zero CLS ───────────────────
-      var insetT = Math.max(0, targetTop);
-      var insetL = Math.max(0, targetLeft);
-      var insetR = Math.max(0, vw - targetLeft - w);
-      var insetB = Math.max(0, vh - targetTop - h);
+      var p     = smoothProgress;
+      var eased = easeInOut(p);
+
+      // clip-path: polygon — insets em %
+      // insetX vai de geo.insetXpct até 0%
+      // insetY vai de geo.insetYpct até 0%
+      var ix = lerp(geo.insetXpct, 0, eased);
+      var iy = lerp(geo.insetYpct, 0, eased);
+
+      // border-radius simulado com inset() — mas usamos polygon() como o Lirio
+      // polygon: top-left, top-right, bottom-right, bottom-left
+      var tl = ix.toFixed(3) + '% ' + iy.toFixed(3) + '%';
+      var tr = (100 - ix).toFixed(3) + '% ' + iy.toFixed(3) + '%';
+      var br = (100 - ix).toFixed(3) + '% ' + (100 - iy).toFixed(3) + '%';
+      var bl = ix.toFixed(3) + '% ' + (100 - iy).toFixed(3) + '%';
+
+      imgLayer.style.clipPath = 'polygon(' + tl + ',' + tr + ',' + br + ',' + bl + ')';
+
+      // border-radius: interpola de CARD_RADIUS_PX até 0
       var radius = lerp(CARD_RADIUS_PX, 0, eased);
+      imgLayer.style.borderRadius = radius.toFixed(1) + 'px';
 
-      imgLayer.style.clipPath =
-        'inset(' + insetT.toFixed(1) + 'px ' + insetR.toFixed(1) + 'px ' +
-        insetB.toFixed(1) + 'px ' + insetL.toFixed(1) + 'px ' +
-        'round ' + radius.toFixed(1) + 'px)';
-
-      // ── textLayer: transform para centralizar no recorte — composited ─────
-      var visCx = targetLeft + w / 2;
-      var visCy = targetTop  + h / 2;
-      textLayer.style.transform =
-        'translate(' + (visCx - vw / 2).toFixed(1) + 'px,' +
-        (visCy - vh / 2).toFixed(1) + 'px)';
-
-      // ── Escala das imagens — composited ───────────────────────────────────
-      var imgScale = lerp(IMG_INITIAL_SCALE, IMG_FINAL_SCALE, easeInOut(progress));
-      var scaleStr = imgScale.toFixed(4);
-      imgLayer.querySelectorAll('.ec-img').forEach(function (img) {
-        img.style.transform = 'scale(' + scaleStr + ')';
+      // escala das imagens
+      var imgScale = lerp(IMG_INITIAL_SCALE, IMG_FINAL_SCALE, eased).toFixed(4);
+      imgLayer.querySelectorAll('.ec-img').forEach(function(img) {
+        img.style.transform = 'scale(' + imgScale + ')';
       });
 
-      // ── Slide & progress bar ──────────────────────────────────────────────
-      var slideIdx      = clamp(Math.floor(progress * n), 0, n - 1);
+      // slide ativo
+      var slideIdx = clamp(Math.floor(p * n), 0, n - 1);
       setSlide(slideIdx);
-      var sliceProgress = (progress - slideIdx / n) / (1 / n);
-      barFill.style.width = clamp(sliceProgress * 100, 0, 100).toFixed(1) + '%';
+      var sliceP = (p - slideIdx / n) / (1 / n);
+      barFill.style.width = clamp(sliceP * 100, 0, 100).toFixed(1) + '%';
     }
 
     var rafId = null;
 
-    function tick(timestamp) {
+    function tick(ts) {
       rafId = null;
-      update(timestamp);
-      // No desktop com lerp ativo, re-agenda enquanto smoothProgress não convergiu
-      if (!IS_MOBILE && Math.abs(smoothProgress - clamp((window.scrollY - geo.stickAt) / (geo.endAt - geo.stickAt), 0, 1)) > 0.001) {
-        rafId = requestAnimationFrame(tick);
+      update(ts);
+      if (!IS_MOBILE) {
+        var raw = clamp((window.scrollY - geo.startAt) / (geo.endAt - geo.startAt), 0, 1);
+        if (Math.abs(smoothProgress - raw) > 0.0005) {
+          rafId = requestAnimationFrame(tick);
+          return;
+        }
       }
     }
 
@@ -263,9 +222,8 @@
       if (!rafId) rafId = requestAnimationFrame(tick);
     }
 
-    // Ambos desktop e mobile: roda no scroll
     window.addEventListener('scroll', scheduleFrame, { passive: true });
-    scheduleFrame(); // posição inicial
+    scheduleFrame();
   }
 
   function init() {

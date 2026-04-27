@@ -453,9 +453,8 @@ header {
 }
 
 .ec-card-imgs {
-    /* position/left/top/width/height definidos via JS cssText (position:fixed) */
+    /* position/clip-path definidos via JS (sticky strategy) */
     overflow: hidden;
-    will-change: clip-path, transform;
 
     .ec-img {
         position: absolute;
