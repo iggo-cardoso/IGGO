@@ -1,0 +1,319 @@
+/* ============================================================
+   mobile.css — Ajustes responsivos para dispositivos móveis
+   Não modifica nenhum arquivo existente.
+   Importar APÓS main.css no index.html:
+     <link rel="stylesheet" href="src/css/mobile.css">
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+  /* ─── HERO ─────────────────────────────────────────────── */
+  .hero {
+    width: calc(100% - 30px);
+    margin: 15px;
+    height: 80vh;
+    border-radius: 0.6em;
+    .logo {
+        width: 48px;
+        top: 30px;
+        left: 30px;
+        &.logo-2 {
+            width: 100px;
+            top: 0px;
+            left: 75px;
+        }
+    }
+    .imgs {
+        .name {
+            font-size: 5rem;
+            letter-spacing: 0.6cm;
+            padding-left: 0.6cm;
+            left: 50px;
+            right: 50px;
+            top: 55%;
+            z-index: 20;
+            mix-blend-mode: difference;
+        }
+        img {
+            &:nth-of-type(1) {
+                left: 50%;
+                transform: translateX(-50%);
+                height: 78%;
+            }
+        }
+    }
+    .labelExplore {
+        display: none;
+    }
+
+  }
+  
+
+  /* ─── HEADER ────────────────────────────────────────────── */
+  header {
+    padding-top: 80px;
+    .txt-popup {
+        margin-bottom: 16px;
+    }
+    .brand-name {
+        height: 120px;
+        &:hover {
+            height: 90px;
+            margin-top: 0;
+        }
+        p {
+            font-size: 9rem;
+        }
+    }
+  }
+
+  /* ─── NAV ───────────────────────────────────────────────── */
+  .navtop {
+    width: 100%;
+    padding: 0 16px;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    justify-content: space-between;
+    img {
+        width: 100px;
+        margin-left: 0;
+    }
+    ul {
+        display: none;
+    }
+    .buttons {
+        gap: 8px;
+        button {
+            padding: 8px 12px;
+            font-size: 0.82rem;
+        }
+    }
+  }
+
+  /* ─── HEADLINE / CTA ─────────────────────────────────────── */
+  .headline {
+    padding: 50px 16px 0;
+    .title {
+        font-size: 3rem !important;
+        line-height: 1.15;
+        font-weight: 700;
+        text-align: left;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        max-width: 100%;
+        padding: 0 5px;
+        text-align: left;
+    }
+
+    .buttons-area {
+        gap: 12px;
+        width: 100%;
+        padding: 10px 0;
+        margin-top: 10px;
+        margin-bottom: 50px;
+        button {
+            width: 100%;
+            justify-content: center;
+            font-size: 1rem;
+            padding: 15px 15px !important;
+            span {
+                background: rgb(216, 216, 220);
+                color: #000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px;
+                border-radius: .5em;
+            }
+            &:nth-of-type(1) {
+                padding: 11px 15px 11px 12px !important;
+                text-wrap: nowrap;
+            }
+        }
+    }
+  }
+
+
+
+  /* ─── EXPAND CARD SECTION ────────────────────────────────── */
+  .expand-card-section {
+    margin-top: 60px;
+
+  }
+
+  .ec-card-imgs .ec-dots {
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .ec-card-text .ec-title {
+    font-size: clamp(3rem, 12vw, 5rem);
+  }
+
+  .ec-card-text .logo {
+    width: 180px;
+  }
+
+  /* ─── SKILLS ─────────────────────────────────────────────── */
+  .skills {
+    padding: 60px 20px 60px 20px;
+  }
+
+  .skills h2 {
+    font-size: 2.2rem;
+    line-height: 1.25;
+  }
+
+  .skills .cards-wrap {
+    grid-template-columns: 1fr 1fr;
+    margin: 40px 0 0 0;
+    padding-bottom: 60px;
+  }
+
+  .skills .cards-wrap .card {
+    border-right: none;
+    border-bottom: 1px solid rgba(95, 95, 95, 0.315);
+    padding: 16px;
+  }
+
+  .skills .cards-wrap .card:nth-of-type(odd) {
+    border-right: 1px solid rgba(95, 95, 95, 0.315);
+  }
+
+  .skills .cards-wrap .card:nth-last-of-type(-n+2) {
+    border-bottom: none;
+  }
+
+  .skills .cards-wrap .card .card-title {
+    font-size: 1.15rem;
+  }
+
+  .skills .cards-wrap .card .card-body {
+    font-size: 0.82rem;
+  }
+
+  /* ─── CONVERSION ─────────────────────────────────────────── */
+  .conversion .headlines {
+    padding: 0 16px;
+  }
+
+  .conversion .headlines .headline {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .conversion .headlines .headline:nth-of-type(1) {
+    transform: translateX(0);
+  }
+
+  .conversion .headlines .headline:nth-of-type(3) {
+    transform: translateX(0);
+  }
+
+  .conversion .conversion-img {
+    width: 140px;
+    height: 90px;
+    border-radius: 8px;
+  }
+
+  .conversion .conversion-img:nth-of-type(1) {
+    left: 2%;
+    top: 2%;
+  }
+
+  .conversion .conversion-img:nth-of-type(2) {
+    left: calc(50% - 70px);
+    top: 18%;
+  }
+
+  .conversion .conversion-img:nth-of-type(3) {
+    right: 2%;
+    top: -2%;
+  }
+
+  .conversion #gallery-container {
+    margin-top: 80px;
+    height: 600px;
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────────── */
+  /* O global.css já tem media queries no footer para ≤600px,
+     este bloco reforça e complementa para 601–768px */
+  .footer .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding: 0 20px;
+  }
+
+  /* ─── EFEITOS DE BLUR (background) ──────────────────────── */
+  .effectBlur1,
+  .effectBlur2 {
+    width: 300px;
+    height: 600px;
+  }
+
+  /* ─── ASTERISCO ──────────────────────────────────────────── */
+  .asterisk {
+    width: 40px;
+    height: 40px;
+  }
+
+  .asterisk span {
+    width: 40px;
+    height: 3px;
+    top: 22px;
+  }
+
+  /* ─── SCROLL BANDS ───────────────────────────────────────── */
+  .scroll-bands {
+    overflow: hidden;
+  }
+
+}
+
+/* ─── Telas muito pequenas (≤ 380px) ──────────────────────── */
+@media (max-width: 380px) {
+
+  .hero .imgs .name {
+    font-size: 3.5rem;
+  }
+
+  header .brand-name p {
+    font-size: 6.5rem;
+  }
+
+  header .brand-name {
+    height: 90px;
+  }
+
+  .headline .title {
+    font-size: 2rem;
+  }
+
+  .skills .cards-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .skills .cards-wrap .card {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(95, 95, 95, 0.315);
+  }
+
+  .skills .cards-wrap .card:last-of-type {
+    border-bottom: none;
+  }
+
+  .conversion .headlines .headline {
+    font-size: 1.5rem;
+  }
+
+  .navtop .buttons button:nth-of-type(2) {
+    display: none; /* esconde "Tipos de contrato" em telas minúsculas */
+  }
+
+}
