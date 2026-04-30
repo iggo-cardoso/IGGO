@@ -146,19 +146,6 @@
 
   }
 
-  .ec-card-imgs .ec-dots {
-    top: 0.6rem;
-    right: 0.6rem;
-  }
-
-  .ec-card-text .ec-title {
-    font-size: clamp(3rem, 12vw, 5rem);
-  }
-
-  .ec-card-text .logo {
-    width: 180px;
-  }
-
   /* ─── SKILLS ─────────────────────────────────────────────── */
   .skills {
     padding: 60px 20px 60px 20px;
@@ -170,7 +157,6 @@
   }
 
   .skills .cards-wrap {
-    grid-template-columns: 1fr 1fr;
     margin: 40px 0 0 0;
     padding-bottom: 60px;
   }
@@ -194,7 +180,8 @@
   }
 
   .skills .cards-wrap .card .card-body {
-    font-size: 0.82rem;
+    font-size: 1rem;
+    font-weight: 300;
   }
 
   /* ─── CONVERSION ─────────────────────────────────────────── */
