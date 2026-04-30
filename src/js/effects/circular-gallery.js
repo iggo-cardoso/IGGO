@@ -1,6 +1,6 @@
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from 'ogl';
 
-// ─── Utilitários ───────────────────────────────────────────────────────────────
+const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches || navigator.maxTouchPoints > 0;
 
 function debounce(func, wait) {
   let timeout;
@@ -13,8 +13,6 @@ function debounce(func, wait) {
 function lerp(p1, p2, t) {
   return p1 + (p2 - p1) * t;
 }
-
-// ─── Textura de texto ──────────────────────────────────────────────────────────
 
 function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'white') {
   const canvas = document.createElement('canvas');
@@ -35,8 +33,6 @@ function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'whit
   texture.image = canvas;
   return { texture, width: canvas.width, height: canvas.height };
 }
-
-// ─── Classe Title ──────────────────────────────────────────────────────────────
 
 class Title {
   constructor({ gl, plane, renderer, text, textColor = '#ffffff', font = 'bold 30px Figtree' }) {
@@ -86,8 +82,6 @@ class Title {
     this.mesh.setParent(this.plane);
   }
 }
-
-// ─── Classe Media ──────────────────────────────────────────────────────────────
 
 class Media {
   constructor({ geometry, gl, image, index, length, renderer, scene, screen, text, viewport, bend, textColor, borderRadius = 0, font }) {
@@ -197,7 +191,7 @@ class Media {
     });
   }
 
-  update(scroll, direction) {
+  update(scroll, direction, isScrolling) {
     this.plane.position.x = this.x - scroll.current - this.extra;
 
     const x = this.plane.position.x;
@@ -221,7 +215,7 @@ class Media {
     }
 
     this.speed = scroll.current - scroll.last;
-    this.program.uniforms.uTime.value += 0.04;
+    if (isScrolling) this.program.uniforms.uTime.value += 0.04;
     this.program.uniforms.uSpeed.value = this.speed;
 
     const planeOffset = this.plane.scale.x / 2;
@@ -255,21 +249,22 @@ class Media {
   }
 }
 
-// ─── Classe App ────────────────────────────────────────────────────────────────
-
 class App {
   constructor(container, {
     items,
-    bend        = 3,
-    textColor   = '#ffffff',
+    bend         = 3,
+    textColor    = '#ffffff',
     borderRadius = 0.05,
-    font        = 'bold 30px Figtree',
-    scrollSpeed = .08,
-    scrollEase  = 0.05
+    font         = 'bold 30px Figtree',
+    scrollSpeed  = .08,
+    scrollEase   = 0.05
   } = {}) {
     this.container   = container;
     this.scrollSpeed = scrollSpeed;
     this.scroll      = { ease: scrollEase, current: 0, target: 0, last: 0 };
+    this.isVisible   = true;
+    this.isScrolling = false;
+    this._scrollTimeout = null;
     this.onCheckDebounce = debounce(this.onCheck.bind(this), 200);
 
     this.createRenderer();
@@ -278,12 +273,17 @@ class App {
     this.onResize();
     this.createGeometry();
     this.createMedias(items, bend, textColor, borderRadius, font);
-    this.update();
     this.addEventListeners();
+    this.observeVisibility();
+    this.update();
   }
 
   createRenderer() {
-    this.renderer = new Renderer({ alpha: true, antialias: true, dpr: Math.min(window.devicePixelRatio || 1, 2) });
+    const dpr = isMobile
+      ? Math.min(window.devicePixelRatio || 1, 1.5)
+      : Math.min(window.devicePixelRatio || 1, 2);
+
+    this.renderer = new Renderer({ alpha: true, antialias: !isMobile, dpr });
     this.gl = this.renderer.gl;
     this.gl.clearColor(0, 0, 0, 0);
     this.container.appendChild(this.gl.canvas);
@@ -300,21 +300,23 @@ class App {
   }
 
   createGeometry() {
-    this.planeGeometry = new Plane(this.gl, { heightSegments: 50, widthSegments: 100 });
+    const w = isMobile ? 40 : 100;
+    const h = isMobile ? 20 : 50;
+    this.planeGeometry = new Plane(this.gl, { widthSegments: w, heightSegments: h });
   }
 
   createMedias(items, bend = 1, textColor, borderRadius, font) {
     const defaultItems = [
-      { image: 'img/Brands/Yatsar/fcfd13a3db44f4140b3afcc032bd4466.jpg',  text: 'Ponte'       },
-      { image: 'img/Brands/Bellavivele/bellavivele-card-1.jpg',  text: 'Setup'       },
-      { image: 'img/Brands/SaveClip.App_624985612_18071595905410739_383912863494837089_n.jpg',  text: 'Cachoeira'   },
-      { image: 'img/Brands/SaveClip.App_624461653_18105168457774409_8253944625963913622_n.jpg',  text: 'Frutas'      },
-      { image: 'img/Brands/18 Sem Título_20260426004126.png',  text: 'Frutas'      }
+      { image: 'img/Brands/Yatsar/fcfd13a3db44f4140b3afcc032bd4466.jpg',  text: 'Ponte'     },
+      { image: 'img/Brands/Bellavivele/bellavivele-card-1.jpg',           text: 'Setup'     },
+      { image: 'img/Brands/SaveClip.App_624985612_18071595905410739_383912863494837089_n.jpg', text: 'Cachoeira' },
+      { image: 'img/Brands/SaveClip.App_624461653_18105168457774409_8253944625963913622_n.jpg', text: 'Frutas'    },
+      { image: 'img/Brands/18 Sem Título_20260426004126.png',             text: 'Frutas'    }
     ];
 
-    const galleryItems   = (items && items.length) ? items : defaultItems;
-    this.mediasImages    = galleryItems.concat(galleryItems);
-    this.medias          = this.mediasImages.map((data, index) =>
+    const galleryItems = (items && items.length) ? items : defaultItems;
+    this.mediasImages  = galleryItems.concat(galleryItems);
+    this.medias        = this.mediasImages.map((data, index) =>
       new Media({
         geometry: this.planeGeometry,
         gl: this.gl,
@@ -334,6 +336,20 @@ class App {
     );
   }
 
+  observeVisibility() {
+    this._obs = new IntersectionObserver(([entry]) => {
+      this.isVisible = entry.isIntersecting;
+      if (this.isVisible && !this.raf) this.update();
+    }, { threshold: 0 });
+    this._obs.observe(this.container);
+  }
+
+  _markScrolling() {
+    this.isScrolling = true;
+    clearTimeout(this._scrollTimeout);
+    this._scrollTimeout = setTimeout(() => { this.isScrolling = false; }, 150);
+  }
+
   onTouchDown(e) {
     this.isDown = true;
     this.scroll.position = this.scroll.current;
@@ -345,6 +361,7 @@ class App {
     const x = e.touches ? e.touches[0].clientX : e.clientX;
     const distance = (this.start - x) * (this.scrollSpeed * 0.025);
     this.scroll.target = this.scroll.position + distance;
+    this._markScrolling();
   }
 
   onTouchUp() {
@@ -355,6 +372,7 @@ class App {
   onWheel(e) {
     const delta = e.deltaY || e.wheelDelta || e.detail;
     this.scroll.target += (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.2;
+    this._markScrolling();
     this.onCheckDebounce();
   }
 
@@ -385,9 +403,14 @@ class App {
   }
 
   update() {
+    if (!this.isVisible) {
+      this.raf = null;
+      return;
+    }
+
     this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
     const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
-    if (this.medias) this.medias.forEach(m => m.update(this.scroll, direction));
+    if (this.medias) this.medias.forEach(m => m.update(this.scroll, direction, this.isScrolling));
     this.renderer.render({ scene: this.scene, camera: this.camera });
     this.scroll.last = this.scroll.current;
     this.raf = requestAnimationFrame(this.update.bind(this));
@@ -413,6 +436,7 @@ class App {
 
   destroy() {
     cancelAnimationFrame(this.raf);
+    this._obs.disconnect();
     window.removeEventListener('resize',     this._onResize);
     window.removeEventListener('wheel',      this._onWheel);
     window.removeEventListener('mousewheel', this._onWheel);
@@ -425,7 +449,6 @@ class App {
     if (this.gl.canvas.parentNode) this.gl.canvas.parentNode.removeChild(this.gl.canvas);
   }
 }
-// ─── Inicialização ─────────────────────────────────────────────────────────────
 
 const container = document.getElementById('gallery-container');
 
