@@ -8,7 +8,7 @@ const data = [
     "title": "Consultoria"
   },
   {
-    "img": "img/Thomas_Cole_-_Architect's_Dream_-_Google_Art_Project.jpg",
+    "img": "img/thomas.jpg",
     "title": "Tecnologia"
   },
   {

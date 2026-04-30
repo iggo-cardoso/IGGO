@@ -141,8 +141,8 @@
 
 
   /* ─── EXPAND CARD SECTION ────────────────────────────────── */
-  .expand-card-section {
-    margin-top: 60px;
+  .section {
+    display: none;
 
   }
 
@@ -318,8 +318,3 @@
 
 }
 
-@media (max-width: 768px) {
-  .ec-card-imgs::before {
-    display: none !important;
-  }
-}
