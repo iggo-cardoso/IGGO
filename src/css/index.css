@@ -464,7 +464,10 @@ header {
         object-fit: cover;
         opacity: 0;
         transform-origin: center center;
-        will-change: transform, opacity;
+        /* will-change gerenciado pelo JS dinamicamente (só na img ativa) */
+        will-change: auto;
+        /* ZERO transition — troca instantânea evita jank no scroll rápido */
+        transition: none;
         filter: brightness(.9);
 
         &.active {
@@ -559,10 +562,14 @@ header {
         align-items: center;
         text-align: center;
         padding: clamp(1.2rem, 4vw, 3.5rem);
-        display: none;
+        /* opacity gerenciada pelo JS — sem display:none (causa reflow) */
+        opacity: 0;
+        pointer-events: none;
+        transition: none;
         
         &.active {
-            display: flex;
+            opacity: 1;
+            pointer-events: auto;
         }
     }
 
