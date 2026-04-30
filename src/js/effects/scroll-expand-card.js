@@ -1,184 +1,117 @@
-(function () {
-  'use strict'
+const data = [
+  {
+    "img": "img/IGGO/publi/Portrait_wearing_round_202604231958a.png",
+    "title": "IGGO."
+  },
+  {
+    "img": "img/complete_a_cena,_202604240847.jpeg",
+    "title": "Consultoria"
+  },
+  {
+    "img": "img/Thomas_Cole_-_Architect’s_Dream_-_Google_Art_Project.jpg",
+    "title": "Tecnologia"
+  },
+  {
+    "img": "img/image.png",
+    "title": "Inovação"
+  },
+  {
+    "img": "img/Great_Wave_off_Kanagawa2.jpg",
+    "title": "Marketing"
+  }
+]
 
-  const INITIAL_W_VW      = 0.68
-  const INITIAL_H_VH      = 0.62
-  const IMG_INITIAL_SCALE = 1.14
-  const IMG_FINAL_SCALE   = 1.0
+const slidesEl = document.getElementById('slides')
 
-  function clamp(v, a, b) { return v < a ? a : v > b ? b : v }
-  function lerp(a, b, t)  { return a + (b - a) * t }
+const imgs  = []
+const texts = []
 
-  function buildCard(section, slides) {
-    var wrapper = document.createElement('div')
-    wrapper.style.cssText =
-      'position:sticky;top:0;width:100%;height:100vh;' +
-      'overflow:hidden;will-change:transform;contain:layout style;'
+data.forEach((s, i) => {
+  const img = new Image()
+  img.src       = s.img
+  img.className = 'slide' + (i === 0 ? ' active' : '')
+  img.decoding  = 'async'
+  slidesEl.appendChild(img)
+  imgs.push(img)
 
-    var imgLayer = document.createElement('div')
-    imgLayer.style.cssText = 'position:absolute;inset:0;overflow:hidden;'
+  const t = document.createElement('div')
+  t.className  = 'text' + (i === 0 ? ' active' : '')
+  t.textContent = s.title
+  slidesEl.appendChild(t)
+  texts.push(t)
+})
 
-    var imgs  = []
-    var texts = []
+// Pré-decode assíncrono: processa na thread de decode do browser,
+// garante que todas as imagens estão prontas antes do scroll chegar.
+Promise.all(imgs.map(img => img.decode?.().catch(() => {})))
 
-    slides.forEach(function(s, i) {
-      var img = document.createElement('img')
-      img.src      = s.img
-      img.alt      = s.title || ''
-      img.loading  = 'eager'
-      img.decoding = 'sync'
-      // Todas as imgs: mesmos estilos fixos, will-change permanente,
-      // scale já aplicado desde o início — nunca muda mid-animation.
-      // Troca é só display. Zero recriação de layer.
-      img.style.cssText =
-        'position:absolute;inset:0;width:100%;height:100%;' +
-        'object-fit:cover;transform-origin:center center;' +
-        'will-change:transform;transition:none;' +
-        'display:' + (i === 0 ? 'block' : 'none') + ';'
-      if (s.objectPosition) img.style.objectPosition = s.objectPosition
-      imgLayer.appendChild(img)
-      imgs.push(img)
+let active = 0
 
-      var block = document.createElement('div')
-      block.style.cssText =
-        'position:absolute;inset:0;display:' + (i === 0 ? 'flex' : 'none') + ';' +
-        'flex-direction:column;justify-content:center;align-items:center;' +
-        'text-align:center;padding:clamp(1.2rem,4vw,3.5rem);pointer-events:none;'
-      if (s.title === 'IGGO.') {
-        block.innerHTML = '<img src="public/logos/png/logo.png" alt="" ' +
-          'style="width:300px;filter:drop-shadow(0 10px 10px rgba(0,0,0,.57)) invert(1);">'
-      } else {
-        block.innerHTML =
-          '<h2 class="ec-title" style="font-size:clamp(6.4rem,5vw,5rem);' +
-          'font-family:var(--ec-title-font,Georgia,serif);font-weight:400;' +
-          'line-height:1;color:rgb(216,216,220);mix-blend-mode:difference;">' +
-          (s.title || '') + '</h2>'
-      }
-      imgLayer.appendChild(block)
-      texts.push(block)
-    })
+function setSlide(i) {
+  if (i === active) return
+  imgs[active].classList.remove('active')
+  texts[active].classList.remove('active')
+  imgs[i].classList.add('active')
+  texts[i].classList.add('active')
+  active = i
+}
 
-    var overlay = document.createElement('div')
-    overlay.style.cssText =
-      'position:absolute;inset:0;pointer-events:none;z-index:1;' +
-      'background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 60%);'
-    imgLayer.appendChild(overlay)
+// ── Posição estática da seção ───────────────────────────────────────────────
+// Calculado com offsetTop (sem getBoundingClientRect dentro do rAF).
+// Recalculado só em resize — nunca dentro do tick.
 
-    var dotsEl = document.createElement('div')
-    dotsEl.style.cssText =
-      'position:absolute;top:clamp(.8rem,2vw,1.4rem);' +
-      'right:clamp(.8rem,2vw,1.4rem);display:flex;gap:6px;z-index:2;'
-    var dotEls = slides.map(function(_, i) {
-      var d = document.createElement('span')
-      d.style.cssText =
-        'width:6px;height:6px;border-radius:50%;display:block;' +
-        'transition:background .2s,transform .2s;' +
-        'background:' + (i === 0 ? 'rgb(216,216,220)' : 'rgba(255,255,255,.3)') + ';' +
-        'transform:' + (i === 0 ? 'scale(1.4)' : 'scale(1)') + ';'
-      dotsEl.appendChild(d)
-      return d
-    })
-    imgLayer.appendChild(dotsEl)
+const section = document.getElementById('section')
+let start = 0
+let end   = 0
 
-    wrapper.appendChild(imgLayer)
-    section.appendChild(wrapper)
+function calc() {
+  let top = 0, el = section
+  while (el) { top += el.offsetTop; el = el.offsetParent }
+  start = top
+  end   = top + section.offsetHeight - window.innerHeight
+}
 
-    return { wrapper:wrapper, imgLayer:imgLayer, imgs:imgs, texts:texts, dotEls:dotEls }
+calc()
+window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setTimeout(calc, 150) }, { passive: true })
+let _rt = 0
+
+// ── rAF loop ────────────────────────────────────────────────────────────────
+// Regra: um único rAF por evento de scroll (throttle natural).
+// O tick faz TODAS as escritas de uma vez, sem leituras intermediárias
+// (window.scrollY é o único read — não causa reflow).
+
+let raf = null
+
+function tick() {
+  raf = null   // ← libera o slot para o próximo onScroll agendar
+
+  const p = Math.max(0, Math.min(1,
+    (window.scrollY - start) / (end - start)
+  ))
+
+  // Expand do wrapper
+  const scaleX = 0.7  + (1 - 0.7)  * p
+  const scaleY = 0.6  + (1 - 0.6)  * p
+  document.getElementById('sticky').style.transform = `scale(${scaleX}, ${scaleY})`
+
+  // CORREÇÃO CHAVE: scale aplicado em TODAS as imagens antes de setSlide.
+  // Quando a nova imagem entrar (classList.add 'active'), ela JÁ tem o
+  // scale correto — nunca aparece com valor residual do frame anterior.
+  const sc = 1.14 + (1 - 1.14) * p
+  for (let i = 0; i < imgs.length; i++) {
+    imgs[i].style.transform = `scale(${sc})`
   }
 
-  function initSection(section) {
-    var cardEl = section.querySelector('.expand-card')
-    var slides = []
-    try { slides = JSON.parse((cardEl && cardEl.dataset.slides) || '[]') } catch(e) { return }
-    if (!slides.length) return
-    cardEl.parentNode.removeChild(cardEl)
+  // Troca de slide DEPOIS dos transforms — a imagem entra já com scale certo
+  const next = Math.min(data.length - 1, Math.floor(p * data.length))
+  setSlide(next)
+}
 
-    var n            = slides.length
-    var scrollHeight = parseFloat(section.dataset.scrollHeight) || n * 180
-    section.style.height   = scrollHeight + 'vh'
-    section.style.position = 'relative'
+function onScroll() {
+  // Só agenda se não tiver rAF pendente.
+  // Isso garante no máximo 1 tick por frame (60fps cap automático).
+  if (!raf) raf = requestAnimationFrame(tick)
+}
 
-    var built    = buildCard(section, slides)
-    var wrapper  = built.wrapper
-    var imgLayer = built.imgLayer
-    var imgs     = built.imgs
-    var texts    = built.texts
-    var dotEls   = built.dotEls
-
-    var geo = { startAt: 0, endAt: 1 }
-
-    function recache() {
-      var top = 0, el = section
-      while (el) { top += el.offsetTop; el = el.offsetParent }
-      geo.startAt = top
-      geo.endAt   = top + section.offsetHeight - window.innerHeight
-    }
-
-    recache()
-    var resizeTimer = 0
-    window.addEventListener('resize', function() {
-      clearTimeout(resizeTimer)
-      resizeTimer = setTimeout(recache, 150)
-    }, { passive: true })
-
-    var activeSlide = -1
-    var rafId       = null
-
-    // Troca: só display. O transform já está calculado e aplicado
-    // a todas as imgs no mesmo tick — a que entra já tem o scale correto.
-    function setSlide(idx) {
-      if (idx === activeSlide) return
-      if (activeSlide >= 0) {
-        imgs[activeSlide].style.display      = 'none'
-        texts[activeSlide].style.display     = 'none'
-        dotEls[activeSlide].style.background = 'rgba(255,255,255,.3)'
-        dotEls[activeSlide].style.transform  = 'scale(1)'
-      }
-      activeSlide                      = idx
-      imgs[idx].style.display          = 'block'
-      texts[idx].style.display         = 'flex'
-      dotEls[idx].style.background     = 'rgb(216,216,220)'
-      dotEls[idx].style.transform      = 'scale(1.4)'
-    }
-
-    function tick() {
-      rafId = null
-
-      var p = clamp(
-        (window.scrollY - geo.startAt) / (geo.endAt - geo.startAt),
-        0, 1
-      )
-
-      // Wrapper scale — linear, 1:1 com scroll
-      wrapper.style.transform =
-        'scale(' + lerp(INITIAL_W_VW, 1, p).toFixed(4) + ',' +
-                   lerp(INITIAL_H_VH, 1, p).toFixed(4) + ')'
-
-      // Scale aplicado em TODAS as imgs de uma vez, antes de setSlide.
-      // Quando setSlide mudar display, a img que entra já tem o valor certo.
-      var sc = lerp(IMG_INITIAL_SCALE, IMG_FINAL_SCALE, p).toFixed(4)
-      for (var i = 0; i < imgs.length; i++) {
-        imgs[i].style.transform = 'scale(' + sc + ')'
-      }
-
-      // Slide — depois dos transforms, para a img entrar já com scale certo
-      setSlide(clamp(Math.floor(p * n), 0, n - 1))
-    }
-
-    function onScroll() {
-      if (!rafId) rafId = requestAnimationFrame(tick)
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true })
-    rafId = requestAnimationFrame(tick)
-  }
-
-  function init() {
-    document.querySelectorAll('.expand-card-section').forEach(initSection)
-  }
-
-  document.readyState === 'loading'
-    ? document.addEventListener('DOMContentLoaded', init)
-    : init()
-
-})()
+window.addEventListener('scroll', onScroll, { passive: true })
+requestAnimationFrame(tick)  // tick inicial para estado correto antes de qualquer scroll

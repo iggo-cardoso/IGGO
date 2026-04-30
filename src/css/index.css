@@ -436,6 +436,74 @@ header {
     }
 }
 
+
+  .section {
+    height: 300vh;
+    position: relative;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    will-change: transform;
+  }
+
+  .slides {
+    position: absolute;
+    inset: 0;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform-origin: center;
+    transition: none;
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('../../public/img/noise.png');
+        background-repeat: repeat;
+        background-size: cover;
+        opacity: 1;
+        mix-blend-mode: normal; 
+        pointer-events: none;
+        z-index: 100;
+    }
+  }
+
+  .slide.active {
+    opacity: 1;
+  }
+
+  .text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    opacity: 0;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    font-size: clamp(6.4rem, 5vw, 5rem);
+    font-family: var(--ec-title-font, 'Lobster', serif);
+    font-weight: 400;
+    line-height: 1;
+    color: rgb(216, 216, 220);
+  }
+
+  .text.active {
+    opacity: 1;
+  }
+
+/* 
 .expand-card-section {
     margin-top: 100px;
     position: relative;
@@ -453,7 +521,6 @@ header {
 }
 
 .ec-card-imgs {
-    /* position/clip-path definidos via JS (sticky strategy) */
     overflow: hidden;
 
     .ec-img {
@@ -464,11 +531,8 @@ header {
         object-fit: cover;
         opacity: 0;
         transform-origin: center center;
-        /* will-change gerenciado pelo JS dinamicamente (só na img ativa) */
         will-change: auto;
-        /* ZERO transition — troca instantânea evita jank no scroll rápido */
         transition: none;
-        filter: brightness(.9);
 
         &.active {
             opacity: 1;
@@ -491,11 +555,11 @@ header {
         background-image: url('../..//public/img/noise.png');
         background-repeat: repeat;
         background-size: 200px 200px;
-        opacity: .4;
+        opacity: .2;
+        mix-blend-mode: normal; 
         pointer-events: none;
         filter: grayscale(1) brightness(.4);
         z-index: 2;
-        mix-blend-mode: screen;
     }
 
     .ec-flash {
@@ -522,7 +586,7 @@ header {
         height: 6px;
         border-radius: 50%;
         background: rgba(255, 255, 255, .3);
-        transition: background .3s, transform .3s;
+        transition: none;
 
         &.active {
             background: rgb(216, 216, 220);
@@ -562,7 +626,6 @@ header {
         align-items: center;
         text-align: center;
         padding: clamp(1.2rem, 4vw, 3.5rem);
-        /* opacity gerenciada pelo JS — sem display:none (causa reflow) */
         opacity: 0;
         pointer-events: none;
         transition: none;
@@ -581,7 +644,6 @@ header {
         line-height: 1;
         color: rgb(216, 216, 220);
         margin: 0 0 .3em;
-        mix-blend-mode: difference;
         
     }
 
@@ -593,7 +655,7 @@ header {
     }
 
   
-}
+} */
 
 .skills {
     background: #000;
