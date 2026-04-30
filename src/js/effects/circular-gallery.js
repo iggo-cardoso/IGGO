@@ -305,11 +305,11 @@ class App {
 
   createMedias(items, bend = 1, textColor, borderRadius, font) {
     const defaultItems = [
-      { image: 'public/img/Brands/Yatsar/fcfd13a3db44f4140b3afcc032bd4466.jpg',  text: 'Ponte'       },
-      { image: 'public/img/Brands/Bellavivele/bellavivele-card-1.jpg',  text: 'Setup'       },
-      { image: 'public/img/Brands/SaveClip.App_624985612_18071595905410739_383912863494837089_n.jpg',  text: 'Cachoeira'   },
-      { image: 'public/img/Brands/SaveClip.App_624461653_18105168457774409_8253944625963913622_n.jpg',  text: 'Frutas'      },
-      { image: 'public/img/Brands/18 Sem Título_20260426004126.png',  text: 'Frutas'      }
+      { image: 'img/Brands/Yatsar/fcfd13a3db44f4140b3afcc032bd4466.jpg',  text: 'Ponte'       },
+      { image: 'img/Brands/Bellavivele/bellavivele-card-1.jpg',  text: 'Setup'       },
+      { image: 'img/Brands/SaveClip.App_624985612_18071595905410739_383912863494837089_n.jpg',  text: 'Cachoeira'   },
+      { image: 'img/Brands/SaveClip.App_624461653_18105168457774409_8253944625963913622_n.jpg',  text: 'Frutas'      },
+      { image: 'img/Brands/18 Sem Título_20260426004126.png',  text: 'Frutas'      }
     ];
 
     const galleryItems   = (items && items.length) ? items : defaultItems;
