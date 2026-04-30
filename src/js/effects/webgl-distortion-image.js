@@ -21,26 +21,18 @@
       vec4 prev = texture2D(uP, v);
       vec2 vel  = (prev.rg - 0.5) * 2.0;
       vel *= uDecay;
-      
       if (uH > 0.5) {
         vec2 diff = uM - v;
         float dist = length(diff);
         float radius2 = uR * uR;
         float influence = exp(-dist * dist / radius2);
-        
-        // CALDA: direção do movimento do mouse (arrasta a imagem na direção do movimento)
         vec2 dir = normalize(uM - uL + 0.001);
         float speed = min(length(uM - uL) * 15.0, 1.0);
-        
         if (speed > 0.01) {
-          // CORREÇÃO: Agora empurra na direção correta (sem espelhamento)
-          // O sinal negativo foi removido para não inverter a direção
           vel += dir * influence * speed * 0.8;
         }
       }
-      
       vel = clamp(vel, -0.8, 0.8);
-      
       float intensity = prev.b * 0.95;
       if (uH > 0.5) {
         vec2 diff = uM - v;
@@ -49,7 +41,6 @@
         float newIntensity = exp(-dist * dist / radius2) * 0.7;
         intensity = max(intensity, newIntensity);
       }
-      
       gl_FragColor = vec4(vel * 0.5 + 0.5, intensity, 1.0);
     }
   `;
@@ -64,20 +55,13 @@
       vec4 flow = texture2D(uFlow, v);
       vec2 vel  = (flow.rg - 0.5) * 2.0;
       float intensity = flow.b;
-      
       float strength = uStr * intensity * 0.015;
       vec2 uv = v;
-      
-      // CORREÇÃO: Agora distorce na direção correta do movimento
-      // Sem inversão de eixos que causava o efeito espelho
       uv.x += vel.x * strength;
       uv.y += vel.y * strength;
-      
       uv = clamp(uv, 0.001, 0.999);
-      
       vec4 color = texture2D(uImg, uv);
       if (color.a < 0.05) discard;
-      
       gl_FragColor = color;
     }
   `;
@@ -137,32 +121,16 @@
   class CloudEffect {
     constructor(img) {
       this.img      = img;
-      
-      // ATRIBUTOS CONFIGURÁVEIS VIA data-* NA TAG IMG:
-      // ================================================
-      // data-cloud-strength : Força da distorção (padrão: 4)
-      //   - Quanto maior, mais a imagem é distorcida
-      //   - Ex: data-cloud-strength="8"
-      //
-      // data-cloud-radius    : Raio de influência do mouse (padrão: 8)
-      //   - Tamanho da área afetada ao redor do cursor
-      //   - Quanto maior, maior a área de distorção
-      //   - Ex: data-cloud-radius="15"
-      //
-      // data-cloud-decay     : Taxa de dissipação do rastro (padrão: 95)
-      //   - Quanto maior (próximo de 100), mais tempo o efeito permanece
-      //   - Quanto menor, mais rápido o efeito desaparece
-      //   - Ex: data-cloud-decay="90"
-      // ================================================
-      
       this.strength = parseFloat(img.dataset.cloudStrength ?? 4);
       this.radius   = parseFloat(img.dataset.cloudRadius   ?? 8) / 100;
       this.decay    = parseFloat(img.dataset.cloudDecay    ?? 95) / 100;
+      this.visible  = false;
+      this.rafId    = null;
 
       this._buildCanvas();
       this._initGL();
       this._bindEvents();
-      this._loop();
+      this._observeVisibility();
     }
 
     _buildCanvas() {
@@ -195,7 +163,7 @@
       const gl = this.canvas.getContext('webgl', {
         alpha: true,
         premultipliedAlpha: false,
-        antialias: true,
+        antialias: false,
       });
       if (!gl) { console.warn('[webgl-cloud] WebGL unavailable'); return; }
       this.gl = gl;
@@ -211,22 +179,20 @@
       const FW = Math.floor(W / 2);
       const FH = Math.floor(H / 2);
       this.FW = FW; this.FH = FH;
-      
+
       this.fbos = [mkFBO(gl, FW, FH), mkFBO(gl, FW, FH)];
-      
+
       const initData = new Uint8Array(FW * FH * 4);
       for (let i = 0; i < FW * FH; i++) {
-        initData[i*4] = 128;
+        initData[i*4]   = 128;
         initData[i*4+1] = 128;
         initData[i*4+2] = 0;
         initData[i*4+3] = 255;
       }
-      
       for (let i = 0; i < 2; i++) {
         gl.bindTexture(gl.TEXTURE_2D, this.fbos[i].tex);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, FW, FH, 0, gl.RGBA, gl.UNSIGNED_BYTE, initData);
       }
-      
       this.ping = 0;
 
       const offscreen = document.createElement('canvas');
@@ -234,7 +200,7 @@
       offscreen.height = H;
       const ctx = offscreen.getContext('2d');
       ctx.drawImage(img, 0, 0, W, H);
-      
+
       const imgData = ctx.getImageData(0, 0, W, H);
       for (let i = 0; i < imgData.data.length; i += 4) {
         if (imgData.data[i+3] < 10) {
@@ -252,11 +218,18 @@
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
-      this.mouse     = [0.5, 0.5];
-      this.lastMouse = [0.5, 0.5];
-      this.hovering  = false;
-      
+      this.mouse       = [0.5, 0.5];
+      this.lastMouse   = [0.5, 0.5];
+      this.hovering    = false;
       this.smoothMouse = [0.5, 0.5];
+    }
+
+    _observeVisibility() {
+      this._obs = new IntersectionObserver(([entry]) => {
+        this.visible = entry.isIntersecting;
+        if (this.visible && !this.rafId) this._loop();
+      }, { threshold: 0 });
+      this._obs.observe(this.wrapper);
     }
 
     _bindEvents() {
@@ -274,22 +247,20 @@
 
       const onStart = (e) => {
         const m = toNorm(e);
-        this.mouse = [Math.min(0.99, Math.max(0.01, m[0])), Math.min(0.99, Math.max(0.01, m[1]))];
-        this.lastMouse = [...this.mouse];
+        this.mouse       = [Math.min(0.99, Math.max(0.01, m[0])), Math.min(0.99, Math.max(0.01, m[1]))];
+        this.lastMouse   = [...this.mouse];
         this.smoothMouse = [...this.mouse];
-        this.hovering = true;
+        this.hovering    = true;
       };
 
-      const onEnd = () => {
-        this.hovering = false;
-      };
+      const onEnd = () => { this.hovering = false; };
 
       this.wrapper.addEventListener('mouseenter', onStart);
       this.wrapper.addEventListener('mouseleave', onEnd);
-      this.wrapper.addEventListener('mousemove', onMove);
+      this.wrapper.addEventListener('mousemove',  onMove);
       this.wrapper.addEventListener('touchstart', (e) => { e.preventDefault(); onStart(e); }, { passive: false });
-      this.wrapper.addEventListener('touchend', (e) => { e.preventDefault(); onEnd(); }, { passive: false });
-      this.wrapper.addEventListener('touchmove', (e) => { e.preventDefault(); onMove(e); }, { passive: false });
+      this.wrapper.addEventListener('touchend',   (e) => { e.preventDefault(); onEnd();    }, { passive: false });
+      this.wrapper.addEventListener('touchmove',  (e) => { e.preventDefault(); onMove(e);  }, { passive: false });
     }
 
     _frame() {
@@ -298,9 +269,9 @@
 
       this.smoothMouse[0] = this.smoothMouse[0] * 0.7 + this.mouse[0] * 0.3;
       this.smoothMouse[1] = this.smoothMouse[1] * 0.7 + this.mouse[1] * 0.3;
-      
+
       const lastMouse = [...this.lastMouse];
-      this.lastMouse = [...this.smoothMouse];
+      this.lastMouse  = [...this.smoothMouse];
 
       gl.useProgram(this.flowProg);
       gl.viewport(0, 0, this.FW, this.FH);
@@ -333,8 +304,12 @@
     }
 
     _loop() {
+      if (!this.visible) {
+        this.rafId = null;
+        return;
+      }
       this._frame();
-      requestAnimationFrame(() => this._loop());
+      this.rafId = requestAnimationFrame(() => this._loop());
     }
   }
 

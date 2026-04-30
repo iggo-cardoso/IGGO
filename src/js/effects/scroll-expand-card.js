@@ -8,7 +8,7 @@ const data = [
     "title": "Consultoria"
   },
   {
-    "img": "img/Thomas_Cole_-_Architect’s_Dream_-_Google_Art_Project.jpg",
+    "img": "img/Thomas_Cole_-_Architect's_Dream_-_Google_Art_Project.jpg",
     "title": "Tecnologia"
   },
   {
@@ -35,14 +35,12 @@ data.forEach((s, i) => {
   imgs.push(img)
 
   const t = document.createElement('div')
-  t.className  = 'text' + (i === 0 ? ' active' : '')
+  t.className   = 'text' + (i === 0 ? ' active' : '')
   t.textContent = s.title
   slidesEl.appendChild(t)
   texts.push(t)
 })
 
-// Pré-decode assíncrono: processa na thread de decode do browser,
-// garante que todas as imagens estão prontas antes do scroll chegar.
 Promise.all(imgs.map(img => img.decode?.().catch(() => {})))
 
 let active = 0
@@ -56,10 +54,6 @@ function setSlide(i) {
   active = i
 }
 
-// ── Posição estática da seção ───────────────────────────────────────────────
-// Calculado com offsetTop (sem getBoundingClientRect dentro do rAF).
-// Recalculado só em resize — nunca dentro do tick.
-
 const section = document.getElementById('section')
 let start = 0
 let end   = 0
@@ -72,46 +66,36 @@ function calc() {
 }
 
 calc()
-window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setTimeout(calc, 150) }, { passive: true })
 let _rt = 0
-
-// ── rAF loop ────────────────────────────────────────────────────────────────
-// Regra: um único rAF por evento de scroll (throttle natural).
-// O tick faz TODAS as escritas de uma vez, sem leituras intermediárias
-// (window.scrollY é o único read — não causa reflow).
+window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setTimeout(calc, 150) }, { passive: true })
 
 let raf = null
 
 function tick() {
-  raf = null   // ← libera o slot para o próximo onScroll agendar
+  raf = null
 
-  const p = Math.max(0, Math.min(1,
-    (window.scrollY - start) / (end - start)
-  ))
+  const sy = window.scrollY
+  const vh = window.innerHeight
+  if (sy < start - vh || sy > end + vh) return
 
-  // Expand do wrapper
+  const p = Math.max(0, Math.min(1, (sy - start) / (end - start)))
+
   const scaleX = 0.7  + (1 - 0.7)  * p
   const scaleY = 0.6  + (1 - 0.6)  * p
   document.getElementById('sticky').style.transform = `scale(${scaleX}, ${scaleY})`
 
-  // CORREÇÃO CHAVE: scale aplicado em TODAS as imagens antes de setSlide.
-  // Quando a nova imagem entrar (classList.add 'active'), ela JÁ tem o
-  // scale correto — nunca aparece com valor residual do frame anterior.
   const sc = 1.14 + (1 - 1.14) * p
   for (let i = 0; i < imgs.length; i++) {
     imgs[i].style.transform = `scale(${sc})`
   }
 
-  // Troca de slide DEPOIS dos transforms — a imagem entra já com scale certo
   const next = Math.min(data.length - 1, Math.floor(p * data.length))
   setSlide(next)
 }
 
 function onScroll() {
-  // Só agenda se não tiver rAF pendente.
-  // Isso garante no máximo 1 tick por frame (60fps cap automático).
   if (!raf) raf = requestAnimationFrame(tick)
 }
 
 window.addEventListener('scroll', onScroll, { passive: true })
-requestAnimationFrame(tick)  // tick inicial para estado correto antes de qualquer scroll
+requestAnimationFrame(tick)

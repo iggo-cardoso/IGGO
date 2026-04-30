@@ -1,13 +1,9 @@
-// scroll-band.js
-// Faixas de texto gigante que deslizam horizontalmente com o scroll.
-// Linhas ímpares (1ª, 3ª) → esquerda | Linha par (2ª) → direita
-// Usa separação read/write: lê scrollY uma vez por frame, escreve transforms em batch.
-
 (function () {
   'use strict';
 
   function init() {
-    const bands = document.querySelectorAll('.scroll-band');
+    const container = document.querySelector('.scroll-bands');
+    const bands     = document.querySelectorAll('.scroll-band');
     if (!bands.length) return;
 
     injectStyles();
@@ -25,41 +21,45 @@
     });
 
     let lastScrollY      = window.scrollY;
+    let visible          = false;
+    let rafId            = null;
     const currentOffsets = Array.from(bands).map((band, i) =>
       i % 2 === 0 ? 0 : -parseFloat(band.dataset.singleWidth || 0)
     );
 
     const SPEED = 0.4;
-    let rafId   = null;
 
     function tick() {
       rafId = null;
-      // FASE 1 — leitura
       const scrollY = window.scrollY;
       const delta   = scrollY - lastScrollY;
       lastScrollY   = scrollY;
 
-      // FASE 2 — cálculo + escrita em batch
       bands.forEach((band, i) => {
         const direction   = parseInt(band.dataset.direction);
         const singleWidth = parseFloat(band.dataset.singleWidth) || band.scrollWidth / 3;
 
         currentOffsets[i] += delta * SPEED * direction;
-
         if (currentOffsets[i] < -singleWidth) currentOffsets[i] += singleWidth;
         if (currentOffsets[i] > 0)            currentOffsets[i] -= singleWidth;
 
         band.style.transform = `translateX(${currentOffsets[i]}px)`;
       });
-      // Não re-agenda aqui — só roda quando há scroll (ver listener abaixo)
     }
 
     function scheduleTick() {
+      if (!visible) return;
       if (!rafId) rafId = requestAnimationFrame(tick);
     }
 
+    const obs = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+    }, { threshold: 0 });
+
+    if (container) obs.observe(container);
+    else bands.forEach(b => obs.observe(b));
+
     window.addEventListener('scroll', scheduleTick, { passive: true });
-    // Roda uma vez inicial para posicionar
     scheduleTick();
   }
 
