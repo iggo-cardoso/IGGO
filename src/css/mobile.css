@@ -51,10 +51,7 @@
 
   /* ─── HEADER ────────────────────────────────────────────── */
   header {
-    padding-top: 80px;
-    .txt-popup {
-        margin-bottom: 16px;
-    }
+    padding-top: 130px;
     .brand-name {
         height: 120px;
         &:hover {
