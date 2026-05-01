@@ -12,7 +12,7 @@
     width: calc(100% - 30px);
     margin: 15px;
     height: 80vh;
-    border-radius: 0.6em;
+    border-radius: 1em;
     .logo {
         width: 48px;
         top: 30px;
