@@ -17,7 +17,7 @@
 }
 
 body {
-    background: #ebebf0;
+    background: #F7EFEC;
     /* background: linear-gradient(-25deg, #ebebf0, #e6cdbd23); */
     width: 100%;
     box-sizing: border-box;
@@ -219,6 +219,8 @@ body {
     animation: moveGradient 4s ease infinite;
     opacity: 0.3;
     z-index: -1;
+
+    display: none;
 }
 
 .effectBlur2 {
@@ -236,6 +238,8 @@ body {
     animation-delay: 2s;
     opacity: 0.3;
     z-index: -1;
+    
+    display: none;
 }
 
 @keyframes moveGradient {
