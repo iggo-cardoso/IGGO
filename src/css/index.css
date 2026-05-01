@@ -3,7 +3,7 @@
     height: 95vh;
     background:
   radial-gradient(ellipse 90% 80% at 100% 70%, #1a6fff33 0%, transparent 55%),
-  radial-gradient(ellipse 150% 90% at 93% 97%, #85b2ffee 0%, #003542 30%, transparent 78%),
+  radial-gradient(ellipse 150% 90% at 93% 97%, #85b2ffee 0%, #000000 30%, transparent 78%),
   #000;
     margin: 20px;
     border-radius: 1em;
@@ -17,12 +17,12 @@
         inset: 0;
         width: 100%;
         height: 1000px;
-        background: #003542;
+        background: #000000;
         position: absolute;
         z-index: 1;
         left: 50%;
         transform: rotate(-25deg) translateY(-750px);
-        box-shadow: 0px 0px 20px #003542;
+        box-shadow: 0px 0px 20px #000000;
         filter: blur(100px) brightness(.3);
         opacity: .4;
 
@@ -231,7 +231,7 @@ header {
                 height: 0;
                 bottom: -15px;
                 left: 20%;
-                background: #003542;
+                background: #000000;
                 border-radius: 8em;
                 z-index: -1;
                 transition: .3s ease;
@@ -244,7 +244,7 @@ header {
         gap: 17px;
         button {
             background: #f5f5f710;
-            color: #003542;
+            color: #000000;
             font-weight: 600;
             padding: 10px 15px;
             border-radius: 1em;
@@ -252,7 +252,7 @@ header {
             -webkit-backdrop-filter: blur(1px);
             backdrop-filter: blur(1px);
             position: relative;
-            box-shadow: -3px 5px 5px #00000004,-2px 4px 5px #0a3abf28, -1px 3px 5px #ffffff4f;
+            box-shadow: -3px 5px 5px #00000004,  -1px 3px 5px #ffffff4f;
             /* z-index: 3 removido — criava stacking context no button */
 
             &::before {
@@ -297,7 +297,7 @@ header {
             }
             &:nth-of-type(2) {
                 background: transparent;
-                color: #003542;
+                color: #000000;
                 font-weight: 600;
                 box-shadow: none;
                 &::after,
@@ -365,7 +365,7 @@ header {
             -webkit-backdrop-filter: blur(1px);
             backdrop-filter: blur(1px);
             position: relative;
-            box-shadow: -3px 5px 5px #00000004,-2px 4px 5px #0a3abf28, -1px 3px 5px #ffffff4f;  
+            box-shadow: -3px 5px 5px #00000004,  -1px 3px 5px #ffffff4f;  
             display: flex;
             align-items: center;
             gap: 10px;
@@ -424,7 +424,7 @@ header {
 
             &:nth-of-type(1) {
                 background: #000000;
-                /* background: #003542; */
+                /* background: #000000; */
                 color: rgb(216, 216, 220);
                 padding: 6px 15px 6px 6px;
                 &::before, 
@@ -503,159 +503,6 @@ header {
     opacity: 1;
   }
 
-/* 
-.expand-card-section {
-    margin-top: 100px;
-    position: relative;
-    --ec-title-font: 'Lobster', serif; 
-    --ec-body-font: sans-serif;
-    background: linear-gradient(to top, #000, transparent);
-}
-
-.ec-placeholder {
-    display: block;
-    margin: 0 auto;
-    visibility: hidden;
-    pointer-events: none;
-    flex-shrink: 0;
-}
-
-.ec-card-imgs {
-    overflow: hidden;
-
-    .ec-img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transform-origin: center center;
-        will-change: auto;
-        transition: none;
-
-        &.active {
-            opacity: 1;
-        }
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to top, rgba(0, 0, 0, .5) 0%, transparent 60%);
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: url('../..//public/img/noise.png');
-        background-repeat: repeat;
-        background-size: 200px 200px;
-        opacity: .2;
-        mix-blend-mode: normal; 
-        pointer-events: none;
-        filter: grayscale(1) brightness(.4);
-        z-index: 2;
-    }
-
-    .ec-flash {
-        position: absolute;
-        inset: 0;
-        background: #000;
-        opacity: 0;
-        pointer-events: none;
-        z-index: 3;
-        transition: opacity 0.18s ease;
-    }
-
-    .ec-dots {
-        position: absolute;
-        top: clamp(.8rem, 2vw, 1.4rem);
-        right: clamp(.8rem, 2vw, 1.4rem);
-        display: flex;
-        gap: 6px;
-        z-index: 2;
-    }
-
-    .ec-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, .3);
-        transition: none;
-
-        &.active {
-            background: rgb(216, 216, 220);
-            transform: scale(1.4);
-        }
-    }
-
-    .ec-bar {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: rgba(255, 255, 255, .12);
-        z-index: 2;
-        display: none;
-    }
-
-    .ec-bar-fill {
-        height: 100%;
-        background: #eee;
-        transition: width .05s linear;
-    }
-}
-
-.ec-card-text {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-
-    .ec-text {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: clamp(1.2rem, 4vw, 3.5rem);
-        opacity: 0;
-        pointer-events: none;
-        transition: none;
-        
-        &.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-    }
-
-
-    .ec-title {
-        font-size: clamp(6.4rem, 5vw, 5rem);
-        font-family: var(--ec-title-font, 'Georgia', serif);
-        font-weight: 400;
-        line-height: 1;
-        color: rgb(216, 216, 220);
-        margin: 0 0 .3em;
-        
-    }
-
-    .logo {
-        width: 300px;
-        filter: invert(1);
-        opacity: 1;
-        filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.575));
-    }
-
-  
-} */
 
 .skills {
     padding: 100px 0 100px 50px;
