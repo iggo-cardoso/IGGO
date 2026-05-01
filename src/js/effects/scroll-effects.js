@@ -1,12 +1,16 @@
-// scroll-effects.js — master rAF loop com separação read/write para evitar forced reflow
-// Todos os efeitos (parallax, fade-scroll, fade-viewport) rodam em um único requestAnimationFrame.
-// Fase 1: todas as leituras (getBoundingClientRect, scrollY, etc.)
-// Fase 2: todas as escritas (style.transform, style.opacity, etc.)
-
 document.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
-  // ── Estado compartilhado ────────────────────────────────────────────────────
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  function isAdapted(el) {
+    const adaptation = el.dataset.adaptation;
+    if (!adaptation) return true;
+    if (adaptation === 'mobile' && isMobile) return true;
+    if (adaptation === 'desktop' && !isMobile) return true;
+    return false;
+  }
+
   let scrollY   = window.scrollY;
   let vh        = window.innerHeight;
   let rafActive = false;
@@ -21,16 +25,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // ── parallax ────────────────────────────────────────────────────────────────
-  // data-effect="parallax"
-  // data-speed="0.2"
-  // data-direction="up" | "down" | "left" | "right"
-  // data-origin="global" | "section"
-
   const parallaxEls = Array.from(document.querySelectorAll('[data-effect~="parallax"]'));
 
   function parallaxRead() {
     return parallaxEls.map(el => {
+      if (!isAdapted(el)) return null;
+
       const speed  = parseFloat(el.dataset.speed)  || 0.2;
       const dir    = el.dataset.direction          || 'up';
       const origin = el.dataset.origin             || 'section';
@@ -55,15 +55,12 @@ document.addEventListener('DOMContentLoaded', function () {
     data.forEach(m => { if (m) m.el.style.transform = m.transform; });
   }
 
-  // ── fade-scroll ─────────────────────────────────────────────────────────────
-  // data-effect="fade-scroll"
-  // data-fade-distance="600"
-  // data-blur="3"
-
   const fadeScrollEls = Array.from(document.querySelectorAll('[data-effect~="fade-scroll"]'));
 
   function fadeScrollRead() {
     return fadeScrollEls.map(el => {
+      if (!isAdapted(el)) return null;
+
       const maxScroll = parseFloat(el.dataset.fadeDistance) || 600;
       const blur      = parseFloat(el.dataset.blur)         || 0;
       const opacity   = Math.max(0, Math.min(1, 1 - scrollY / maxScroll));
@@ -72,16 +69,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function fadeScrollWrite(data) {
-    data.forEach(({ el, opacity, filter }) => {
-      el.style.opacity = opacity;
-      el.style.filter  = filter;
+    data.forEach(m => {
+      if (!m) return;
+      m.el.style.opacity = m.opacity;
+      m.el.style.filter  = m.filter;
     });
   }
-
-  // ── fade-viewport ────────────────────────────────────────────────────────────
-  // data-effect="fade-viewport"
-  // data-fade-zone="px ou %"
-  // data-blur="px"
 
   const fadeViewportEls = Array.from(document.querySelectorAll('[data-effect~="fade-viewport"]'));
 
@@ -156,10 +149,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function fadeViewportRead() {
     return fadeViewportEls.map(el => {
+      if (!isAdapted(el)) return null;
+
       const fadeZone = parseFloat(el.dataset.fadeZone) || vh * 0.35;
       const blur     = parseFloat(el.dataset.blur)     || 0;
 
-      // pula elementos fora da viewport
       const elRect = el.getBoundingClientRect();
       if (elRect.bottom < 0 || elRect.top > vh * 1.5) return null;
 
@@ -212,21 +206,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ── Master tick ─────────────────────────────────────────────────────────────
-
   function masterTick() {
     rafActive = false;
 
-    // FASE 1 — todas as leituras (1 reflow no máximo)
-    const parallaxData   = parallaxEls.length    ? parallaxRead()      : [];
-    const fadeScrollData = fadeScrollEls.length  ? fadeScrollRead()    : [];
-    const fadeViewData   = fadeViewportEls.length ? fadeViewportRead() : [];
+    const parallaxData   = parallaxEls.length     ? parallaxRead()      : [];
+    const fadeScrollData = fadeScrollEls.length   ? fadeScrollRead()    : [];
+    const fadeViewData   = fadeViewportEls.length  ? fadeViewportRead() : [];
 
-    // FASE 2 — todas as escritas (sem leituras intercaladas)
     parallaxWrite(parallaxData);
     fadeScrollWrite(fadeScrollData);
     fadeViewportWrite(fadeViewData);
-    // Loop só continua enquanto houver scroll/resize pendente (scheduleFrame re-agenda)
   }
 
   if (parallaxEls.length || fadeScrollEls.length || fadeViewportEls.length) {
