@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=optional');
 
 :root {
-    --scroll-band-color: rgb(162, 162, 165);   /* cor do texto */
+    --scroll-band-color: rgba(162, 162, 165, 0.459);   /* cor do texto */
     --scroll-band-font: 'stretch pro';  /* fonte */
     --scroll-band-opacity: 0.85;    /* transparência */
 }
