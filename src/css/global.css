@@ -8,6 +8,16 @@
     --scroll-band-opacity: 0.85;    /* transparência */
 }
 
+::selection {
+  color: #f0edeb; /* Cor do texto */
+  background: black; /* Cor de fundo */
+}
+/* Para navegadores Firefox */
+::-moz-selection {
+  color: #f0edeb;
+  background: black;
+}
+
 * {
     margin: 0;
     padding: 0;
