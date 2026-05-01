@@ -140,7 +140,7 @@
 
   /* ─── EXPAND CARD SECTION ────────────────────────────────── */
   .section {
-    /* display: none; */
+    display: none;
 
   }
 
