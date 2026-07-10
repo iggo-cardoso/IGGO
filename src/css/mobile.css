@@ -139,10 +139,38 @@
 
 
   /* ─── EXPAND CARD SECTION ────────────────────────────────── */
-  .section {
-    display: none;
-
+  /* No mobile as fotos sao paisagem, entao usar cover em tela
+     alta e estreita cortava demais os lados (gente/objetos
+     saindo da imagem). Aqui a area da imagem (.slides) fica
+     mais baixa, tipo paisagem, dentro do mesmo container de
+     100vh (o JS calcula o scroll assumindo .sticky = 100vh,
+     entao a altura do .sticky em si nao muda) - sobra vira
+     uma faixa solida acima/abaixo, tipo letterbox. */
+  .sticky {
+    background: #050505;
   }
+
+  .slides {
+    left: 0;
+    right: 0;
+  }
+
+  .slide {
+    object-position: var(--img-x) var(--img-y);
+  }
+
+  /* ajuste fino por imagem SÓ NO MOBILE — só preenche o que precisar,
+     o resto continua usando o valor do desktop (index.css) */
+  
+  .slide[data-slide-index="4"] { --img-zoom: 1;  --img-x: 40%; }
+  /*.slide[data-slide-index="3"] { --img-zoom: 0.85; --img-y: 40%; }
+  */
+
+
+  .text {
+    font-size: clamp(2.2rem, 8.5vw, 3rem);
+  }
+
 
   /* ─── SKILLS ─────────────────────────────────────────────── */
   .skills {
