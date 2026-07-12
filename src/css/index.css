@@ -321,7 +321,7 @@ header {
         position: relative;
         margin: 10px auto;
         font-size: 5.9rem;
-        font-weight: 500;
+        font-weight: 700;
         text-align: center;
         color: #000000;
         .opacity {
@@ -499,9 +499,9 @@ header {
      no array `data` do scroll-expand-card.js (0 = primeira imagem, 1 =
      segunda, etc). Edita os valores abaixo pra cada foto. */
   .slide[data-slide-index="0"] { --img-zoom: 1; --img-x: 50%; --img-y: 50%; }
-  .slide[data-slide-index="1"] { --img-zoom: 1; --img-x: 50%; --img-y: 50%; }
-  .slide[data-slide-index="2"] { --img-zoom: 1; --img-x: 50%; --img-y: 50%; }
-  .slide[data-slide-index="3"] { --img-zoom: 1; --img-x: 50%; --img-y: 50%; }
+  .slide[data-slide-index="1"] { --img-zoom: 0.658; --img-x: 50%; --img-y: 20%; }
+  .slide[data-slide-index="2"] { --img-zoom: 0.77; --img-x: 50%; --img-y: 30%; }
+  .slide[data-slide-index="3"] { --img-zoom: 1; --img-x: 50%; --img-y: 30%; }
   .slide[data-slide-index="4"] { --img-zoom: 1; --img-x: 50%; --img-y: 50%; }
 
   .text {

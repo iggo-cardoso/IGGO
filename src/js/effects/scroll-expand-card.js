@@ -16,7 +16,7 @@ const data = [
     "title": "Inovação"
   },
   {
-    "img": "img/Great_Wave_off_Kanagawa2.jpg",
+    "img": "img/ai-gerou-o-conceito-de-ser-humano3.jpg",
     "title": "Marketing"
   },
   {
