@@ -90,7 +90,7 @@
         display: flex;
         flex-direction: column;
         gap: 0;
-        padding: 150px 0 150px 0 !important;
+        padding: 150px 0 150px 0;
         user-select: none;
         pointer-events: none;
       }
@@ -105,7 +105,7 @@
         letter-spacing: -0.01em;
         color: var(--scroll-band-color, #1a1a1a);
         font-family: var(--scroll-band-font, serif);
-        padding: 0.1em 0;
+        
         opacity: var(--scroll-band-opacity, 0.85);
       }
     `;

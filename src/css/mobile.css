@@ -1,10 +1,3 @@
-/* ============================================================
-   mobile.css — Ajustes responsivos para dispositivos móveis
-   Não modifica nenhum arquivo existente.
-   Importar APÓS main.css no index.html:
-     <link rel="stylesheet" href="src/css/mobile.css">
-   ============================================================ */
-
 @media (max-width: 768px) {
 
   /* ─── HERO ─────────────────────────────────────────────── */
