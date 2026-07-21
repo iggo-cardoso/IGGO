@@ -299,3 +299,21 @@ body {
     }
 }
 
+
+
+h2.title-sections {
+    font-size: 4.8rem !important;
+    font-weight: 500 !important;
+    color: rgb(95, 95, 95) !important;
+    margin: 0 30px 40px 30px;
+    span {
+        color: rgb(0, 0, 0) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    h2.title-sections  {
+        font-size: 2.2rem !important;
+        line-height: 1.25 !important;
+    }
+}
