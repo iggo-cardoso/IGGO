@@ -6,7 +6,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        pre_registration: resolve(__dirname, 'src/pages/book-iggostudios.html')
+        pre_registration: resolve(__dirname, 'src/html/book-iggostudios.html')
       },
     },
   },
