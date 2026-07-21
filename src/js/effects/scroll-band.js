@@ -2,11 +2,17 @@
   'use strict';
 
   function init() {
-    const container = document.querySelector('.scroll-bands');
-    const bands     = document.querySelectorAll('.scroll-band');
-    if (!bands.length) return;
+    const containers = document.querySelectorAll('.scroll-bands');
+    if (!containers.length) return;
 
     injectStyles();
+
+    containers.forEach(setupContainer);
+  }
+
+  function setupContainer(container) {
+    const bands = container.querySelectorAll('.scroll-band');
+    if (!bands.length) return;
 
     bands.forEach((band, i) => {
       const direction = i % 2 === 0 ? -1 : 1;
@@ -17,7 +23,6 @@
 
       const singleWidth = band.scrollWidth / 3;
       band.dataset.singleWidth = singleWidth;
-      band._baseOffset = direction === -1 ? 0 : -singleWidth;
     });
 
     let lastScrollY      = window.scrollY;
@@ -45,22 +50,33 @@
 
         band.style.transform = `translateX(${currentOffsets[i]}px)`;
       });
+
+      if (visible) rafId = requestAnimationFrame(tick);
     }
 
     function scheduleTick() {
       if (!visible) return;
+      lastScrollY = window.scrollY; // evita "salto" ao reentrar na viewport
       if (!rafId) rafId = requestAnimationFrame(tick);
     }
 
     const obs = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
+      if (visible) scheduleTick();
     }, { threshold: 0 });
 
-    if (container) obs.observe(container);
-    else bands.forEach(b => obs.observe(b));
+    obs.observe(container);
 
-    window.addEventListener('scroll', scheduleTick, { passive: true });
-    scheduleTick();
+    window.addEventListener('scroll', () => {
+      lastScrollY = lastScrollY; // no-op, mantém compatibilidade
+      if (visible && !rafId) rafId = requestAnimationFrame(tick);
+    }, { passive: true });
+
+    // sincroniza lastScrollY continuamente fora do RAF também,
+    // para que delta não acumule enquanto fora da tela
+    window.addEventListener('scroll', () => {
+      if (!visible) lastScrollY = window.scrollY;
+    }, { passive: true });
   }
 
   function injectStyles() {
