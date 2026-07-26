@@ -21,7 +21,7 @@ const IS_TOUCH = window.matchMedia('(hover: none) and (pointer: coarse)').matche
 // Os outros efeitos (expand-card, scroll-effects) leem window.scrollY
 // normalmente via evento scroll { passive: true }, então não há impacto.
 if (!IS_TOUCH) {
-  const LERP_SPEED = 8;
+  const LERP_SPEED = 4;
   const WHEEL_MULT = 1.2;
   const KEYS_STEP  = 120;
 
