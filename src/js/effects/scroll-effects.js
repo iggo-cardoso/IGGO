@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  let isMobile = window.matchMedia('(max-width: 768px)').matches;
 
   function isAdapted(el) {
     const adaptation = el.dataset.adaptation;
@@ -16,7 +16,11 @@ document.addEventListener('DOMContentLoaded', function () {
   let rafActive = false;
 
   window.addEventListener('scroll', () => { scrollY = window.scrollY; scheduleFrame(); }, { passive: true });
-  window.addEventListener('resize', () => { vh = window.innerHeight; scheduleFrame(); }, { passive: true });
+  window.addEventListener('resize', () => {
+    vh = window.innerHeight;
+    isMobile = window.matchMedia('(max-width: 768px)').matches;
+    scheduleFrame();
+  }, { passive: true });
 
   function scheduleFrame() {
     if (!rafActive) {
@@ -25,7 +29,33 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  const parallaxEls = Array.from(document.querySelectorAll('[data-effect~="parallax"]'));
+  /* ---------- LISTAS DE ELEMENTOS (reatribuíveis) ----------
+     Antes eram const, montadas UMA VEZ no DOMContentLoaded (que só
+     dispara na carga real da página). Quando o page-router troca de
+     página e volta pra home, os elementos com data-effect são
+     recriados do zero no DOM — essas listas ficavam com referências
+     órfãs (fora do DOM), então parallax/fade-scroll/fade-viewport
+     paravam de responder até dar F5. Agora refreshEls() reconstrói
+     tudo, chamada no load e sempre que o router termina uma
+     navegação ('pagechange' — disparado pro page-router.js em
+     qualquer troca, não só pra home, já que qualquer página pode ter
+     esses data-effect). */
+  let parallaxEls     = [];
+  let fadeScrollEls    = [];
+  let fadeViewportEls  = [];
+
+  function refreshEls() {
+    parallaxEls     = Array.from(document.querySelectorAll('[data-effect~="parallax"]'));
+    fadeScrollEls   = Array.from(document.querySelectorAll('[data-effect~="fade-scroll"]'));
+    fadeViewportEls = Array.from(document.querySelectorAll('[data-effect~="fade-viewport"]'));
+
+    fadeViewportEls.forEach(el => {
+      el.style.webkitMaskRepeat = 'no-repeat';
+      el.style.maskRepeat       = 'no-repeat';
+    });
+
+    scheduleFrame();
+  }
 
   function parallaxRead() {
     return parallaxEls.map(el => {
@@ -55,8 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
     data.forEach(m => { if (m) m.el.style.transform = m.transform; });
   }
 
-  const fadeScrollEls = Array.from(document.querySelectorAll('[data-effect~="fade-scroll"]'));
-
   function fadeScrollRead() {
     return fadeScrollEls.map(el => {
       if (!isAdapted(el)) return null;
@@ -75,13 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {
       m.el.style.filter  = m.filter;
     });
   }
-
-  const fadeViewportEls = Array.from(document.querySelectorAll('[data-effect~="fade-viewport"]'));
-
-  fadeViewportEls.forEach(el => {
-    el.style.webkitMaskRepeat = 'no-repeat';
-    el.style.maskRepeat       = 'no-repeat';
-  });
 
   function getVisualLines(el) {
     if (el.children.length === 0 && el.textContent.trim()) return getTextLines(el);
@@ -218,9 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fadeViewportWrite(fadeViewData);
   }
 
-  if (parallaxEls.length || fadeScrollEls.length || fadeViewportEls.length) {
-    rafActive = true;
-    requestAnimationFrame(masterTick);
-  }
+  document.addEventListener('pagechange', refreshEls);
 
+  refreshEls();
 });

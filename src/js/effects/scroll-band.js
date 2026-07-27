@@ -1,7 +1,25 @@
 (function () {
   'use strict';
 
+  /* ---------- CLEANUP DOS LISTENERS/OBSERVERS ANTERIORES ----------
+     Antes, cada chamada de setupContainer criava um IntersectionObserver
+     e 2 listeners de scroll no window, presos por closure aos elementos
+     .scroll-band daquele momento. Quando o page-router troca de página e
+     volta pra home, os elementos antigos somem do DOM (viram órfãos) mas
+     esses observers/listeners continuam vivos e disparando à toa — e sem
+     reinit, os elementos NOVOS (recriados no snapshot) nunca ganhavam os
+     seus próprios listeners, ou seja, a section ficava "morta" até dar F5.
+     Agora guardamos as funções de limpeza e chamamos antes de reconstruir. */
+  let cleanupFns = [];
+
+  function runCleanup() {
+    cleanupFns.forEach(fn => { try { fn(); } catch (e) {} });
+    cleanupFns = [];
+  }
+
   function init() {
+    runCleanup();
+
     const containers = document.querySelectorAll('.scroll-bands');
     if (!containers.length) return;
 
@@ -14,16 +32,30 @@
     const bands = container.querySelectorAll('.scroll-band');
     if (!bands.length) return;
 
-    bands.forEach((band, i) => {
-      const direction = i % 2 === 0 ? -1 : 1;
-      band.dataset.direction = direction;
+    // ---------- CONSTRUÇÃO DO CONTEÚDO (só uma vez por container) ----------
+    // container.dataset.bandsBuilt é um atributo real do elemento, então
+    // sobrevive quando o page-router serializa/restaura o snapshot do
+    // #page-root — evita triplicar o innerHTML de novo (e de novo, e de
+    // novo...) toda vez que voltamos pra home.
+    if (!container.dataset.bandsBuilt) {
+      bands.forEach((band, i) => {
+        const direction = i % 2 === 0 ? -1 : 1;
+        band.dataset.direction = direction;
 
-      const original = band.innerHTML;
-      band.innerHTML = original + original + original;
+        const original = band.innerHTML;
+        band.innerHTML = original + original + original;
 
-      const singleWidth = band.scrollWidth / 3;
-      band.dataset.singleWidth = singleWidth;
-    });
+        const singleWidth = band.scrollWidth / 3;
+        band.dataset.singleWidth = singleWidth;
+      });
+      container.dataset.bandsBuilt = '1';
+    } else {
+      // conteúdo já veio triplicado do snapshot — só recalcula a largura,
+      // que pode ter mudado com o layout/viewport atual
+      bands.forEach(band => {
+        band.dataset.singleWidth = band.scrollWidth / 3;
+      });
+    }
 
     let lastScrollY      = window.scrollY;
     let visible          = false;
@@ -67,16 +99,23 @@
 
     obs.observe(container);
 
-    window.addEventListener('scroll', () => {
-      lastScrollY = lastScrollY; // no-op, mantém compatibilidade
+    function onScrollTick() {
       if (visible && !rafId) rafId = requestAnimationFrame(tick);
-    }, { passive: true });
+    }
 
-    // sincroniza lastScrollY continuamente fora do RAF também,
-    // para que delta não acumule enquanto fora da tela
-    window.addEventListener('scroll', () => {
+    function onScrollSync() {
       if (!visible) lastScrollY = window.scrollY;
-    }, { passive: true });
+    }
+
+    window.addEventListener('scroll', onScrollTick, { passive: true });
+    window.addEventListener('scroll', onScrollSync, { passive: true });
+
+    cleanupFns.push(() => {
+      obs.disconnect();
+      window.removeEventListener('scroll', onScrollTick);
+      window.removeEventListener('scroll', onScrollSync);
+      if (rafId) cancelAnimationFrame(rafId);
+    });
   }
 
   function injectStyles() {
@@ -117,4 +156,6 @@
   } else {
     init();
   }
+
+  document.addEventListener('pagechange', init);
 })();

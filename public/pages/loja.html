@@ -1,0 +1,266 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     LOJA IGGO — fragmento carregado pelo page-router em #page-root
+     Segue o mesmo padrão de public/pages/sobre.html:
+     link de CSS próprio no topo do fragmento + classes prefixadas
+     (loja-*) pra não colidir com o resto do site.
+
+     Filtro de categoria, carrinho... carrinho e checkout ainda não
+     (não tem produto pra vender de verdade além do livro). Mas o
+     filtro de categoria, a vitrine (slides) e o trilho de categorias
+     agora funcionam de verdade — tudo controlado por
+     /src/js/effects/loja.js (importado globalmente em main.js, igual
+     scroll-band.js, porque scripts dentro de um fragmento injetado via
+     innerHTML não executam).
+     ═══════════════════════════════════════════════════════════════ -->
+<link rel="stylesheet" href="/src/css/html/loja.css">
+
+<!-- Barra de subcategorias preta, logo abaixo do navtop. Cada item tem
+     data-filter — clicar filtra a grade de produtos lá embaixo e
+     sincroniza com os pills de filtro e o trilho de categorias. -->
+<nav class="loja-subnav" aria-label="Categorias da loja">
+  <ul>
+    <li class="is-active" data-filter="todos">Todos</li>
+    <li data-filter="livros">Livros</li>
+    <li data-filter="templates">Templates</li>
+    <li data-filter="presets">Presets &amp; Assets</li>
+    <li data-filter="cursos">Cursos</li>
+    <li data-filter="mais-vendidos">Mais vendidos</li>
+    <li data-filter="gratuitos">Gratuitos</li>
+    <li data-filter="comunidade">Comunidade</li>
+  </ul>
+</nav>
+
+<section class="loja-hero">
+  <h1 class="loja-title">Loja <img src="../logos/png/logo-dark.png" alt=""></h1>
+  <p class="loja-subtitle">Produtos originais criados pelo estúdio: livros técnicos, templates e materiais que ensinam o que a gente aprendeu construindo de verdade.</p>
+</section>
+
+<div class="loja-bands">
+  <div data-effect="fade-viewport" data-fade-zone="150" class="scroll-bands">
+    <div class="scroll-band">
+      PRODUTOS ORIGINAIS IGGO • PRODUTOS ORIGINAIS IGGO • PRODUTOS ORIGINAIS IGGO • ;
+    </div>
+  </div>
+</div>
+
+<!-- ---------- VITRINE — banner central (carrossel de verdade agora)
+     + trilhos laterais ----------------------------------------- -->
+<!--
+<section class="loja-section loja-showcase-section">
+  <div class="loja-showcase">
+
+    <div class="loja-showcase-rail loja-showcase-rail--left">
+      <div class="loja-mini-card" data-filter="mais-vendidos">
+        <span class="loja-mini-cover loja-cover-generic"><i class='bx bx-trending-up'></i></span>
+        <span class="loja-mini-label">Mais vendidos</span>
+      </div>
+      <div class="loja-mini-card loja-mini-card--static">
+        <span class="loja-mini-cover loja-cover-generic"><i class='bx bx-truck'></i></span>
+        <span class="loja-mini-label">Entrega digital<br>na hora</span>
+      </div>
+      <div class="loja-mini-card loja-mini-card--static">
+        <span class="loja-mini-cover loja-cover-generic"><i class='bx bx-star'></i></span>
+        <span class="loja-mini-label">Novidades IGGO</span>
+      </div>
+    </div>
+
+    <div class="loja-showcase-main">
+      <button class="loja-showcase-arrow prev" type="button" aria-label="Slide anterior"><i class='bx bx-chevron-left'></i></button>
+
+      <div class="loja-showcase-slides">
+
+        <div class="loja-showcase-banner loja-showcase-slide is-active" data-slide-index="0">
+          <span class="loja-showcase-kicker mono">IGGO ORIGINALS · VITRINE</span>
+          <h3 class="loja-showcase-title">Construído com o<br>que o estúdio <em>já testou.</em></h3>
+          <button type="button" class="loja-card-btn" data-filter="todos" data-scroll-target=".loja-grid">Ver tudo</button>
+
+          <div class="loja-showcase-floats">
+            <div class="loja-float-card">
+              <span class="loja-float-cover loja-cover-book" style="min-height:0;padding:16px;">
+                <span class="loja-cover-kicker mono">EBOOK</span>
+                <span class="loja-cover-title" style="font-size:.95rem;">Sessenta Vezes<br>por <em>Segundo</em></span>
+              </span>
+              <span class="loja-float-price mono">R$ 29,99</span>
+            </div>
+            <div class="loja-float-card">
+              <span class="loja-float-cover loja-cover-generic" style="min-height:0;padding:22px;">
+                <i class='bx bx-layout'></i>
+              </span>
+              <span class="loja-float-price mono">Em breve</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="loja-showcase-banner loja-showcase-slide" data-slide-index="1">
+          <span class="loja-showcase-kicker mono">TEMPLATES · EM BREVE</span>
+          <h3 class="loja-showcase-title">Landing pages no<br>padrão <em>que a gente usa.</em></h3>
+          <button type="button" class="loja-card-btn" data-filter="templates" data-scroll-target=".loja-grid">Ver categoria</button>
+
+          <div class="loja-showcase-floats">
+            <div class="loja-float-card">
+              <span class="loja-float-cover loja-cover-generic" style="min-height:0;padding:22px;">
+                <i class='bx bx-code-block'></i>
+              </span>
+              <span class="loja-float-price mono">Vite + JS puro</span>
+            </div>
+            <div class="loja-float-card">
+              <span class="loja-float-cover loja-cover-generic" style="min-height:0;padding:22px;">
+                <i class='bx bx-layout'></i>
+              </span>
+              <span class="loja-float-price mono">Em breve</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="loja-showcase-banner loja-showcase-slide" data-slide-index="2">
+          <span class="loja-showcase-kicker mono">CURSOS · EM BREVE</span>
+          <h3 class="loja-showcase-title">Robótica e código,<br>do jeito <em>que a gente ensina.</em></h3>
+          <button type="button" class="loja-card-btn" data-filter="cursos" data-scroll-target=".loja-grid">Ver categoria</button>
+
+          <div class="loja-showcase-floats">
+            <div class="loja-float-card">
+              <span class="loja-float-cover loja-cover-generic" style="min-height:0;padding:22px;">
+                <i class='bx bx-code-alt'></i>
+              </span>
+              <span class="loja-float-price mono">Turmas ativas</span>
+            </div>
+            <div class="loja-float-card">
+              <span class="loja-float-cover loja-cover-generic" style="min-height:0;padding:22px;">
+                <i class='bx bx-group'></i>
+              </span>
+              <span class="loja-float-price mono">Em breve</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="loja-showcase-arrow next" type="button" aria-label="Próximo slide"><i class='bx bx-chevron-right'></i></button>
+
+      <div class="loja-showcase-dots">
+        <span class="is-active" data-slide-index="0"></span><span data-slide-index="1"></span><span data-slide-index="2"></span>
+      </div>
+    </div>
+
+    <div class="loja-showcase-rail loja-showcase-rail--right">
+      <div class="loja-mini-card loja-mini-card--dark" data-filter="templates">
+        <span class="loja-mini-label">TEMPLATES<br><small>Landing pages prontas</small></span>
+      </div>
+      <div class="loja-mini-card loja-mini-card--dark" data-filter="presets">
+        <span class="loja-mini-label">PRESETS<br><small>Efeitos de scroll</small></span>
+      </div>
+      <div class="loja-mini-card loja-mini-card--dark" data-filter="cursos">
+        <span class="loja-mini-label">CURSOS<br><small>Robótica &amp; código</small></span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="loja-cat-rail">
+    <button class="loja-cat-arrow prev" type="button" aria-label="Categorias anteriores"><i class='bx bx-chevron-left'></i></button>
+    <div class="loja-cat-list">
+      <button type="button" class="loja-cat-item" data-filter="livros"><span class="loja-cat-icon"><i class='bx bx-book'></i></span><span>Livros</span></button>
+      <button type="button" class="loja-cat-item" data-filter="templates"><span class="loja-cat-icon"><i class='bx bx-layout'></i></span><span>Templates</span></button>
+      <button type="button" class="loja-cat-item" data-filter="presets"><span class="loja-cat-icon"><i class='bx bx-image'></i></span><span>Presets &amp; Assets</span></button>
+      <button type="button" class="loja-cat-item" data-filter="cursos"><span class="loja-cat-icon"><i class='bx bx-code-alt'></i></span><span>Cursos</span></button>
+      <button type="button" class="loja-cat-item" data-filter="mais-vendidos"><span class="loja-cat-icon"><i class='bx bx-trending-up'></i></span><span>Mais vendidos</span></button>
+      <button type="button" class="loja-cat-item" data-filter="gratuitos"><span class="loja-cat-icon"><i class='bx bx-gift'></i></span><span>Gratuitos</span></button>
+      <button type="button" class="loja-cat-item" data-filter="comunidade"><span class="loja-cat-icon"><i class='bx bx-group'></i></span><span>Comunidade</span></button>
+    </div>
+    <button class="loja-cat-arrow next" type="button" aria-label="Próximas categorias"><i class='bx bx-chevron-right'></i></button>
+  </div>
+</section>
+
+<section class="loja-section">
+  <div class="loja-section-head">
+    <h2 class="title-sections">Produtos <span>Originais IGGO.</span></h2>
+
+    <div class="loja-filters" role="tablist" aria-label="Categorias da loja">
+      <button class="loja-filter is-active" type="button" data-filter="todos">Todos</button>
+      <button class="loja-filter" type="button" data-filter="livros">Livros</button>
+      <button class="loja-filter" type="button" data-filter="templates">Templates</button>
+      <button class="loja-filter" type="button" data-filter="presets">Presets &amp; Assets</button>
+      <button class="loja-filter" type="button" data-filter="cursos">Cursos</button>
+    </div>
+  </div>
+
+  <div class="loja-grid">
+
+    <article class="loja-card loja-card--featured" data-cat="livros mais-vendidos">
+      <span class="loja-badge">Mais vendido</span>
+      <div class="loja-card-cover loja-cover-book">
+        <span class="loja-cover-kicker mono">IGGO STUDIOS · EBOOK</span>
+        <span class="loja-cover-title">Sessenta<br>Vezes por<br><em>Segundo</em></span>
+      </div>
+      <div class="loja-card-body">
+        <span class="loja-card-cat mono">LIVRO · PDF</span>
+        <h3 class="loja-card-title">Sessenta Vezes por Segundo</h3>
+        <p class="loja-card-desc">O ritmo da web. O que o navegador faz nos 16 milissegundos entre um frame e o outro — e por que isso decide se a sua animação funciona ou trava.</p>
+        <div class="loja-card-footer">
+          <span class="loja-card-price">R$ 29,99</span>
+          <a href="/src/html/book-iggostudios.html" class="loja-card-btn">Ver produto</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="loja-card loja-card--soon" data-cat="templates">
+      <div class="loja-card-cover loja-cover-generic">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </div>
+      <div class="loja-card-body">
+        <span class="loja-card-cat mono">TEMPLATES</span>
+        <h3 class="loja-card-title">Templates de landing page</h3>
+        <p class="loja-card-desc">Estruturas prontas no mesmo padrão visual dos projetos da IGGO — Vite, vanilla JS e efeitos de scroll inclusos.</p>
+        <div class="loja-card-footer">
+          <span class="loja-card-soon mono">Em breve</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="loja-card loja-card--soon" data-cat="presets">
+      <div class="loja-card-cover loja-cover-generic">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+      </div>
+      <div class="loja-card-body">
+        <span class="loja-card-cat mono">PRESETS &amp; ASSETS</span>
+        <h3 class="loja-card-title">Efeitos de scroll prontos</h3>
+        <p class="loja-card-desc">Módulos JS de animação usados nos próprios projetos do estúdio: parallax, fade-viewport, scroll bands.</p>
+        <div class="loja-card-footer">
+          <span class="loja-card-soon mono">Em breve</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="loja-card loja-card--soon" data-cat="cursos">
+      <div class="loja-card-cover loja-cover-generic">
+        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <div class="loja-card-body">
+        <span class="loja-card-cat mono">CURSOS</span>
+        <h3 class="loja-card-title">Workshop de robótica com Scratch</h3>
+        <p class="loja-card-desc">Material didático usado nas turmas de robótica e programação introdutória.</p>
+        <div class="loja-card-footer">
+          <span class="loja-card-soon mono">Em breve</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="loja-empty" hidden>
+    <p>Ainda não tem produto nessa categoria — mas tem coisa boa vindo por aí.</p>
+    <button type="button" class="loja-card-btn" data-filter="todos">Ver todos os produtos</button>
+  </div>
+</section>
+-->
+<div class="loja-empty" hidden>
+  <p>Ainda não tem produtos disponiveis na pagina, mas tem coisa boa vindo por aí.</p>
+  <button type="button" class="loja-card-btn">Inscreva-se para receber atualizações </button>
+</div>
+<section class="loja-cta">
+  <div class="loja-cta-inner">
+    <span class="loja-cta-kicker mono">FICA DE OLHO</span>
+    <h2>Mais produtos originais IGGO chegando em breve.</h2>
+    <p>Templates, presets de efeitos e novos materiais técnicos, construídos com o que o estúdio já usa nos próprios projetos.</p>
+  </div>
+</section>

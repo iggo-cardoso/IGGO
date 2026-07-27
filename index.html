@@ -30,7 +30,7 @@
     <meta name="twitter:image" content="https://iggostudios.com.br/mockup/mockup-1.png">
     <title>Studio IGGO</title>
     <!-- app photo guia -->
-    <link rel="icon" href="logos/png/logo.png" type="image/png" />
+    <link rel="icon" href="logos/png/logo_guia.png" type="image/png" />
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
     <link href="https://fontawesome.com/icons/arrow-down?f=classic&s=thin" rel="stylesheet">
@@ -243,13 +243,29 @@
     </style>
 </head>
 <body>
+    <div class="saying">
+      It's Good, Grows On<span class="saying-suffix"></span>.
+    </div>
+    <div id="custom-scrollbar">
+      <div id="custom-scrollbar__track"></div>
+      <div id="custom-scrollbar__thumb"></div>
+    </div>
+    <div id="scroll-progress"><div id="scroll-progress__fill"></div></div>
+    <div id="cookie-banner">
+      <h3>
+        Valorizamos a sua privacidade
+      </h3>
+      <p>
+        Este site utiliza cookies para garantir que você tenha a melhor experiência em nosso site. Política de Cookies.
+      </p>
+      <button id="cookie-accept">Aceitar tudo</button>
+    </div>
     <div id="site-loader" aria-hidden="true">
       <span class="loader-wordmark">IGGO.</span>
       <div class="loader-track">
         <div id="loader-bar"></div>
       </div>
     </div>
-
 
     <div id="trail-layer"></div>
     <div style="display: none;" class="hero">
@@ -286,10 +302,10 @@
     <nav class="navtop">  
       <img src="public/logos/png/logo.png" alt="">
       <ul>
-        <li class="active">Lar</li>
-        <li>Projetos</li>
-        <li>Sobre nós</li>
-        <li>Loja IGGO</li>
+        <li class="active" data-page="home">Lar</li>
+        <li data-page="projetos" data-page-type="noBrandArea">Projetos</li>
+        <li data-page="sobre" data-page-type="noBrandArea">Sobre nós</li>
+        <li data-page="loja" data-page-type="noBrandArea">Loja IGGO</li>
         <li>Spin-of</li>
       </ul>
       
@@ -298,6 +314,8 @@
         <button>Afiliar-se</button>
       </div>
     </nav>
+
+    <main id="page-root">
     <div class="headline">
       <h1 data-effect="fade-viewport" data-fade-zone="150" class="title">
         <span class="asterisk" aria-hidden="true">
@@ -430,6 +448,9 @@
             <h1 class="name">IGOR</h1>
         </div>
     </div>
+
+        </main>
+
     <footer  class="footer">
         <div class="footer-container">
             <div class="footer-col">

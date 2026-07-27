@@ -25,39 +25,27 @@ const data = [
   }
 ]
 
-const slidesEl = document.getElementById('slides')
+/* ---------- ESTADO (reatribuível a cada init) ----------
+   Antes essas variáveis eram const/let únicas, pegas UMA VEZ no
+   carregamento do script. Quando o page-router troca de página e
+   volta pra home, o #section/#sticky/#slides são recriados do zero
+   (snapshot vira innerHTML novo) — os nós antigos referenciados aqui
+   ficam órfãos (fora do DOM) e o scroll/resize passam a atualizar
+   elementos que ninguém vê. Por isso só um F5 (que reexecuta o script
+   do zero) resolvia. Agora tudo isso é reatribuído em init(). */
+let slidesEl = null
+let section  = null
+let sticky   = null
 
-const imgs  = []
-const texts = []
+let imgs  = []
+let texts = []
+let imgZooms = []
 
-data.forEach((s, i) => {
-  const img = new Image()
-  img.src       = s.img
-  img.className = 'slide'
-  // data-slide-index é o que o CSS usa pra mirar cada imagem
-  // (ex: .slide[data-slide-index="1"] { --img-zoom: 0.9; }).
-  // O zoom/posição da imagem em si (--img-zoom, --img-x, --img-y)
-  // fica 100% no CSS (index.css = desktop, mobile.css = mobile) —
-  // esse JS só lê o valor que já foi definido lá, não define nada.
-  img.dataset.slideIndex = i
-  img.style.opacity = i === 0 ? '1' : '0'
-  img.decoding  = 'async'
-  slidesEl.appendChild(img)
-  imgs.push(img)
+let start = 0
+let end   = 0
+let raf   = null
+let listenersAttached = false
 
-  const t = document.createElement('div')
-  t.className   = 'text'
-  t.style.opacity = i === 0 ? '1' : '0'
-  t.textContent = s.title
-  slidesEl.appendChild(t)
-  texts.push(t)
-})
-
-/* lê --img-zoom (definido no CSS) de cada imagem e guarda num array —
-   não precisa ler a cada frame do scroll, só quando monta a página e
-   quando muda de desktop pra mobile (ou vice-versa), já que é aí que
-   o valor pode mudar (mobile.css sobrescreve index.css). */
-const imgZooms = imgs.map(() => 1)
 function readImgZooms() {
   imgs.forEach((img, i) => {
     const raw = getComputedStyle(img).getPropertyValue('--img-zoom')
@@ -65,14 +53,46 @@ function readImgZooms() {
     imgZooms[i] = Number.isFinite(n) ? n : 1
   })
 }
-readImgZooms()
 
-Promise.all(imgs.map(img => img.decode?.().catch(() => {})))
+function buildSlides() {
+  // limpa antes de reconstruir — evita duplicar imagens/textos caso
+  // o #slides restaurado do snapshot já venha com os nós antigos
+  slidesEl.innerHTML = ''
+  imgs  = []
+  texts = []
 
-const section = document.getElementById('section')
-const sticky  = document.getElementById('sticky')
-let start = 0
-let end   = 0
+  data.forEach((s, i) => {
+    const img = new Image()
+    img.src       = s.img
+    img.className = 'slide'
+    // data-slide-index é o que o CSS usa pra mirar cada imagem
+    // (ex: .slide[data-slide-index="1"] { --img-zoom: 0.9; }).
+    // O zoom/posição da imagem em si (--img-zoom, --img-x, --img-y)
+    // fica 100% no CSS (index.css = desktop, mobile.css = mobile) —
+    // esse JS só lê o valor que já foi definido lá, não define nada.
+    img.dataset.slideIndex = i
+    img.style.opacity = i === 0 ? '1' : '0'
+    img.decoding  = 'async'
+    slidesEl.appendChild(img)
+    imgs.push(img)
+
+    const t = document.createElement('div')
+    t.className   = 'text'
+    t.style.opacity = i === 0 ? '1' : '0'
+    t.textContent = s.title
+    slidesEl.appendChild(t)
+    texts.push(t)
+  })
+
+  /* lê --img-zoom (definido no CSS) de cada imagem e guarda num array —
+     não precisa ler a cada frame do scroll, só quando monta a página e
+     quando muda de desktop pra mobile (ou vice-versa), já que é aí que
+     o valor pode mudar (mobile.css sobrescreve index.css). */
+  imgZooms = imgs.map(() => 1)
+  readImgZooms()
+
+  Promise.all(imgs.map(img => img.decode?.().catch(() => {})))
+}
 
 function calc() {
   let top = 0, el = section
@@ -80,8 +100,6 @@ function calc() {
   start = top
   end   = top + section.offsetHeight - window.innerHeight
 }
-
-calc()
 
 /* ---------- CLIP-PATH EXPAND ----------
    Em vez de dar scale(scaleX, scaleY) no container inteiro (que distorce a
@@ -104,20 +122,20 @@ const CLIP_FINAL   = 75
 let SCALE_START = mobile ? 1.03 : 1.14
 
 let _rt = 0
-window.addEventListener('resize', () => {
+function onResize() {
   clearTimeout(_rt)
   _rt = setTimeout(() => {
+    if (!section) return
     calc()
     mobile = isMobile()
     SCALE_START = mobile ? 1.03 : 1.14
     readImgZooms() // o breakpoint pode ter mudado o --img-zoom de alguma imagem
   }, 150)
-}, { passive: true })
-
-let raf = null
+}
 
 function tick() {
   raf = null
+  if (!section || !sticky) return // página atual não tem essa section
 
   const sy = window.scrollY
   const vh = window.innerHeight
@@ -178,5 +196,37 @@ function onScroll() {
   if (!raf) raf = requestAnimationFrame(tick)
 }
 
-window.addEventListener('scroll', onScroll, { passive: true })
-requestAnimationFrame(tick)
+/* ---------- INIT (reexecutável) ----------
+   Reaponta section/sticky/slidesEl pros nós atuais do DOM e reconstrói
+   tudo. Chamada na carga inicial e sempre que o page-router volta pra
+   home (evento 'pagechange'), já que o innerHTML do #page-root é
+   substituído nessa hora e os elementos antigos deixam de existir. */
+function init() {
+  const newSlidesEl = document.getElementById('slides')
+  const newSection  = document.getElementById('section')
+  const newSticky   = document.getElementById('sticky')
+
+  // página atual não tem essa section (ex: outra rota) — não faz nada
+  if (!newSlidesEl || !newSection || !newSticky) return
+
+  slidesEl = newSlidesEl
+  section  = newSection
+  sticky   = newSticky
+
+  buildSlides()
+  calc()
+
+  if (!listenersAttached) {
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onResize, { passive: true })
+    listenersAttached = true
+  }
+
+  raf = requestAnimationFrame(tick)
+}
+
+init()
+
+document.addEventListener('pagechange', (e) => {
+  if (e.detail && e.detail.page === 'home') init()
+})

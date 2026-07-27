@@ -100,4 +100,32 @@ if (!IS_TOUCH) {
   document.documentElement.style.scrollBehavior = 'auto';
   window.addEventListener('wheel',   onWheel,   { passive: false });
   window.addEventListener('keydown', onKeydown, { passive: false });
+
+  // Hook pra permitir que outros módulos (ex: scrollbar customizada)
+  // controlem o mesmo alvo do lerp em vez de brigar com ele.
+  window.__scrollLerp = {
+    getTarget: () => target,
+    setTarget: (v) => {
+      target = Math.max(0, Math.min(v, maxScroll()));
+      startLoop();
+    },
+    // pula direto pro topo sem animação — usado ao trocar de página
+    reset: () => {
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      target = 0;
+      current = 0;
+      lastTime = null;
+      window.scrollTo(0, 0);
+    },
+    maxScroll,
+  };
+} else {
+  // Em mobile não há lerp — expõe um shim que age direto no scroll nativo,
+  // assim quem usa __scrollLerp funciona igual nos dois casos.
+  window.__scrollLerp = {
+    getTarget: () => window.scrollY,
+    setTarget: (v) => window.scrollTo(0, v),
+    reset: () => window.scrollTo(0, 0),
+    maxScroll: () => document.documentElement.scrollHeight - window.innerHeight,
+  };
 }

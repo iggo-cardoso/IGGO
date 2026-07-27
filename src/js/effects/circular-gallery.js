@@ -447,17 +447,51 @@ class App {
     window.removeEventListener('touchmove',  this._onTouchMove);
     window.removeEventListener('touchend',   this._onTouchUp);
     if (this.gl.canvas.parentNode) this.gl.canvas.parentNode.removeChild(this.gl.canvas);
+
+    // libera o contexto WebGL de fato — sem isso, o navegador pode demorar
+    // pra coletar contextos antigos e, depois de algumas idas e voltas pra
+    // home, bate no limite de contextos WebGL simultâneos (geralmente
+    // 8-16) e a galeria simplesmente para de aparecer, sem erro nenhum.
+    const loseCtx = this.gl.getExtension('WEBGL_lose_context');
+    if (loseCtx) loseCtx.loseContext();
   }
 }
 
-const container = document.getElementById('gallery-container');
+/* ---------- REINIT AO VOLTAR PRA HOME ----------
+   Antes, `container` era pego uma única vez no carregamento do script,
+   e o App WebGL criado sobre ele nunca era destruído. Quando o
+   page-router troca de página e volta pra home, o #gallery-container é
+   recriado do zero (snapshot) — o App antigo continuava rodando seu
+   loop de render e seus listeners de wheel/touch presos no <canvas>
+   órfão (que ninguém via mais), e o novo #gallery-container nunca
+   ganhava sua própria galeria. A classe App já tinha um destroy()
+   pronto — só faltava chamar. */
+let currentApp = null;
+let generation = 0;
 
-function initGallery() {
+function initGallery(myGen) {
+  if (myGen !== generation) return; // um pagechange mais novo já assumiu — descarta esta tentativa
+
+  const container = document.getElementById('gallery-container');
+  if (!container) return; // página atual não tem galeria
+
   if (container.clientWidth === 0 || container.clientHeight === 0) {
-    requestAnimationFrame(initGallery);
+    requestAnimationFrame(() => initGallery(myGen));
     return;
   }
-  new App(container, {
+
+  if (currentApp) {
+    currentApp.destroy();
+    currentApp = null;
+  }
+
+  // limpa qualquer resto (ex: o <canvas> antigo que já veio dentro do
+  // #gallery-container quando o snapshot da home foi restaurado — ele
+  // fica ocupando espaço e o overflow:hidden do container acaba
+  // escondendo o canvas novo atrás dele)
+  container.innerHTML = '';
+
+  currentApp = new App(container, {
     bend:         3,
     textColor:    '#ffffff',
     borderRadius: 0.05,
@@ -466,4 +500,13 @@ function initGallery() {
   });
 }
 
-requestAnimationFrame(initGallery);
+requestAnimationFrame(() => initGallery(generation));
+
+document.addEventListener('pagechange', () => {
+  generation++; // invalida qualquer initGallery ainda esperando de uma navegação anterior
+  if (currentApp) {
+    currentApp.destroy();
+    currentApp = null;
+  }
+  requestAnimationFrame(() => initGallery(generation));
+});

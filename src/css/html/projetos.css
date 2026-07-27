@@ -1,0 +1,436 @@
+/* ═══════════════════════════════════════════════════════════════
+   PROJETOS — estilos exclusivos desta página
+   Carregado via <link> dentro do próprio fragmento (/pages/projetos.html),
+   mesmo padrão de src/css/html/sobre.css e book-iggostudios.css.
+   Referência de layout: grid/hover de destaque estilo Awwwards
+   (site do dia + grid de indicados), adaptado à identidade IGGO.
+   ═══════════════════════════════════════════════════════════════ */
+
+.proj-eyebrow {
+    font-size: 12.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #E85002;
+    font-weight: 600;
+    margin-bottom: 18px;
+    text-align: center;
+
+    &.mono {
+        font-family: 'SUSE Mono', monospace;
+        text-transform: none;
+    }
+}
+
+/* ---------- HERO ---------- */
+.proj-hero {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 70px 20px 0;
+
+    .proj-title {
+        margin: 0 40px;
+        max-width: 1000px;
+        font-size: clamp(3.6rem, 6.4vw, 5.9rem);
+        font-weight: 500;
+        line-height: 1.04;
+        color: #000000;
+
+        .brand-color {
+            color: #E85002;
+        }
+    }
+
+    .proj-subtitle {
+        margin: 26px 40px 0;
+        max-width: 560px;
+        font-size: 1.2rem;
+        line-height: 1.55;
+        color: rgb(95, 95, 95);
+    }
+
+    .proj-meta {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 34px;
+        font-family: 'SUSE Mono', monospace;
+        font-size: 12px;
+        letter-spacing: .04em;
+        color: rgba(0, 0, 0, .45);
+
+        & span {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        & .dot {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, .3);
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: 56px 16px 0;
+
+        .proj-subtitle {
+            margin: 20px 16px 0;
+        }
+    }
+}
+
+/* ---------- FEATURED (destaque, tipo "site do dia") ---------- */
+.proj-featured {
+    display: block;
+    position: relative;
+    width: calc(100% - 40px);
+    aspect-ratio: 16 / 9;
+    max-height: 640px;
+    margin: 60px 20px 0;
+    border-radius: 1.4em;
+    overflow: hidden;
+    background: #0a0a0a;
+    text-decoration: none;
+    cursor: default;
+
+    & .proj-featured-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        transition: transform .6s cubic-bezier(.65, 0, .35, 1);
+    }
+
+    & .proj-featured-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, .05) 0%, transparent 30%, rgba(0, 0, 0, .75) 100%);
+        pointer-events: none;
+    }
+
+    & .proj-featured-tag {
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 8em;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(12px);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+
+        & .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #E85002;
+        }
+    }
+
+    & .proj-featured-arrow {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(12px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background .3s ease, transform .3s ease;
+
+        & svg {
+            width: 18px;
+            height: 18px;
+            stroke: #fff;
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    }
+
+    & .proj-featured-bottom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 40px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 30px;
+
+        & .proj-featured-title {
+            font-size: clamp(2rem, 3.6vw, 3.2rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.05;
+        }
+
+        & .proj-featured-desc {
+            max-width: 340px;
+            font-size: .95rem;
+            line-height: 1.55;
+            color: rgba(255, 255, 255, .68);
+            text-align: right;
+        }
+    }
+
+    &:hover {
+        & .proj-featured-img {
+            transform: scale(1.04);
+        }
+
+        & .proj-featured-arrow {
+            background: #E85002;
+            transform: rotate(45deg);
+        }
+    }
+
+    @media (max-width: 768px) {
+        width: calc(100% - 20px);
+        margin: 40px 10px 0;
+        aspect-ratio: 4 / 5;
+        border-radius: 1em;
+
+        & .proj-featured-bottom {
+            padding: 24px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+
+            & .proj-featured-desc {
+                max-width: 100%;
+                text-align: left;
+            }
+        }
+    }
+}
+
+/* ---------- LABEL DE SEÇÃO (reaproveita padrão "Vencedores / Sites recentes") ---------- */
+.proj-section-label {
+    max-width: 1200px;
+    margin: 90px auto 0;
+    padding: 0 50px;
+
+    & .proj-eyebrow {
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    & h2 {
+        font-size: clamp(2rem, 3.6vw, 3rem);
+        font-weight: 600;
+        color: #000000;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0 20px;
+        margin-top: 60px;
+    }
+}
+
+/* ---------- GRID DE PROJETOS ---------- */
+.proj-grid {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 0 50px 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    @media (max-width: 900px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+        padding: 0 20px 40px;
+        gap: 18px;
+    }
+}
+
+.proj-card {
+    display: block;
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 1em;
+    overflow: hidden;
+    background: #111111;
+    text-decoration: none;
+    cursor: default;
+
+    &.proj-card--wide {
+        grid-column: span 2;
+        aspect-ratio: 16 / 9;
+
+        @media (max-width: 600px) {
+            grid-column: span 1;
+            aspect-ratio: 4 / 3;
+        }
+    }
+
+    & .proj-card-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .5s cubic-bezier(.65, 0, .35, 1), filter .5s ease;
+    }
+
+    & .proj-card-placeholder {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'SUSE Mono', monospace;
+        font-size: 3.4rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, .14);
+        letter-spacing: -.02em;
+    }
+
+    & .proj-card-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .82) 100%);
+    }
+
+    & .proj-card-year {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        font-family: 'SUSE Mono', monospace;
+        font-size: 11px;
+        color: rgba(255, 255, 255, .55);
+    }
+
+    & .proj-card-bottom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 22px;
+
+        & .proj-card-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: #E85002;
+            margin-bottom: 8px;
+        }
+
+        & .proj-card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+        }
+    }
+
+    &:hover {
+        & .proj-card-img {
+            transform: scale(1.08);
+            filter: brightness(.85);
+        }
+    }
+}
+
+/* ---------- CTA FINAL ---------- */
+.proj-cta {
+    width: calc(100% - 40px);
+    margin: 80px 20px 60px;
+    border-radius: 1.4em;
+    background:
+        radial-gradient(ellipse 90% 80% at 100% 70%, #c64a1e33 0%, transparent 55%),
+        radial-gradient(ellipse 150% 90% at 93% 97%, #E85002 0%, #000000 30%, transparent 78%),
+        #000;
+    color: #F1EDE8;
+    text-align: center;
+    padding: 90px 30px;
+    font-family: "Google Sans", sans-serif;
+
+    & h2 {
+        font-size: clamp(2.2rem, 5vw, 3.4rem);
+        font-weight: 700;
+        margin: 0;
+
+        & em {
+            font-style: normal;
+            color: #E85002;
+        }
+    }
+
+    & p {
+        margin: 20px 0 36px;
+        color: rgba(241, 237, 232, .68);
+        font-size: 1.1rem;
+    }
+
+    & .cta-row {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    & .btn-solid {
+        display: inline-block;
+        text-decoration: none;
+        background: #fff;
+        color: #000;
+        font-weight: 700;
+        font-size: 1.02rem;
+        padding: 14px 30px;
+        border-radius: 1em;
+        box-shadow: 0 8px 24px -8px rgba(0, 0, 0, .5);
+        transition: transform .25s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+
+    & .btn-ghost {
+        display: inline-block;
+        text-decoration: none;
+        background: transparent;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.02rem;
+        padding: 13px 28px;
+        border-radius: 1em;
+        border: 1px solid rgba(255, 255, 255, .3);
+        transition: border-color .25s ease, background .25s ease;
+
+        &:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, .06);
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: 60px 20px;
+    }
+}
