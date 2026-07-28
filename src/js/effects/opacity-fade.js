@@ -1,4 +1,4 @@
-// opacity-fade.js — integrado ao master rAF via evento customizado
+// opacity-fade.js,  integrado ao master rAF via evento customizado
 // Efeito: elementos com data-effect="opacity-fade" recebem degradê de opacidade
 // conforme a posição na viewport.
 // Usa separação read/write para evitar forced reflow.
@@ -137,7 +137,7 @@
       const vh = window.innerHeight;
       const measurements = targets.map(el => readElement(el, vh));
       measurements.forEach(writeElement);
-      // Não re-agenda — scheduleFrame faz isso no scroll/resize
+      // Não re-agenda,  scheduleFrame faz isso no scroll/resize
     }
 
     function scheduleFrame() {

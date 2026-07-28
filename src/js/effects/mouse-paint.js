@@ -20,7 +20,7 @@ const BASE_SIZE = 44;
 const SPRING_STRENGTH = 0.25;
 const DAMPING = 0.88;
 
-// Pool de divs reutilizáveis — evita criar/destruir 90 elementos por frame
+// Pool de divs reutilizáveis,  evita criar/destruir 90 elementos por frame
 const pool = [];
 function getBlob() {
   if (pool.length) return pool.pop();
@@ -132,7 +132,7 @@ function updateTrail() {
   animationFrame = requestAnimationFrame(updateTrail);
 }
 
-// Blobs ativos no DOM rastreados explicitamente — sem innerHTML = ''
+// Blobs ativos no DOM rastreados explicitamente,  sem innerHTML = ''
 let activeBlobs = [];
 
 function drawTrail() {

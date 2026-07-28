@@ -1,5 +1,5 @@
 <!-- ═══════════════════════════════════════════════════════════════
-     LOJA IGGO — fragmento carregado pelo page-router em #page-root
+     LOJA IGGO,  fragmento carregado pelo page-router em #page-root
      Segue o mesmo padrão de public/pages/sobre.html:
      link de CSS próprio no topo do fragmento + classes prefixadas
      (loja-*) pra não colidir com o resto do site.
@@ -7,15 +7,14 @@
      Filtro de categoria, carrinho... carrinho e checkout ainda não
      (não tem produto pra vender de verdade além do livro). Mas o
      filtro de categoria, a vitrine (slides) e o trilho de categorias
-     agora funcionam de verdade — tudo controlado por
+     agora funcionam de verdade,  tudo controlado por
      /src/js/effects/loja.js (importado globalmente em main.js, igual
      scroll-band.js, porque scripts dentro de um fragmento injetado via
      innerHTML não executam).
      ═══════════════════════════════════════════════════════════════ -->
-<link rel="stylesheet" href="/src/css/html/loja.css">
 
 <!-- Barra de subcategorias preta, logo abaixo do navtop. Cada item tem
-     data-filter — clicar filtra a grade de produtos lá embaixo e
+     data-filter,  clicar filtra a grade de produtos lá embaixo e
      sincroniza com os pills de filtro e o trilho de categorias. -->
 <nav class="loja-subnav" aria-label="Categorias da loja">
   <ul>
@@ -43,7 +42,7 @@
   </div>
 </div>
 
-<!-- ---------- VITRINE — banner central (carrossel de verdade agora)
+<!-- ---------- VITRINE,  banner central (carrossel de verdade agora)
      + trilhos laterais ----------------------------------------- -->
 <!--
 <section class="loja-section loja-showcase-section">
@@ -195,7 +194,7 @@
       <div class="loja-card-body">
         <span class="loja-card-cat mono">LIVRO · PDF</span>
         <h3 class="loja-card-title">Sessenta Vezes por Segundo</h3>
-        <p class="loja-card-desc">O ritmo da web. O que o navegador faz nos 16 milissegundos entre um frame e o outro — e por que isso decide se a sua animação funciona ou trava.</p>
+        <p class="loja-card-desc">O ritmo da web. O que o navegador faz nos 16 milissegundos entre um frame e o outro,  e por que isso decide se a sua animação funciona ou trava.</p>
         <div class="loja-card-footer">
           <span class="loja-card-price">R$ 29,99</span>
           <a href="/src/html/book-iggostudios.html" class="loja-card-btn">Ver produto</a>
@@ -210,7 +209,7 @@
       <div class="loja-card-body">
         <span class="loja-card-cat mono">TEMPLATES</span>
         <h3 class="loja-card-title">Templates de landing page</h3>
-        <p class="loja-card-desc">Estruturas prontas no mesmo padrão visual dos projetos da IGGO — Vite, vanilla JS e efeitos de scroll inclusos.</p>
+        <p class="loja-card-desc">Estruturas prontas no mesmo padrão visual dos projetos da IGGO,  Vite, vanilla JS e efeitos de scroll inclusos.</p>
         <div class="loja-card-footer">
           <span class="loja-card-soon mono">Em breve</span>
         </div>
@@ -248,7 +247,7 @@
   </div>
 
   <div class="loja-empty" hidden>
-    <p>Ainda não tem produto nessa categoria — mas tem coisa boa vindo por aí.</p>
+    <p>Ainda não tem produto nessa categoria,  mas tem coisa boa vindo por aí.</p>
     <button type="button" class="loja-card-btn" data-filter="todos">Ver todos os produtos</button>
   </div>
 </section>

@@ -464,7 +464,7 @@ html::-webkit-scrollbar {
 }
 
 
-/* data-page-type="noBrandArea" no trigger de navegação — esconde o
+/* data-page-type="noBrandArea" no trigger de navegação,  esconde o
    header/brand-area pra essa página específica. O nav continua normal,
    só perde o espaço que o header ocupava (sticky não depende dele). */
 body.pt-noBrandArea header {

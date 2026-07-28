@@ -173,7 +173,7 @@ header {
             font-weight: 700;
             text-wrap: nowrap;
             color: var(--brand-color);
-            /* z-index: 9999; removido — causava stacking context no header */
+            /* z-index: 9999; removido,  causava stacking context no header */
             text-align: center;
         }
     }
@@ -316,7 +316,7 @@ header {
             display: flex;
             align-items: center;
             gap: 10px;
-            /* z-index: 3 removido — criava stacking context no button */
+            /* z-index: 3 removido,  criava stacking context no button */
 
             &::before {
                 content: '';
@@ -462,12 +462,12 @@ header {
        Isso é o controle DA IMAGEM, separado do zoom do efeito de scroll
        (que é feito no JS e é igual pra todo mundo). O JS só LÊ essas
        variáveis (uma vez, no início e quando a tela muda de tamanho) e
-       multiplica na escala do efeito — então mudar aqui não precisa
+       multiplica na escala do efeito,  então mudar aqui não precisa
        tocar em nenhum JS.
 
        --img-zoom → 1 = normal. >1 aproxima (corta mais). <1 afasta
                     (cuidado: como é cover, exagerar pode sobrar fundo
-                    transparente na borda — vai testando aos poucos).
+                    transparente na borda,  vai testando aos poucos).
        --img-x/y  → posição do recorte dentro do quadro (object-position).
                     50% 50% = centro. Se a pessoa/objeto tá mais pra
                     esquerda na foto, baixa o --img-x (ex: 30%) pra
@@ -492,7 +492,7 @@ header {
     }
   }
 
-  /* zoom/posição por imagem, no DESKTOP — o data-slide-index é a ordem
+  /* zoom/posição por imagem, no DESKTOP,  o data-slide-index é a ordem
      no array `data` do scroll-expand-card.js (0 = primeira imagem, 1 =
      segunda, etc). Edita os valores abaixo pra cada foto. */
   .slide[data-slide-index="0"] { --img-zoom: 1; --img-x: 50%; --img-y: 50%; }

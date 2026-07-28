@@ -1,290 +1,460 @@
 /* ═══════════════════════════════════════════════════════════════
-   PROJETOS — estilos exclusivos desta página
-   Carregado via <link> dentro do próprio fragmento (/pages/projetos.html),
-   mesmo padrão de src/css/html/sobre.css e book-iggostudios.css.
-   Referência de layout: grid/hover de destaque estilo Awwwards
-   (site do dia + grid de indicados), adaptado à identidade IGGO.
+   PROJETOS,  clone estrutural do layout do Awwwards (PDF de referência),
+   com conteúdo e paleta da IGGO Studios.
+   Carregado via <link> dentro do próprio fragmento (/pages/projetos.html).
+   Ordem das seções replica o PDF: barra de destaque → título grande →
+   card de destaque grande → "mais recente" → grid 2 col → grid
+   vencedores → academia → coleções → diretório (tabela) → blog →
+   mercado → dois banners de CTA.
    ═══════════════════════════════════════════════════════════════ */
 
 .proj-eyebrow {
     font-size: 12.5px;
     letter-spacing: .14em;
-    text-transform: uppercase;
-    color: #E85002;
+    color: #000000;
     font-weight: 600;
     margin-bottom: 18px;
     text-align: center;
 
     &.mono {
-        font-family: 'SUSE Mono', monospace;
         text-transform: none;
+        font-weight: 700;
+    }
+
+    &.left {
+        text-align: left;
+        &.prc {
+            position: relative;
+             &::before {
+                content: 'Parceiros';
+                background: #E85002;
+                color: #fff;
+                position: absolute;
+                top: -2px;
+                left: 160px;
+                padding: 2px 5px;
+                border-radius: 5px;
+            }
+        }
     }
 }
 
-/* ---------- HERO ---------- */
+.proj-link-more {
+    display: block;
+    text-align: center;
+    margin: 46px auto 0;
+    font-size: .95rem;
+    color: rgba(0, 0, 0, .55);
+    text-decoration: none;
+
+    & a,
+    & strong {
+        color: #000000;
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+}
+
+/* ---------- 1. BARRA DE DESTAQUE (equivalente "Site do dia · data · nota") ---------- */
+.proj-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 60px;
+    font-size: 13px;
+    color: rgba(0, 0, 0, .55);
+
+    & .proj-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 16px;
+        border-radius: 8em;
+        font-weight: 700;
+        color: #000;    
+
+        &.solid {
+            background: #E85002;
+            color: #fff;
+            border-color: #E85002;
+        }
+    }
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* ---------- 2. TÍTULO GRANDE + BYLINE ---------- */
 .proj-hero {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 70px 20px 0;
+    padding: 24px 20px 0;
 
-    .proj-title {
+    & .proj-title {
         margin: 0 40px;
-        max-width: 1000px;
-        font-size: clamp(3.6rem, 6.4vw, 5.9rem);
-        font-weight: 500;
-        line-height: 1.04;
+        max-width: 1100px;
+        font-size: clamp(3.2rem, 8vw, 7rem);
+        font-weight: 800;
+        letter-spacing: -.02em;
+        line-height: 1;
+        text-transform: uppercase;
         color: #000000;
-
-        .brand-color {
-            color: #E85002;
-        }
     }
 
-    .proj-subtitle {
-        margin: 26px 40px 0;
-        max-width: 560px;
-        font-size: 1.2rem;
-        line-height: 1.55;
-        color: rgb(95, 95, 95);
-    }
-
-    .proj-meta {
+    & .proj-byline {
         display: flex;
         align-items: center;
-        gap: 14px;
-        margin-top: 34px;
-        font-family: 'SUSE Mono', monospace;
-        font-size: 12px;
-        letter-spacing: .04em;
-        color: rgba(0, 0, 0, .45);
+        justify-content: center;
+        gap: 10px;
+        margin-top: 22px;
 
-        & span {
+        & .proj-avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #000;
             display: flex;
             align-items: center;
-            gap: 14px;
+            justify-content: center;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
         }
 
-        & .dot {
+        & span {
+            font-size: .95rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+        & .proj-pro {
+            font-size: 9px;
+            font-weight: 700;
+            color: rgba(0, 0, 0, .4);
+            border: 1px solid rgba(0, 0, 0, .25);
+            border-radius: 4px;
+            padding: 1px 4px;
+        }
+
+        & .proj-sep {
             width: 3px;
             height: 3px;
             border-radius: 50%;
             background: rgba(0, 0, 0, .3);
+            margin: 0 4px;
         }
     }
 
     @media (max-width: 768px) {
-        padding: 56px 16px 0;
-
-        .proj-subtitle {
-            margin: 20px 16px 0;
-        }
+        padding: 16px 16px 0;
     }
 }
 
-/* ---------- FEATURED (destaque, tipo "site do dia") ---------- */
-.proj-featured {
-    display: block;
+/* ---------- 3. CARD DE DESTAQUE GRANDE ---------- */
+.proj-showcase {
     position: relative;
     width: calc(100% - 40px);
-    aspect-ratio: 16 / 9;
-    max-height: 640px;
-    margin: 60px 20px 0;
-    border-radius: 1.4em;
-    overflow: hidden;
-    background: #0a0a0a;
-    text-decoration: none;
-    cursor: default;
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 30px;
+    border-radius: 1.6em;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(232, 80, 2, .12), transparent 70%), #dcdcdc;
 
-    & .proj-featured-img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top center;
-        transition: transform .6s cubic-bezier(.65, 0, .35, 1);
-    }
+    & .proj-showcase-frame {
+        position: relative;
+        aspect-ratio: 16 / 9.2;
+        max-height: 640px;
+        border-radius: 1.2em;
+        overflow: hidden;
+        background: #0a0a0a;
+        margin: auto;
 
-    & .proj-featured-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(0, 0, 0, .05) 0%, transparent 30%, rgba(0, 0, 0, .75) 100%);
-        pointer-events: none;
-    }
-
-    & .proj-featured-tag {
-        position: absolute;
-        top: 24px;
-        left: 24px;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 16px;
-        border-radius: 8em;
-        background: rgba(255, 255, 255, .1);
-        backdrop-filter: blur(12px);
-        color: #fff;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: .04em;
-        text-transform: uppercase;
-
-        & .status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #E85002;
-        }
-    }
-
-    & .proj-featured-arrow {
-        position: absolute;
-        top: 24px;
-        right: 24px;
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, .1);
-        backdrop-filter: blur(12px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background .3s ease, transform .3s ease;
-
-        & svg {
-            width: 18px;
-            height: 18px;
-            stroke: #fff;
-            fill: none;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-    }
-
-    & .proj-featured-bottom {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 40px;
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 30px;
-
-        & .proj-featured-title {
-            font-size: clamp(2rem, 3.6vw, 3.2rem);
-            font-weight: 700;
-            color: #fff;
-            line-height: 1.05;
+        & .proj-showcase-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            opacity: .92;
+            filter: brightness(.5);
         }
 
-        & .proj-featured-desc {
-            max-width: 340px;
-            font-size: .95rem;
-            line-height: 1.55;
-            color: rgba(255, 255, 255, .68);
-            text-align: right;
-        }
-    }
+        & .proj-showcase-topbar {
+            position: absolute;
+            top: 22px;
+            left: 22px;
+            right: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 2;
 
-    &:hover {
-        & .proj-featured-img {
-            transform: scale(1.04);
+            & .proj-showcase-logo {
+                font-size: .85rem;
+                font-weight: 700;
+                letter-spacing: .04em;
+                color: #fff;
+            }
+
+            & .proj-showcase-actions {
+                display: flex;
+                gap: 10px;
+
+                & span {
+                    padding: 8px 16px;
+                    border-radius: 8em;
+                    font-size: 11px;
+                    font-weight: 600;
+                    letter-spacing: .02em;
+                    color: #fff;
+                    background: rgba(255, 255, 255, .12);
+                    backdrop-filter: blur(10px);
+
+                    &.solid {
+                        background: #E85002;
+                    }
+                }
+            }
         }
 
-        & .proj-featured-arrow {
-            background: #E85002;
-            transform: rotate(45deg);
+        & .proj-showcase-bottom {
+            position: absolute;
+            left: 22px;
+            right: 22px;
+            bottom: 22px;
+            z-index: 2;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+
+            & .proj-showcase-tagline {
+                & p {
+                    font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+                    font-weight: 600;
+                    color: #fff;
+                    line-height: 1.15;
+                    max-width: 420px;
+                }
+
+                & .proj-showcase-cta {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-top: 14px;
+                    font-size: 11px;
+                    letter-spacing: .08em;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    color: #fff;
+                    text-decoration: none;
+                    border-bottom: 1px solid rgba(255, 255, 255, .5);
+                    padding-bottom: 4px;
+                }
+            }
+
+            & .proj-showcase-meta {
+                text-align: right;
+                font-size: 11px;
+                line-height: 1.5;
+                color: rgba(255, 255, 255, .55);
+                max-width: 220px;
+            }
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, .1) 0%, transparent 35%, rgba(0, 0, 0, .7) 100%);
+            pointer-events: none;
         }
     }
 
     @media (max-width: 768px) {
         width: calc(100% - 20px);
-        margin: 40px 10px 0;
-        aspect-ratio: 4 / 5;
-        border-radius: 1em;
+        padding: 14px;
+        border-radius: 1.1em;
 
-        & .proj-featured-bottom {
-            padding: 24px;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
+        & .proj-showcase-frame {
+            aspect-ratio: 4 / 5;
 
-            & .proj-featured-desc {
-                max-width: 100%;
-                text-align: left;
+            & .proj-showcase-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+
+                & .proj-showcase-meta {
+                    text-align: left;
+                    max-width: 100%;
+                }
             }
         }
     }
 }
 
-/* ---------- LABEL DE SEÇÃO (reaproveita padrão "Vencedores / Sites recentes") ---------- */
-.proj-section-label {
-    max-width: 1200px;
-    margin: 90px auto 0;
-    padding: 0 50px;
+/* ---------- 4. "MAIS RECENTE",  eyebrow + título gigante + subtítulo ---------- */
+.proj-section-huge {
+    text-align: center;
+    margin: 110px auto 0;
+    padding: 0 20px;
 
     & .proj-eyebrow {
-        text-align: left;
-        margin-bottom: 10px;
+        margin-bottom: 4px;
     }
 
     & h2 {
-        font-size: clamp(2rem, 3.6vw, 3rem);
-        font-weight: 600;
-        color: #000000;
+        font-size: clamp(3rem, 9vw, 6.6rem);
+        font-weight: 800;
+        letter-spacing: -.02em;
+        color: #000;
+        text-transform: uppercase;
+        line-height: 1;
+    }
+
+    & p {
+        margin-top: 18px;
+        font-size: 1.05rem;
+        color: rgba(0, 0, 0, .5);
     }
 
     @media (max-width: 768px) {
-        padding: 0 20px;
-        margin-top: 60px;
+        margin-top: 70px;
     }
 }
 
-/* ---------- GRID DE PROJETOS ---------- */
-.proj-grid {
+/* ---------- 5. GRID 2 COLUNAS (destaques grandes) ---------- */
+.proj-highlight-grid {
     max-width: 1200px;
-    margin: 40px auto 0;
-    padding: 0 50px 60px;
+    margin: 50px auto 0;
+    padding: 0 50px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
 
-    @media (max-width: 900px) {
-        grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 800px) {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+}
+
+.proj-tile {
+    display: block;
+    text-decoration: none;
+
+    & .proj-tile-img {
+        position: relative;
+        aspect-ratio: 4 / 3;
+        border-radius: 1em;
+        overflow: hidden;
+        background: #111;
+
+        & img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s cubic-bezier(.65, 0, .35, 1);
+            filter: brightness(.7);
+            &.vid {
+                transition: all 1s;
+                z-index: 10;
+                &:hover {
+                    opacity: 0;
+                }
+            }
+        }
+
+        & .proj-tile-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1a, #000);
+            font-family: 'SUSE Mono', monospace;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .16);
+        }
     }
 
-    @media (max-width: 600px) {
+    & .proj-tile-caption {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        font-size: .95rem;
+        color: #000;
+        font-weight: 700;
+
+        & span.by {
+            font-weight: 400;
+            color: rgba(0, 0, 0, .5);
+        }
+
+        & .proj-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 8px;
+            font-weight: 700;
+        }
+
+        & .proj-pro {
+            font-size: 9px;
+            font-weight: 700;
+            color: rgba(0, 0, 0, .4);
+            border: 1px solid rgba(0, 0, 0, .25);
+            border-radius: 4px;
+            padding: 1px 4px;
+        }
+    }
+
+    &:hover .proj-tile-img img {
+        transform: scale(1.08);
+    }
+}
+
+/* ---------- 6. GRID VENCEDORES (2x2) ---------- */
+.proj-winners-grid {
+    max-width: 1200px;
+    margin: 50px auto 0;
+    padding: 0 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+
+    @media (max-width: 800px) {
         grid-template-columns: 1fr;
-        padding: 0 20px 40px;
-        gap: 18px;
+        padding: 0 20px;
     }
 }
 
 .proj-card {
     display: block;
     position: relative;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 11;
     border-radius: 1em;
     overflow: hidden;
     background: #111111;
     text-decoration: none;
     cursor: default;
-
-    &.proj-card--wide {
-        grid-column: span 2;
-        aspect-ratio: 16 / 9;
-
-        @media (max-width: 600px) {
-            grid-column: span 1;
-            aspect-ratio: 4 / 3;
-        }
-    }
 
     & .proj-card-img {
         position: absolute;
@@ -302,25 +472,16 @@
         align-items: center;
         justify-content: center;
         font-family: 'SUSE Mono', monospace;
-        font-size: 3.4rem;
+        font-size: 3rem;
         font-weight: 700;
         color: rgba(255, 255, 255, .14);
-        letter-spacing: -.02em;
+        background: linear-gradient(135deg, #1a1a1a, #000);
     }
 
     & .proj-card-overlay {
         position: absolute;
         inset: 0;
         background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .82) 100%);
-    }
-
-    & .proj-card-year {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        font-family: 'SUSE Mono', monospace;
-        font-size: 11px;
-        color: rgba(255, 255, 255, .55);
     }
 
     & .proj-card-bottom {
@@ -348,89 +509,491 @@
         }
     }
 
-    &:hover {
-        & .proj-card-img {
-            transform: scale(1.08);
-            filter: brightness(.85);
+    &:hover .proj-card-img {
+        transform: scale(1.08);
+        filter: brightness(.85);
+    }
+}
+
+/* ---------- 7. ACADEMIA / CURSOS (STEM Club) ---------- */
+.proj-academy-grid {
+    max-width: 1200px;
+    margin: 50px auto 0;
+    padding: 0 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+}
+
+.proj-course-card {
+    border-radius: 1em;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .08);
+
+    & .proj-course-img {
+        aspect-ratio: 16 / 10;
+        background: linear-gradient(135deg, #1a1a1a, #000);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        & svg {
+            width: 40px;
+            height: 40px;
+            stroke: #E85002;
+            fill: none;
+            stroke-width: 1.4;
+            z-index: 2;
+        }
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            filter: brightness(.8) grayscale(1);
+        }
+    }
+
+    & .proj-course-body {
+        padding: 20px;
+
+        & .proj-course-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #000;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        & .proj-course-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: .8rem;
+            color: rgba(0, 0, 0, .5);
+        }
+
+        & .proj-course-instrutor strong {
+            display: block;
+            font-size: .85rem;
+            color: #000;
+            font-weight: 600;
         }
     }
 }
 
-/* ---------- CTA FINAL ---------- */
-.proj-cta {
-    width: calc(100% - 40px);
-    margin: 80px 20px 60px;
-    border-radius: 1.4em;
-    background:
-        radial-gradient(ellipse 90% 80% at 100% 70%, #c64a1e33 0%, transparent 55%),
-        radial-gradient(ellipse 150% 90% at 93% 97%, #E85002 0%, #000000 30%, transparent 78%),
-        #000;
-    color: #F1EDE8;
-    text-align: center;
-    padding: 90px 30px;
-    font-family: "Google Sans", sans-serif;
+/* ---------- 8. COLEÇÕES / SERVIÇOS (2 cards grandes) ---------- */
+.proj-collections-grid {
+    max-width: 1200px;
+    margin: 50px auto 0;
+    padding: 0 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
 
-    & h2 {
-        font-size: clamp(2.2rem, 5vw, 3.4rem);
-        font-weight: 700;
-        margin: 0;
-
-        & em {
-            font-style: normal;
-            color: #E85002;
-        }
+    @media (max-width: 800px) {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
     }
+}
 
-    & p {
-        margin: 20px 0 36px;
-        color: rgba(241, 237, 232, .68);
-        font-size: 1.1rem;
-    }
+.proj-collection-card {
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
 
-    & .cta-row {
+    & .proj-collection-img {
+        position: relative; 
+        aspect-ratio: 16 / 11;
+        border-radius: 1em;
+        overflow: hidden;
+        background: linear-gradient(135deg, #11111169, #000000cb);
         display: flex;
-        gap: 16px;
         align-items: center;
         justify-content: center;
-        flex-wrap: wrap;
+        padding: 30px;
+        text-align: center;
+        img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        & p {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            max-width: 320px;
+        }
     }
 
-    & .btn-solid {
-        display: inline-block;
-        text-decoration: none;
-        background: #fff;
-        color: #000;
+    & .proj-collection-caption {
+        margin-top: 14px;
+        font-size: .95rem;
         font-weight: 700;
-        font-size: 1.02rem;
-        padding: 14px 30px;
-        border-radius: 1em;
-        box-shadow: 0 8px 24px -8px rgba(0, 0, 0, .5);
-        transition: transform .25s ease;
+        color: #000;
 
-        &:hover {
-            transform: translateY(-2px);
+        & span {
+            display: block;
+            margin-top: 2px;
+            font-size: .8rem;
+            font-weight: 400;
+            color: rgba(0, 0, 0, .5);
+        }
+    }
+}
+
+/* ---------- 9. DIRETÓRIO / STACK (2 cards + tabela) ---------- */
+.proj-stack-grid {
+    max-width: 1200px;
+    margin: 50px auto 0;
+    padding: 0 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    @media (max-width: 800px) {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+}
+
+.proj-stack-card {
+    position: relative;
+    border-radius: 1em;
+    overflow: hidden;
+    background: linear-gradient(160deg, #161616, #000);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    & .proj-stack-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        & .proj-stack-label {
+            font-size: 11px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .45);
+        }
+
+        & .proj-stack-badge {
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            background: rgba(255, 255, 255, .12);
+            padding: 5px 12px;
+            border-radius: 8em;
         }
     }
 
-    & .btn-ghost {
-        display: inline-block;
-        text-decoration: none;
-        background: transparent;
+    & .proj-stack-name {
+        font-size: 1.7rem;
+        font-weight: 700;
         color: #fff;
-        font-weight: 600;
-        font-size: 1.02rem;
-        padding: 13px 28px;
-        border-radius: 1em;
-        border: 1px solid rgba(255, 255, 255, .3);
-        transition: border-color .25s ease, background .25s ease;
+    }
 
-        &:hover {
-            border-color: #fff;
-            background: rgba(255, 255, 255, .06);
+    & .proj-stack-domain {
+        font-size: .8rem;
+        color: rgba(255, 255, 255, .4);
+        font-family: 'SUSE Mono', monospace;
+    }
+}
+
+.proj-table {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 0 50px;
+
+    & .proj-table-head,
+    & .proj-table-row {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr .8fr 1.6fr .9fr;
+        gap: 16px;
+        align-items: center;
+        padding: 16px 0;
+    }
+
+    & .proj-table-head {
+        font-size: .78rem;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        color: rgba(0, 0, 0, .45);
+        border-bottom: 1px solid rgba(95, 95, 95, .315);
+    }
+
+    & .proj-table-row {
+        border-bottom: 1px solid rgba(95, 95, 95, .18);
+        font-size: .92rem;
+        color: rgba(0, 0, 0, .78);
+
+        & .proj-table-name {
+            font-weight: 700;
+            color: #000;
         }
     }
 
-    @media (max-width: 768px) {
-        padding: 60px 20px;
+    & .proj-table-btn {
+        justify-self: end;
+        padding: 8px 18px;
+        border-radius: 8em;
+        border: 1px solid rgba(0, 0, 0, .18);
+        background: transparent;
+        font-size: .82rem;
+        font-weight: 600;
+        color: #000;
+        text-decoration: none;
+        white-space: nowrap;
     }
+
+    @media (max-width: 800px) {
+        padding: 0 20px;
+
+        & .proj-table-head {
+            display: none;
+        }
+
+        & .proj-table-row {
+            grid-template-columns: 1fr;
+            gap: 4px;
+            padding: 18px 0;
+
+            & .proj-table-btn {
+                justify-self: start;
+                margin-top: 10px;
+            }
+        }
+    }
+}
+
+/* ---------- 10. BLOG (3 cards + 1 largo) ---------- */
+.proj-blog-grid {
+    max-width: 1200px;
+    margin: 50px auto 0;
+    padding: 0 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+}
+
+.proj-article-card {
+    display: block;
+    text-decoration: none;
+    border-radius: 1em;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .08);
+
+    &.wide {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+
+        @media (max-width: 900px) {
+            grid-column: span 1;
+            grid-template-columns: 1fr;
+        }
+    }
+
+    & .proj-article-img {
+        aspect-ratio: 16 / 10;
+        background: linear-gradient(135deg, #161616, #000);
+    }
+
+    & .proj-article-body {
+        padding: 20px;
+
+        & .proj-article-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        & .proj-article-excerpt {
+            font-size: .88rem;
+            line-height: 1.55;
+            color: rgba(0, 0, 0, .5);
+        }
+    }
+}
+
+/* ---------- 11. MERCADO / LOJA (3 cards de produto) ---------- */
+.proj-market-grid {
+    max-width: 1200px;
+    margin: 50px auto 0;
+    padding: 0 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+}
+
+.proj-product-card {
+    border-radius: 1em;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .08);
+
+    & .proj-product-img {
+        aspect-ratio: 4 / 3;
+        background: linear-gradient(160deg, #1a1a1a, #000);
+    }
+
+    & .proj-product-body {
+        padding: 18px 20px;
+
+        & .proj-product-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: rgba(0, 0, 0, .45);
+        }
+
+        & .proj-product-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #000;
+            margin: 6px 0 14px;
+        }
+
+        & .proj-product-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            & .proj-product-price {
+                font-size: .85rem;
+                font-weight: 600;
+                color: rgba(0, 0, 0, .55);
+            }
+
+            & a {
+                font-size: .85rem;
+                font-weight: 700;
+                color: #000;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+            }
+        }
+    }
+}
+
+/* ---------- 12. DOIS BANNERS FINAIS ---------- */
+.proj-banners {
+    max-width: 1200px;
+    margin: 90px auto 0;
+    padding: 0 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+
+    @media (max-width: 800px) {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+}
+
+.proj-banner {
+    position: relative;
+    border-radius: 1.2em;
+    overflow: hidden;
+    background: linear-gradient(160deg, #16161650, #00000060);
+    padding: 40px;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        filter: brightness(.3) grayscale(1);
+        z-index: -1;
+    }
+    
+
+    & .proj-banner-eyebrow {
+        font-size: 11px;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, .45);
+        margin-bottom: 14px;
+    }
+
+    & h3 {
+        font-size: clamp(1.5rem, 2.6vw, 2rem);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.2;
+        max-width: 320px;
+    }
+
+    & .proj-banner-btn {
+        margin-top: 30px;
+        display: inline-block;
+        width: fit-content;
+        padding: 12px 26px;
+        border-radius: 8em;
+        border: 1px solid rgba(255, 255, 255, .4);
+        color: #fff;
+        font-size: .9rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background .25s ease, border-color .25s ease;
+
+        &:hover {
+            background: #E85002;
+            border-color: #E85002;
+        }
+    }
+
+    & .proj-banner-faq {
+        margin-top: 14px;
+        font-size: .78rem;
+        color: rgba(255, 255, 255, .4);
+
+        & a {
+            color: rgba(255, 255, 255, .7);
+            text-decoration: underline;
+        }
+    }
+}
+
+.proj-bottom-space {
+    height: 70px;
 }

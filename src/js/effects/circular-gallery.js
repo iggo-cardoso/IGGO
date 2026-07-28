@@ -448,7 +448,7 @@ class App {
     window.removeEventListener('touchend',   this._onTouchUp);
     if (this.gl.canvas.parentNode) this.gl.canvas.parentNode.removeChild(this.gl.canvas);
 
-    // libera o contexto WebGL de fato — sem isso, o navegador pode demorar
+    // libera o contexto WebGL de fato,  sem isso, o navegador pode demorar
     // pra coletar contextos antigos e, depois de algumas idas e voltas pra
     // home, bate no limite de contextos WebGL simultâneos (geralmente
     // 8-16) e a galeria simplesmente para de aparecer, sem erro nenhum.
@@ -461,16 +461,16 @@ class App {
    Antes, `container` era pego uma única vez no carregamento do script,
    e o App WebGL criado sobre ele nunca era destruído. Quando o
    page-router troca de página e volta pra home, o #gallery-container é
-   recriado do zero (snapshot) — o App antigo continuava rodando seu
+   recriado do zero (snapshot),  o App antigo continuava rodando seu
    loop de render e seus listeners de wheel/touch presos no <canvas>
    órfão (que ninguém via mais), e o novo #gallery-container nunca
    ganhava sua própria galeria. A classe App já tinha um destroy()
-   pronto — só faltava chamar. */
+   pronto,  só faltava chamar. */
 let currentApp = null;
 let generation = 0;
 
 function initGallery(myGen) {
-  if (myGen !== generation) return; // um pagechange mais novo já assumiu — descarta esta tentativa
+  if (myGen !== generation) return; // um pagechange mais novo já assumiu,  descarta esta tentativa
 
   const container = document.getElementById('gallery-container');
   if (!container) return; // página atual não tem galeria
@@ -486,7 +486,7 @@ function initGallery(myGen) {
   }
 
   // limpa qualquer resto (ex: o <canvas> antigo que já veio dentro do
-  // #gallery-container quando o snapshot da home foi restaurado — ele
+  // #gallery-container quando o snapshot da home foi restaurado,  ele
   // fica ocupando espaço e o overflow:hidden do container acaba
   // escondendo o canvas novo atrás dele)
   container.innerHTML = '';

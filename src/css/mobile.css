@@ -152,7 +152,7 @@
     object-position: var(--img-x) var(--img-y);
   }
 
-  /* ajuste fino por imagem SÓ NO MOBILE — só preenche o que precisar,
+  /* ajuste fino por imagem SÓ NO MOBILE,  só preenche o que precisar,
      o resto continua usando o valor do desktop (index.css) */
   
   .slide[data-slide-index="4"] { --img-zoom: 1;  --img-x: 40%; }

@@ -46,7 +46,7 @@ a{color:inherit;text-decoration:none;}
   }
 }
 
-/* Shared button/price components — reused inside both .hero and .cta-final,
+/* Shared button/price components,  reused inside both .hero and .cta-final,
    so they stay top-level instead of being nested under just one section */
 .navcta{
   background:var(--ink);color:var(--off);font-weight:600;font-size:13px;

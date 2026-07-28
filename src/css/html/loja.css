@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   LOJA IGGO — estilos exclusivos desta página
+   LOJA IGGO,  estilos exclusivos desta página
    Carregado via <link> dentro do próprio fragmento (/pages/loja.html),
    mesmo padrão de sobre.html / book-iggostudios.html.
 
@@ -7,7 +7,7 @@
    (fundo claro, preto, laranja #E85002) e o vocabulário visual do
    .book / .cta-final (cards pretos com gradiente radial).
 
-   Só design — sem lógica de compra, filtro ou carrinho. Isso fica
+   Só design,  sem lógica de compra, filtro ou carrinho. Isso fica
    pra depois.
    ═══════════════════════════════════════════════════════════════ */
 
@@ -74,10 +74,10 @@ body.pg-loja .navtop {
     }
 }
 
-/* ---------- SUBNAV — faixa de categorias logo abaixo do navtop ----------
+/* ---------- SUBNAV,  faixa de categorias logo abaixo do navtop ----------
    Equivalente à 2ª barra preta do SHEIN (Categorias / Só pra você /
    Novo em / ...). Fica sticky colado embaixo do navtop (70px de altura
-   no desktop). Só visual — ainda sem lógica de filtro real. */
+   no desktop). Só visual,  ainda sem lógica de filtro real. */
 .loja-subnav {
     position: sticky;
     top: 0px;
@@ -204,7 +204,7 @@ body.pg-loja .navtop {
     gap: 28px;
 }
 
-/* filtros de categoria — visual apenas, sem interação real ainda */
+/* filtros de categoria,  visual apenas, sem interação real ainda */
 .loja-filters {
     display: flex;
     align-items: center;
@@ -250,13 +250,13 @@ body.pg-loja .navtop {
     transition: opacity .2s ease, transform .2s ease;
 }
 
-/* estado transitório enquanto o filtro troca — ver loja.js */
+/* estado transitório enquanto o filtro troca,  ver loja.js */
 .loja-card.loja-card--out {
     opacity: 0;
     transform: scale(.96);
 }
 
-/* ---------- ESTADO VAZIO — quando o filtro ativo não bate com
+/* ---------- ESTADO VAZIO,  quando o filtro ativo não bate com
    nenhum produto (ex: Gratuitos, Comunidade) ---------- */
 .loja-empty {
     grid-column: 1 / -1;
@@ -501,13 +501,13 @@ body.pg-loja .navtop {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   VITRINE — banner central + trilhos de apoio nas laterais, e
+   VITRINE,  banner central + trilhos de apoio nas laterais, e
    trilho de categorias em círculo logo abaixo.
    Organização inspirada em vitrines de marketplace (banner grande +
    cards de apoio + atalhos de categoria), reaproveitando a mesma
    paleta/vocabulário visual do restante da loja.
 
-   Só visual — setas, dots e cards não têm função real ainda.
+   Só visual,  setas, dots e cards não têm função real ainda.
    ═══════════════════════════════════════════════════════════════ */
 
 .loja-showcase-section {
@@ -610,7 +610,7 @@ body.pg-loja .navtop {
     flex-direction: column;
 }
 
-/* ---------- SLIDES — cada .loja-showcase-slide é um slide completo do
+/* ---------- SLIDES,  cada .loja-showcase-slide é um slide completo do
    carrossel; só o .is-active fica visível. Troca é um crossfade simples
    (opacity), controlado por src/js/effects/loja.js. ---------- */
 .loja-showcase-slides {

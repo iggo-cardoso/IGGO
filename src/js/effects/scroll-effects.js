@@ -33,11 +33,11 @@ document.addEventListener('DOMContentLoaded', function () {
      Antes eram const, montadas UMA VEZ no DOMContentLoaded (que só
      dispara na carga real da página). Quando o page-router troca de
      página e volta pra home, os elementos com data-effect são
-     recriados do zero no DOM — essas listas ficavam com referências
+     recriados do zero no DOM,  essas listas ficavam com referências
      órfãs (fora do DOM), então parallax/fade-scroll/fade-viewport
      paravam de responder até dar F5. Agora refreshEls() reconstrói
      tudo, chamada no load e sempre que o router termina uma
-     navegação ('pagechange' — disparado pro page-router.js em
+     navegação ('pagechange',  disparado pro page-router.js em
      qualquer troca, não só pra home, já que qualquer página pode ter
      esses data-effect). */
   let parallaxEls     = [];

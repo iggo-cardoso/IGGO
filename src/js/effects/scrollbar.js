@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════
-// CUSTOM SCROLLBAR — substitui a nativa, integrada ao lerp do index.js
+// CUSTOM SCROLLBAR,  substitui a nativa, integrada ao lerp do index.js
 //
 // Requer que index.js tenha rodado antes e exposto window.__scrollLerp
 // (getTarget, setTarget, maxScroll). Funciona igual em desktop (lerp)

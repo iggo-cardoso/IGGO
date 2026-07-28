@@ -4,7 +4,7 @@
 // Tiras verticais de ~180px, cor #E85002, descem de cima cobrindo a tela
 // numa onda que nasce na tira mais à direita (ela sempre entra primeiro
 // e fica por cima das outras, no z-index). As demais seguem "disputando"
-// espaço com atrasos e z-index sorteados aleatoriamente — não é uma
+// espaço com atrasos e z-index sorteados aleatoriamente,  não é uma
 // varredura limpa e sequencial, é uma bagunça organizada.
 //
 // Depois que a tela está 100% coberta, o conteúdo da página é trocado
@@ -76,7 +76,7 @@
   }
 
   // z-index aleatório para todas, exceto a última (mais à direita), que
-  // fica sempre na frente — ela é a "primeira" tanto no tempo quanto na
+  // fica sempre na frente,  ela é a "primeira" tanto no tempo quanto na
   // pilha. As outras disputam a ordem entre si.
   function randomZ(count, forceLastOnTop) {
     const z = new Array(count);
@@ -115,11 +115,11 @@
     const count = buildStrips();
     overlay.style.pointerEvents = 'auto';
 
-    // fase 1 — cobrir: onda vindo da direita, tira da direita sempre no topo
+    // fase 1,  cobrir: onda vindo da direita, tira da direita sempre no topo
     applyZIndex(randomZ(count, true));
     await animateAll(waveDelays(count), '-100%', '0%', COVER_MS);
 
-    // tela 100% coberta — mostra o "saying" no centro, segura um instante
+    // tela 100% coberta,  mostra o "saying" no centro, segura um instante
     // e troca o conteúdo por baixo
     saying.classList.add('is-visible');
     const swapStart = performance.now();
@@ -133,7 +133,7 @@
       const remaining = HOLD_MS + HOLD_AFTER_MS - elapsed;
       if (remaining > 0) await new Promise((r) => setTimeout(r, remaining));
 
-      // fase 2 — sair: novo sorteio de z-index e atrasos, revela a página nova
+      // fase 2,  sair: novo sorteio de z-index e atrasos, revela a página nova
       applyZIndex(randomZ(count, false));
       saying.classList.remove('is-visible');
       await animateAll(waveDelays(count), '0%', '100%', UNCOVER_MS);

@@ -1,23 +1,25 @@
+import '../../css/html/loja.css';
+
 // ═══════════════════════════════════════════════════════════════
-// LOJA IGGO — funções da página /pages/loja.html
+// LOJA IGGO,  funções da página /pages/loja.html
 //
 // Fica em src/js/effects/ e é importado globalmente em main.js
 // (igual scroll-band.js) porque o fragmento da loja é injetado no
-// #page-root via innerHTML pelo page-router — <script> dentro de um
+// #page-root via innerHTML pelo page-router,  <script> dentro de um
 // innerHTML NUNCA executa. Então, em vez de um <script> dentro do
 // próprio loja.html, este módulo fica de prontidão o tempo todo e só
 // "liga" quando os elementos .loja-* aparecem no DOM.
 //
 // Reinicializa em cada 'pagechange' (disparado pelo page-router) e
 // limpa os listeners/timers da instância anterior antes de montar de
-// novo — mesmo cuidado do scroll-band.js, senão a página volta "morta"
+// novo,  mesmo cuidado do scroll-band.js, senão a página volta "morta"
 // quando o usuário sai e retorna pra loja sem dar F5.
 //
 // O que este módulo liga:
-//   1) Filtro de categoria — sincronizado entre subnav, pills,
+//   1) Filtro de categoria,  sincronizado entre subnav, pills,
 //      mini-cards da vitrine, botões dos slides e trilho de categorias.
-//   2) Carrossel da vitrine (loja-showcase) — setas, dots e autoplay.
-//   3) Trilho de categorias em círculo — setas fazem scroll horizontal.
+//   2) Carrossel da vitrine (loja-showcase),  setas, dots e autoplay.
+//   3) Trilho de categorias em círculo,  setas fazem scroll horizontal.
 // ═══════════════════════════════════════════════════════════════
 (function () {
   'use strict';
@@ -102,7 +104,7 @@
       const cat = el.dataset.filter;
       if (!cat) return;
 
-      // pills dentro da própria grade não precisam rolar a tela —
+      // pills dentro da própria grade não precisam rolar a tela, 
       // o usuário já está olhando pros produtos. O resto (subnav,
       // vitrine, trilho de categorias, empty-state) rola até a grade.
       const insideGridHeader = el.closest('.loja-filters');

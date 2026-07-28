@@ -1,10 +1,10 @@
 // ═══════════════════════════════════════════════════════════════
-// MOMENTUM SCROLL — v2 (mobile-safe)
+// MOMENTUM SCROLL,  v2 (mobile-safe)
 //
 // PROBLEMA ORIGINAL:
 //   onTouchMove chamava e.preventDefault() com { passive: false }.
 //   Isso cancela o scroll nativo do browser e força o JS a
-//   controlar toda a rolagem manualmente — muito mais pesado
+//   controlar toda a rolagem manualmente,  muito mais pesado
 //   no mobile, causa jank e "engasgo" em scrolls rápidos.
 //
 // CORREÇÃO:
@@ -109,7 +109,7 @@ if (!IS_TOUCH) {
       target = Math.max(0, Math.min(v, maxScroll()));
       startLoop();
     },
-    // pula direto pro topo sem animação — usado ao trocar de página
+    // pula direto pro topo sem animação,  usado ao trocar de página
     reset: () => {
       if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
       target = 0;
@@ -120,7 +120,7 @@ if (!IS_TOUCH) {
     maxScroll,
   };
 } else {
-  // Em mobile não há lerp — expõe um shim que age direto no scroll nativo,
+  // Em mobile não há lerp,  expõe um shim que age direto no scroll nativo,
   // assim quem usa __scrollLerp funciona igual nos dois casos.
   window.__scrollLerp = {
     getTarget: () => window.scrollY,

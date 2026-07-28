@@ -1,4 +1,4 @@
-// loader.js — v2
+// loader.js,  v2
 // Pré-carrega E pré-decodifica todos os assets críticos antes de liberar a página.
 // img.decode() força o decode JPEG/PNG/WebP na GPU antes da primeira exibição,
 // eliminando o jank de ~200-400ms que ocorre quando o browser decodifica on-demand.
@@ -22,7 +22,7 @@ function getCardImages() {
 
 // Faz download + decode completo antes de resolver.
 // img.decode() retorna Promise que só resolve quando a imagem
-// está totalmente decodificada e pronta para composite — zero jank depois.
+// está totalmente decodificada e pronta para composite,  zero jank depois.
 function preloadAndDecode(src) {
   return new Promise(resolve => {
     const img = new Image();

@@ -29,7 +29,7 @@ const data = [
    Antes essas variáveis eram const/let únicas, pegas UMA VEZ no
    carregamento do script. Quando o page-router troca de página e
    volta pra home, o #section/#sticky/#slides são recriados do zero
-   (snapshot vira innerHTML novo) — os nós antigos referenciados aqui
+   (snapshot vira innerHTML novo),  os nós antigos referenciados aqui
    ficam órfãos (fora do DOM) e o scroll/resize passam a atualizar
    elementos que ninguém vê. Por isso só um F5 (que reexecuta o script
    do zero) resolvia. Agora tudo isso é reatribuído em init(). */
@@ -55,7 +55,7 @@ function readImgZooms() {
 }
 
 function buildSlides() {
-  // limpa antes de reconstruir — evita duplicar imagens/textos caso
+  // limpa antes de reconstruir,  evita duplicar imagens/textos caso
   // o #slides restaurado do snapshot já venha com os nós antigos
   slidesEl.innerHTML = ''
   imgs  = []
@@ -68,7 +68,7 @@ function buildSlides() {
     // data-slide-index é o que o CSS usa pra mirar cada imagem
     // (ex: .slide[data-slide-index="1"] { --img-zoom: 0.9; }).
     // O zoom/posição da imagem em si (--img-zoom, --img-x, --img-y)
-    // fica 100% no CSS (index.css = desktop, mobile.css = mobile) —
+    // fica 100% no CSS (index.css = desktop, mobile.css = mobile), 
     // esse JS só lê o valor que já foi definido lá, não define nada.
     img.dataset.slideIndex = i
     img.style.opacity = i === 0 ? '1' : '0'
@@ -84,7 +84,7 @@ function buildSlides() {
     texts.push(t)
   })
 
-  /* lê --img-zoom (definido no CSS) de cada imagem e guarda num array —
+  /* lê --img-zoom (definido no CSS) de cada imagem e guarda num array, 
      não precisa ler a cada frame do scroll, só quando monta a página e
      quando muda de desktop pra mobile (ou vice-versa), já que é aí que
      o valor pode mudar (mobile.css sobrescreve index.css). */
@@ -105,14 +105,14 @@ function calc() {
    Em vez de dar scale(scaleX, scaleY) no container inteiro (que distorce a
    proporção e obriga o navegador a repintar o .sticky + seus filhos toda
    hora), o clip-path corta um retângulo central que vai se abrindo até
-   cobrir 100% da área — clip-path roda direto na GPU (compositor layer),
+   cobrir 100% da área,  clip-path roda direto na GPU (compositor layer),
    então fica bem mais leve que animar scale/transform num container com
    overflow:hidden e pseudo-elemento de ruído por cima. */
 const CLIP_INITIAL = 25 // % de inset no início (retângulo central, 50% de área)
 const CLIP_FINAL   = 75
 
 /* ---------- ZOOM DO COMPONENTE: MENOR NO MOBILE ----------
-   Isso é o zoom do EFEITO de scroll (não da imagem em si — pra
+   Isso é o zoom do EFEITO de scroll (não da imagem em si,  pra
    mexer na imagem, edita --img-zoom/--img-x/--img-y no CSS). No PC
    as fotos são paisagem e o container é bem próximo do aspect-ratio
    delas, então dá pra começar com um zoom-in de 1.14 sem perder
@@ -155,17 +155,17 @@ function tick() {
 
   /* ---------- CROSSFADE CONTÍNUO ----------
      Antes: classList.add/remove('active') trocava o slide inteiro num
-     frame só (opacidade 0→1 instantânea) — dava a sensação de travado.
+     frame só (opacidade 0→1 instantânea),  dava a sensação de travado.
      Depois, uma função triangular pura (pico exatamente no centro do
      segmento) fazia o slide começar a desvanecer assim que passava do
-     meio — por isso trocava "rápido demais" e nunca segurava a imagem em
+     meio,  por isso trocava "rápido demais" e nunca segurava a imagem em
      opacidade 1 real; nas pontas do scroll (p=0 e p=1) o primeiro/último
      slide ficavam presos em ~0.5.
 
      Agora é um trapézio: cada slide fica em opacidade 1 (platô) durante
      boa parte do seu segmento, e só desvanece perto da borda que divide
      com o vizinho. O primeiro slide não tem fade-in (já nasce em 1) e o
-     último não tem fade-out (termina em 1) — resolve o "final transparente". */
+     último não tem fade-out (termina em 1),  resolve o "final transparente". */
   const n       = data.length
   const segLen  = 1 / n
   const overlap = segLen * 0.3 // fração do segmento gasta na transição (dividida entre as duas bordas)
@@ -206,7 +206,7 @@ function init() {
   const newSection  = document.getElementById('section')
   const newSticky   = document.getElementById('sticky')
 
-  // página atual não tem essa section (ex: outra rota) — não faz nada
+  // página atual não tem essa section (ex: outra rota),  não faz nada
   if (!newSlidesEl || !newSection || !newSticky) return
 
   slidesEl = newSlidesEl

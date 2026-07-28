@@ -1,15 +1,15 @@
 // ═══════════════════════════════════════════════════════════════
-// PAGE ROUTER — fetch de páginas reais, sem reload
+// PAGE ROUTER,  fetch de páginas reais, sem reload
 //
 // Trigger:   <li data-page="projetos">...</li>  (dentro da .navtop)
 // Fragmento: /pages/projetos.html (public/pages/projetos.html)
 // Container: <main id="page-root">...</main>    ← único conteúdo vivo no DOM
 //
-// A "home" NUNCA é buscada por fetch — ela já vem pré-renderizada no
+// A "home" NUNCA é buscada por fetch,  ela já vem pré-renderizada no
 // index.html. Um snapshot do innerHTML original é guardado em memória
 // na primeira carga, e reusado ao voltar pra home (sem rede, sem reload).
 // Isso evita reativar o loader.js (que remove o #site-loader do DOM e
-// só roda uma vez) — um fetch falho de /pages/home.html inexistente
+// só roda uma vez),  um fetch falho de /pages/home.html inexistente
 // caía no fallback location.href='/', causando reload real e a tela
 // de loading "travada" reaparecendo.
 // ═══════════════════════════════════════════════════════════════
@@ -114,14 +114,14 @@
         container.innerHTML = homeSnapshot;
       }
       // se homeSnapshot ainda for null, a home já está com o conteúdo
-      // certo no DOM (primeira carga) — não mexe em nada
+      // certo no DOM (primeira carga),  não mexe em nada
       finishNavigation(name, { pushHistory, scroll });
       return;
     }
 
     // saindo da home pela 1ª vez: guarda o snapshot SÓ AGORA, depois que
     // os módulos de efeito (scroll-expand-card etc.) já rodaram e
-    // popularam o conteúdo dinâmico — snapshot pego cedo demais capturava
+    // popularam o conteúdo dinâmico,  snapshot pego cedo demais capturava
     // a home ainda vazia/pré-efeitos
     if (currentPage === DEFAULT_PAGE && homeSnapshot === null) {
       homeSnapshot = container.innerHTML;
