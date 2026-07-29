@@ -520,8 +520,9 @@ header {
 
 .skills {
     padding: 100px 0 0 50px;
-    margin-bottom: 100px;
+    margin-bottom: 160px;
     background: #000000;
+    position: relative;
     h2 {
         font-size: 3.8rem;
         font-weight: 500;
