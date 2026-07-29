@@ -106,24 +106,85 @@
         padding: 10px 0;
         margin-top: 30px;
         margin-bottom: 50px;
-        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         button {
-            width: 100%;
-            justify-content: center;
-            font-size: 1rem;
-            padding: 15px 15px !important;
+            background: #f5f5f710;
+            color: #000000;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 15px;
+            border-radius: .8em;
+            border: 0;
+            -webkit-backdrop-filter: blur(1px);
+            backdrop-filter: blur(1px);
+            position: relative;
+            box-shadow: -3px 5px 5px #00000004,  -1px 3px 5px #ffffff4f;  
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* z-index: 3 removido,  criava stacking context no button */
+
+            &::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: .8em;
+                border: 2px solid transparent;
+                background:
+                    conic-gradient(
+                        from -55deg,
+                        rgba(255,255,255,0.0)   0deg,
+                        rgba(255,255,255,0.08)  45deg,
+                        rgba(255, 255, 255, 0.825)      90deg,
+                        rgba(255,255,255,0.781) 135deg,
+                        rgba(255,255,255,0.0)   180deg,
+                        rgba(255,255,255,0.08)  225deg,
+                        rgb(255, 255, 255, 0.825)      270deg,
+                        rgba(255,255,255,0.781) 315deg,
+                        rgba(255,255,255,0.0)   360deg
+                    ) border-box;
+                -webkit-mask:
+                    linear-gradient(#fff 0 0) padding-box,
+                    linear-gradient(#fff 0 0);
+                -webkit-mask-composite: destination-out;
+                mask-composite: exclude;
+                z-index: -1;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                width: 30%;
+                height: 20px;
+                background: #0a3abf4f;
+                opacity: .5;
+                border-radius: 50%;
+                z-index: -1; /* era -2, sobe um nível */
+                filter: blur(20px);
+            }
+
             span {
-                background: rgb(216, 216, 220);
-                color: #000;
+                background: #E85002;
+                color: #fff;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 padding: 5px;
                 border-radius: .5em;
             }
+
             &:nth-of-type(1) {
-                padding: 11px 15px 11px 12px !important;
-                text-wrap: nowrap;
+                background: #000000;
+                /* background: #000000; */
+                color: rgb(216, 216, 220);
+                padding: 6px 15px 6px 6px;
+                &::before, 
+                &::after {
+                    display: none;
+                }
             }
         }
     }
