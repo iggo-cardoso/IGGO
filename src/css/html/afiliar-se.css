@@ -1,0 +1,282 @@
+.afil-hero {
+    max-width: 900px;
+    margin: 140px auto 60px;
+    padding: 0 40px;
+    text-align: center;
+
+    .afil-eyebrow {
+        display: inline-block;
+        font-size: .78rem;
+        letter-spacing: .12em;
+        color: #E85002;
+        margin-bottom: 18px;
+    }
+
+    .afil-title {
+        font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+        font-weight: 600;
+        line-height: 1.15;
+        color: #000;
+        margin-bottom: 22px;
+
+        .brand-color {
+            color: #E85002;
+        }
+    }
+
+    .afil-subtitle {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: rgb(95, 95, 95);
+        max-width: 640px;
+        margin: 0 auto;
+    }
+}
+
+.afil-form-section {
+    max-width: 640px;
+    margin: 0 auto 120px;
+    padding: 0 40px;
+}
+
+.afil-progress {
+    margin-bottom: 40px;
+
+    .afil-progress-bar {
+        height: 4px;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, .08);
+        overflow: hidden;
+        margin-bottom: 14px;
+
+        .afil-progress-fill {
+            display: block;
+            height: 100%;
+            width: 25%;
+            background: #E85002;
+            border-radius: 4px;
+            transition: width .35s ease;
+        }
+    }
+
+    .afil-progress-steps {
+        display: flex;
+        justify-content: space-between;
+
+        .afil-progress-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'SUSE Mono', monospace;
+            font-size: .78rem;
+            color: rgba(0, 0, 0, .35);
+
+            em {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                border: 1px solid rgba(0, 0, 0, .2);
+                font-style: normal;
+                font-size: .72rem;
+            }
+
+            &.is-active {
+                color: #000;
+
+                em {
+                    border-color: #E85002;
+                    background: #E85002;
+                    color: #fff;
+                }
+            }
+
+            &.is-done em {
+                border-color: #000;
+                background: #000;
+                color: #fff;
+            }
+        }
+    }
+}
+
+.afil-form {
+    .afil-step {
+        display: none;
+        flex-direction: column;
+        gap: 18px;
+        border: 0;
+        padding: 0;
+
+        &.is-active {
+            display: flex;
+        }
+
+        .afil-step-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 4px;
+        }
+    }
+
+    .afil-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        span {
+            font-size: .88rem;
+            color: rgb(95, 95, 95);
+
+            em {
+                color: #E85002;
+                font-style: normal;
+            }
+        }
+
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+            font-size: .95rem;
+            padding: 13px 16px;
+            border-radius: .9em;
+            border: 1px solid rgba(0, 0, 0, .15);
+            background: #fff;
+            color: #000;
+            resize: vertical;
+
+            &:focus-visible {
+                outline: 2px solid #E85002;
+                outline-offset: 1px;
+            }
+        }
+    }
+
+    .afil-radio-row {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .9rem;
+            color: #000;
+        }
+    }
+
+    .afil-hp {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
+
+    .afil-review {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 24px;
+        padding: 18px 20px;
+        border-radius: 1em;
+        background: rgba(0, 0, 0, .03);
+
+        div {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: .9rem;
+
+            dt {
+                color: rgb(95, 95, 95);
+            }
+
+            dd {
+                color: #000;
+                font-weight: 500;
+                text-align: right;
+            }
+        }
+    }
+
+    .afil-checkbox {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: .88rem;
+        color: rgb(95, 95, 95);
+        margin-bottom: 6px;
+
+        input {
+            margin-top: 3px;
+        }
+    }
+
+    .afil-msg {
+        font-size: .85rem;
+        min-height: 1.2em;
+
+        &.is-success {
+            color: #1a8a4a;
+        }
+
+        &.is-error {
+            color: #d13b1e;
+        }
+    }
+
+    .afil-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 32px;
+    }
+
+    .afil-btn {
+        font-family: 'SUSE Mono', monospace;
+        font-size: .88rem;
+        padding: 13px 26px;
+        border-radius: 1em;
+        border: 1px solid rgba(0, 0, 0, .15);
+        background: #fff;
+        color: #000;
+        cursor: pointer;
+
+        &.afil-btn-solid {
+            background: #000;
+            border-color: #000;
+            color: #fff;
+            margin-left: auto;
+        }
+
+        &:disabled {
+            opacity: .5;
+            cursor: default;
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .afil-hero {
+        margin-top: 100px;
+    }
+
+    .afil-progress-steps .afil-progress-step span {
+        display: none;
+    }
+
+    .afil-review div {
+        flex-direction: column;
+        gap: 2px;
+
+        dd {
+            text-align: left;
+        }
+    }
+}
