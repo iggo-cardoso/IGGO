@@ -521,14 +521,14 @@ header {
 .skills {
     padding: 100px 0 0 50px;
     margin-bottom: 160px;
-    background: #E85002;
+    background: #000000;
     position: relative;
     h2 {
         font-size: 3.8rem;
         font-weight: 500;
         font-family: "Google Sans", sans-serif;
         span {
-            color: #000;
+            color: #fff;
         }
     }
     .cards-wrap {
@@ -538,10 +538,10 @@ header {
         overflow: hidden;
         margin: 100px 50px 0 0;
         padding: 0 0 260px 0;
-        border-bottom: 1px solid #000;
+        border-bottom: 1px solid rgba(95, 95, 95, 0.315);
         .card {
             padding: 20px;
-            border-right: 1px solid #000;
+            border-right: 1px solid rgba(95, 95, 95, 0.315);
             &:last-of-type {
                 border-right: none;
             }
@@ -552,7 +552,7 @@ header {
                  padding: 0px 10px 20px 0px;
                  .icon-wrap {
                     border-radius: 8em;
-                    border: 1px solid #000;
+                    border: 1px solid rgb(95, 95, 95);
                     width: 45px;
                     height: 45px;
                     display: flex;
@@ -561,7 +561,7 @@ header {
                     svg {
                         width: 18px; 
                         height: 18px; 
-                        stroke: #000; 
+                        stroke: #fff; 
                         fill: none; 
                         stroke-width: 1.5; 
                         stroke-linecap: round; 
@@ -569,7 +569,7 @@ header {
                     }
                  }
                  .num {
-                    color: #000;
+                    color: #fff;
                  }
             }
 
@@ -577,11 +577,11 @@ header {
                 font-size: 1.6rem;
                 margin-bottom: 20px;
                 font-weight: 600;
-                color: #000;
+                color: #fff;
             }
 
             .card-body {
-                color: #000;
+                color: rgb(95, 95, 95);
                 font-weight: 300;
             }
         }
