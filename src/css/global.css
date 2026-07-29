@@ -495,3 +495,9 @@ body.pt-noBrandArea header {
         }
         }
 }
+
+@media (max-width: 768px) { 
+    #custom-scrollbar {
+        display: none;
+    }
+}
