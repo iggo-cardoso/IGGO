@@ -519,13 +519,15 @@ header {
 
 
 .skills {
-    padding: 100px 0 100px 50px;
+    padding: 100px 0 0 50px;
+    margin-bottom: 100px;
+    background: #000000;
     h2 {
         font-size: 3.8rem;
         font-weight: 500;
         font-family: "Google Sans", sans-serif;
         span {
-            color: rgb(0, 0, 0);
+            color: #fff;
         }
     }
     .cards-wrap {
@@ -558,7 +560,7 @@ header {
                     svg {
                         width: 18px; 
                         height: 18px; 
-                        stroke: rgb(0, 0, 0); 
+                        stroke: #fff; 
                         fill: none; 
                         stroke-width: 1.5; 
                         stroke-linecap: round; 
@@ -566,7 +568,7 @@ header {
                     }
                  }
                  .num {
-                    color: rgb(0, 0, 0);
+                    color: #fff;
                  }
             }
 
@@ -574,7 +576,7 @@ header {
                 font-size: 1.6rem;
                 margin-bottom: 20px;
                 font-weight: 600;
-                color: rgb(0, 0, 0);
+                color: #fff;
             }
 
             .card-body {
