@@ -34,12 +34,13 @@ import '../../css/html/loja.css';
   function init() {
     runCleanup();
 
-    const root = document.querySelector('.loja-section-head, .loja-showcase, .loja-cat-rail');
+    const root = document.querySelector('.loja-subnav, .loja-section-head, .loja-showcase, .loja-cat-rail');
     if (!root) return; // não estamos na página da loja
 
     initFilters();
     initShowcase();
     initCatRailArrows();
+    initSubscribeForm();
   }
 
   // ── 1) FILTRO DE CATEGORIA ──────────────────────────────────────
@@ -179,7 +180,72 @@ import '../../css/html/loja.css';
     });
   }
 
-  // ── 3) SETAS DO TRILHO DE CATEGORIAS ─────────────────────────────
+  // ── 3) FORM DE INSCRIÇÃO,  "Inscreva-se para receber atualizações"
+  //      dentro do .loja-empty. Manda pra /api/inscricao-loja (Cloudflare
+  //      Pages Function),  o front nunca fala com o Firestore direto. ──
+  function initSubscribeForm() {
+    const form = document.querySelector('.loja-subscribe');
+    if (!form) return;
+
+    const emailEl = form.querySelector('.loja-subscribe-email');
+    const tipoEl  = form.querySelector('.loja-subscribe-select');
+    const hpEl    = form.querySelector('.loja-subscribe-hp');
+    const btnEl   = form.querySelector('.loja-card-btn');
+    const msgEl   = form.querySelector('.loja-subscribe-msg');
+
+    function setMsg(text, kind) {
+      if (!msgEl) return;
+      msgEl.textContent = text;
+      msgEl.classList.toggle('is-success', kind === 'success');
+      msgEl.classList.toggle('is-error', kind === 'error');
+    }
+
+    async function onSubmit(e) {
+      e.preventDefault();
+      if (btnEl.disabled) return;
+
+      const email = (emailEl.value || '').trim();
+      if (!email) {
+        setMsg('Digita um e-mail válido.', 'error');
+        emailEl.focus();
+        return;
+      }
+
+      btnEl.disabled = true;
+      setMsg('Enviando...', null);
+
+      try {
+        const res = await fetch('/api/inscricao-loja', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            tipo: tipoEl.value,
+            empresa: hpEl.value, // honeypot, deve chegar vazio
+          }),
+        });
+
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok) {
+          setMsg(data.error || 'Não deu pra completar a inscrição, tenta de novo.', 'error');
+          return;
+        }
+
+        setMsg('Inscrito! A gente avisa quando tiver novidade.', 'success');
+        form.reset();
+      } catch (err) {
+        setMsg('Falha de conexão, tenta de novo em instantes.', 'error');
+      } finally {
+        btnEl.disabled = false;
+      }
+    }
+
+    form.addEventListener('submit', onSubmit);
+    cleanupFns.push(() => form.removeEventListener('submit', onSubmit));
+  }
+
+  // ── 4) SETAS DO TRILHO DE CATEGORIAS ─────────────────────────────
   function initCatRailArrows() {
     const list    = document.querySelector('.loja-cat-list');
     const prevBtn = document.querySelector('.loja-cat-arrow.prev');

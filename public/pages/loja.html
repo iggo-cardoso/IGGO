@@ -252,9 +252,25 @@
   </div>
 </section>
 -->
-<div class="loja-empty" hidden>
-  <p>Ainda não tem produtos disponiveis na pagina, mas tem coisa boa vindo por aí.</p>
-  <button type="button" class="loja-card-btn">Inscreva-se para receber atualizações </button>
+<div class="loja-empty">
+  <p>Ainda não tem produtos disponíveis na página, mas tem coisa boa vindo por aí.</p>
+
+  <form class="loja-subscribe" novalidate>
+    <div class="loja-subscribe-row">
+      <input type="email" name="email" class="loja-subscribe-email" placeholder="seu@email.com" required autocomplete="email">
+      <select name="tipo" class="loja-subscribe-select" aria-label="O que te interessa">
+        <option value="geral">Novidades em geral</option>
+        <option value="livros">Livros</option>
+        <option value="templates">Templates</option>
+        <option value="presets">Presets &amp; Assets</option>
+        <option value="cursos">Cursos</option>
+      </select>
+      <button type="submit" class="loja-card-btn">Inscrever-se</button>
+    </div>
+    <!-- honeypot,  invisível pra gente, bots costumam preencher todo campo -->
+    <input type="text" name="empresa" class="loja-subscribe-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="loja-subscribe-msg" aria-live="polite"></p>
+  </form>
 </div>
 <section class="loja-cta">
   <div class="loja-cta-inner">
