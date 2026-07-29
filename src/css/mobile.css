@@ -254,15 +254,17 @@
     height: 250px !important;
   }
   .conversion .conversion-img:nth-of-type(4) {
-    right: 0;
+    left: 0;
     top: 0;
     width: calc(100% - 20px);
     height: 250px !important;
+    margin: 10px 10px 0 10px !important;
   }
 
   .conversion #gallery-container {
     margin-top: 80px;
     height: 600px;
+    display: none;
   }
 
   /* ─── FOOTER ─────────────────────────────────────────────── */
