@@ -113,6 +113,7 @@
   async function playWipe(swapFn) {
     ensureOverlay();
     const count = buildStrips();
+    overlay.style.visibility = 'visible';
     overlay.style.pointerEvents = 'auto';
 
     // fase 1,  cobrir: onda vindo da direita, tira da direita sempre no topo
@@ -138,8 +139,12 @@
       saying.classList.remove('is-visible');
       await animateAll(waveDelays(count), '0%', '100%', UNCOVER_MS);
 
-      strips.forEach((el) => { el.style.transform = 'translateY(-100%)'; });
+      strips.forEach((el) => {
+        el.getAnimations().forEach((a) => a.cancel());
+        el.style.transform = 'translateY(-100%)';
+      });
       overlay.style.pointerEvents = 'none';
+      overlay.style.visibility = 'hidden';
     }
   }
 

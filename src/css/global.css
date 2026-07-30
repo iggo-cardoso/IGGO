@@ -337,6 +337,7 @@ h2.title-sections {
   inset: 0;
   z-index: 100000;
   pointer-events: none;
+  visibility: hidden;
   overflow: hidden;
 
   .page-wipe__strips {
