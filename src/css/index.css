@@ -592,6 +592,7 @@ header {
     position: relative;
     overflow: hidden;
     width: 100%;
+    padding-top: 80px;
     .headlines {
         display: flex;
         flex-direction: column;
