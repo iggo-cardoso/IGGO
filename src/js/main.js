@@ -2,6 +2,7 @@ import './loader.js';
 
 import './index.js';
 import './effects/page-transition.js';
+import './effects/elastic-entrance.js';
 import './page-router.js';
 import './effects/mobile-nav.js';
 import './effects/scrollbar.js';
