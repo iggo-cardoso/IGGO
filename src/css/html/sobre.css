@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   SOBRE NÓS,  estilos exclusivos desta página
+   SOBRE NÓS — estilos exclusivos desta página
    Carregado via <link> dentro do próprio fragmento (/pages/sobre.html),
    assim como o padrão já usado em src/css/html/book-iggostudios.css
    ═══════════════════════════════════════════════════════════════ */
@@ -153,6 +153,22 @@
             color: #E85002;
             font-weight: 600;
             margin-bottom: 20px;
+        }
+
+        .founder-credentials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+
+            span {
+                font-size: .8rem;
+                font-family: 'SUSE Mono', monospace;
+                color: #000000;
+                padding: 7px 14px;
+                border: 1px solid rgba(95, 95, 95, 0.315);
+                border-radius: 8em;
+            }
         }
 
         p {
@@ -368,39 +384,43 @@
         margin-left: 0 !important;
     }
 
-    .about-services-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
+    .about-service-groups {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 50px 60px;
         margin-top: 50px;
-        list-style: none;
+    }
+
+    .service-group {
+        .group-title {
+            font-family: 'SUSE Mono', monospace;
+            font-size: .8rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: #E85002;
+            font-weight: 600;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(95, 95, 95, 0.315);
+        }
+
+        ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
 
         li {
             font-size: .95rem;
-            font-weight: 500;
-            color: #000000;
-            padding: 12px 22px;
-            border: 1px solid rgba(95, 95, 95, 0.315);
-            border-radius: 8em;
-            transition: background .25s ease, color .25s ease, border-color .25s ease;
+            line-height: 1.6;
+            color: rgb(95, 95, 95);
+            font-weight: 300;
 
-            &:hover {
-                background: #E85002;
-                border-color: #E85002;
-                color: #ffffff;
+            strong {
+                color: #000000;
+                font-weight: 600;
             }
-        }
-    }
-
-    .about-services-note {
-        margin-top: 30px;
-        font-size: .95rem;
-        line-height: 1.65;
-        color: rgb(95, 95, 95);
-        max-width: 720px;
-
-        strong {
-            color: #000000;
         }
     }
 }
@@ -460,6 +480,10 @@
 @media (max-width: 768px) {
     .about-hero {
         padding: 60px 20px 0;
+    }
+
+    .about-bands {
+        margin-top: -40px;
     }
 
     .about-manifesto {
@@ -529,6 +553,15 @@
 
     .about-cases .about-cases-grid {
         grid-template-columns: 1fr;
+    }
+
+    .about-services .about-service-groups {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-founder .founder-credentials {
+        justify-content: center;
     }
 
     .about-cta {

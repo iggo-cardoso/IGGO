@@ -3,6 +3,7 @@ import './loader.js';
 import './index.js';
 import './effects/page-transition.js';
 import './page-router.js';
+import './effects/mobile-nav.js';
 import './effects/scrollbar.js';
 import './effects/mouse-paint.js';
 import './effects/webgl-distortion-image.js';
