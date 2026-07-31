@@ -4,19 +4,19 @@ let mobile = isMobile()
 
 const data = [
   {
-    "img": "img/complete_a_cena,_202604240847.jpeg",
+    "img": "img/IGGO/publi/Portrait_wearing_round_202604231958a.png",
     "title": "Consultoria"
   },
   {
-    "img": "img/thomas.jpg",
+    "img": "img/IGGO/publi/Portrait_wearing_round_202604231958a.png",
     "title": "Tecnologia"
   },
   {
-    "img": "img/image.png",
+    "img": "img/IGGO/publi/Portrait_wearing_round_202604231958a.png",
     "title": "Inovação"
   },
   {
-    "img": "img/ai-gerou-o-conceito-de-ser-humano3.jpg",
+    "img": "img/IGGO/publi/Portrait_wearing_round_202604231958a.png",
     "title": "Marketing"
   },
   {
