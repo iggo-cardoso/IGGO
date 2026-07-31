@@ -27,7 +27,7 @@
             position: relative;
              &::before {
                 content: 'Parceiros';
-                background: #E85002;
+                background: #9402e8;
                 color: #fff;
                 position: absolute;
                 top: -2px;
@@ -76,9 +76,9 @@
         color: #000;    
 
         &.solid {
-            background: #E85002;
+            background: #9402e8;
             color: #fff;
-            border-color: #E85002;
+            border-color: #9402e8;
         }
     }
 
@@ -479,7 +479,7 @@
             font-weight: 600;
             letter-spacing: .06em;
             text-transform: uppercase;
-            color: #E85002;
+            color: #9402e8;
             margin-bottom: 8px;
         }
 
@@ -529,7 +529,7 @@
         & svg {
             width: 40px;
             height: 40px;
-            stroke: #E85002;
+            stroke: #9402e8;
             fill: none;
             stroke-width: 1.4;
             z-index: 2;
@@ -959,8 +959,8 @@
         transition: background .25s ease, border-color .25s ease;
 
         &:hover {
-            background: #E85002;
-            border-color: #E85002;
+            background: #9402e8;
+            border-color: #9402e8;
         }
     }
 

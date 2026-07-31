@@ -8,7 +8,7 @@
     font-size: 12.5px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #E85002;
+    color: #9402e8;
     font-weight: 600;
     margin-bottom: 18px;
     text-align: center;
@@ -39,7 +39,7 @@
         text-align: center;
 
         .brand-color {
-            color: #E85002;
+            color: #9402e8;
         }
     }
 
@@ -150,7 +150,7 @@
 
         .role {
             font-size: .95rem;
-            color: #E85002;
+            color: #9402e8;
             font-weight: 600;
             margin-bottom: 20px;
         }
@@ -199,7 +199,7 @@
     .about-diff-quote {
         margin: 40px 0 50px;
         padding-left: 28px;
-        border-left: 3px solid #E85002;
+        border-left: 3px solid #9402e8;
         font-size: 1.3rem;
         line-height: 1.55;
         font-style: normal;
@@ -226,7 +226,7 @@
         .diff-title {
             font-size: 1.05rem;
             font-weight: 700;
-            color: #E85002;
+            color: #9402e8;
             margin-bottom: 12px;
         }
 
@@ -269,7 +269,7 @@
 
         .step-num {
             font-size: 1rem;
-            color: #E85002;
+            color: #9402e8;
             font-weight: 700;
         }
 
@@ -362,7 +362,7 @@
                 width: 8px;
                 height: 8px;
                 border-radius: 50%;
-                background: #E85002;
+                background: #9402e8;
             }
 
             strong {
@@ -397,7 +397,7 @@
             font-size: .8rem;
             letter-spacing: .06em;
             text-transform: uppercase;
-            color: #E85002;
+            color: #9402e8;
             font-weight: 600;
             margin-bottom: 18px;
             padding-bottom: 14px;
@@ -432,7 +432,7 @@
     border-radius: 1.4em;
     background:
         radial-gradient(ellipse 90% 80% at 100% 70%, #c64a1e33 0%, transparent 55%),
-        radial-gradient(ellipse 150% 90% at 93% 97%, #E85002 0%, #000000 30%, transparent 78%),
+        radial-gradient(ellipse 150% 90% at 93% 97%, #9402e8 0%, #000000 30%, transparent 78%),
         #000;
     color: #F1EDE8;
     text-align: center;
@@ -446,7 +446,7 @@
 
         em {
             font-style: normal;
-            color: #E85002;
+            color: #9402e8;
         }
     }
 

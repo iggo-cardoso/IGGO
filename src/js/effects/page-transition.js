@@ -1,7 +1,7 @@
 // page-transition.js
 // Transição "tiras" entre páginas (page wipe).
 //
-// Tiras verticais de ~180px, cor #E85002, descem de cima cobrindo a tela
+// Tiras verticais de ~180px, cor #9402e8, descem de cima cobrindo a tela
 // numa onda que nasce na tira mais à direita (ela sempre entra primeiro
 // e fica por cima das outras, no z-index). As demais seguem "disputando"
 // espaço com atrasos e z-index sorteados aleatoriamente,  não é uma

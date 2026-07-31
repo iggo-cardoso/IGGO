@@ -8,7 +8,7 @@
         display: inline-block;
         font-size: .78rem;
         letter-spacing: .12em;
-        color: #E85002;
+        color: #9402e8;
         margin-bottom: 18px;
     }
 
@@ -20,7 +20,7 @@
         margin-bottom: 22px;
 
         .brand-color {
-            color: #E85002;
+            color: #9402e8;
         }
     }
 
@@ -53,7 +53,7 @@
             display: block;
             height: 100%;
             width: 25%;
-            background: #E85002;
+            background: #9402e8;
             border-radius: 4px;
             transition: width .35s ease;
         }
@@ -87,8 +87,8 @@
                 color: #000;
 
                 em {
-                    border-color: #E85002;
-                    background: #E85002;
+                    border-color: #9402e8;
+                    background: #9402e8;
                     color: #fff;
                 }
             }
@@ -132,7 +132,7 @@
             color: rgb(95, 95, 95);
 
             em {
-                color: #E85002;
+                color: #9402e8;
                 font-style: normal;
             }
         }
@@ -150,7 +150,7 @@
             resize: vertical;
 
             &:focus-visible {
-                outline: 2px solid #E85002;
+                outline: 2px solid #9402e8;
                 outline-offset: 1px;
             }
         }
