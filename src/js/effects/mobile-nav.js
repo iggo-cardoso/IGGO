@@ -84,6 +84,12 @@
 
   function animateAll(delays, from, to, duration) {
     const anims = strips.map((el, i) => {
+      // grava o valor atual (from) no style inline ANTES de cancelar a
+      // animação anterior,  senão cancelar deixa o elemento cair pro
+      // style inline velho por uma fração de segundo (some/pisca) até
+      // a nova animação entrar no delay dela
+      el.style.transform = `translateY(${from})`;
+      el.getAnimations().forEach((a) => a.cancel());
       el.style.willChange = 'transform';
       const anim = el.animate(
         [{ transform: `translateY(${from})` }, { transform: `translateY(${to})` }],
