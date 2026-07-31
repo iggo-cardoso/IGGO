@@ -513,9 +513,88 @@ body.pt-noBrandArea header {
     align-items: center;
     justify-content: left;
     transform: translateY(40%);
+    z-index: -1;
     div {
         background: #000;
         width: 100%;
         height: 300px;
     }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   EXPAND SOLO — coloca este bloco em src/css/index.css
+   (mesmo lugar onde tá o .section/.sticky/.slides do original)
+   ═══════════════════════════════════════════════════════════════ */
+
+.expand-solo {
+  height: 300vh;
+  position: relative;
+
+  & .expand-solo-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    will-change: clip-path;
+  }
+
+  & .expand-solo-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    /* mesmo controle do original: mexe só aqui pra ajustar
+       zoom/posição da imagem, o JS só lê essas variáveis */
+    --img-zoom: 1;
+    --img-x: 50%;
+    --img-y: 50%;
+    object-position: var(--img-x) var(--img-y);
+    transform-origin: center;
+    transition: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('/img/noise.png');
+      background-repeat: repeat;
+      background-size: cover;
+      opacity: 1;
+      mix-blend-mode: normal;
+      pointer-events: none;
+      z-index: 100;
+    }
+  }
+
+  & .expand-solo-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    font-size: clamp(6.4rem, 5vw, 5rem);
+    font-family: var(--ec-title-font, 'Lobster', serif);
+    font-weight: 400;
+    line-height: 1;
+    color: rgb(216, 216, 220);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   EXPAND SOLO — MOBILE — coloca este bloco em src/css/mobile.css,
+   dentro do mesmo media query onde tá o .section/.sticky original
+   ═══════════════════════════════════════════════════════════════ */
+
+.expand-solo {
+  & .expand-solo-sticky {
+    background: #050505;
+  }
+
+  & .expand-solo-text {
+    font-size: clamp(2.2rem, 8.5vw, 3rem);
+  }
 }
