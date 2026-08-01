@@ -327,7 +327,7 @@ h2.title-sections {
         cursor:pointer;
         border: 0;
         border-radius: 10px;
-        background: #9402e8;
+        background: #E85002;
         color: #fff;
     }
 }
@@ -372,7 +372,7 @@ h2.title-sections {
   flex: 1 1 0;
   height: 100%;
   min-width: 0;
-  background: #9402e8;
+  background: #E85002;
   will-change: transform;
   transform: translateY(-100%);
   /* leve sangria pra não deixar frestas de 1px entre as tiras durante a onda */
@@ -397,7 +397,7 @@ h2.title-sections {
 #scroll-progress__fill {
   height: 100%;
   width: 0%;
-  background: #9402e8; /* ajusta pra cor do seu site */
+  background: #E85002; /* ajusta pra cor do seu site */
   will-change: width;
 }
 
@@ -483,7 +483,7 @@ body.pt-noBrandArea header {
         transition: opacity 0.25s ease, transform 0.25s ease;
         opacity: 1;
         transform: translateY(0);
-        color: #9402e8;
+        color: #E85002;
 
         &.is-out {
             opacity: 0;

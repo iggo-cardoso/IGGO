@@ -4,7 +4,7 @@
    mesmo padrão de sobre.html / book-iggostudios.html.
 
    Reaproveita as variáveis e a paleta já usadas no resto do site
-   (fundo claro, preto, laranja #9402e8) e o vocabulário visual do
+   (fundo claro, preto, laranja #E85002) e o vocabulário visual do
    .book / .cta-final (cards pretos com gradiente radial).
 
    Só design,  sem lógica de compra, filtro ou carrinho. Isso fica
@@ -36,7 +36,7 @@ body.pg-loja .navtop {
             color: #fff;
             list-style-type: none;
             &.active {
-                color: #9402e8;
+                color: #E85002;
                 filter: none;
                 font-weight: 700;
             }
@@ -50,7 +50,7 @@ body.pg-loja .navtop {
                     filter: none;
                     z-index: -1;
                     content: 'Em breve';
-                    background: #9402e8;
+                    background: #E85002;
                     color: #eee;
                     text-wrap: nowrap;
                     font-size: 10px;
@@ -67,7 +67,7 @@ body.pg-loja .navtop {
             border: 0;
             &:last-of-type {
                 filter: none;
-                background: #9402e8;
+                background: #E85002;
                 color: #fff;
             }
         }
@@ -132,7 +132,7 @@ body.pg-loja .navtop {
     font-size: 12.5px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #9402e8;
+    color: #E85002;
     font-weight: 600;
     margin-bottom: 18px;
 }
@@ -304,7 +304,7 @@ body.pg-loja .navtop {
             color: #000;
 
             &:focus-visible {
-                outline: 2px solid #9402e8;
+                outline: 2px solid #E85002;
                 outline-offset: 2px;
             }
         }
@@ -362,7 +362,7 @@ body.pg-loja .navtop {
     top: 18px;
     left: 18px;
     z-index: 2;
-    background: #9402e8;
+    background: #E85002;
     color: #fff;
     font-size: .72rem;
     font-weight: 700;
@@ -510,7 +510,7 @@ body.pg-loja .navtop {
     border-radius: 1.4em;
     background:
         radial-gradient(ellipse 90% 80% at 0% 30%, #c64a1e33 0%, transparent 55%),
-        radial-gradient(ellipse 150% 90% at 7% 3%, #9402e8 0%, #000000 30%, transparent 78%),
+        radial-gradient(ellipse 150% 90% at 7% 3%, #E85002 0%, #000000 30%, transparent 78%),
         #000;
     color: #F1EDE8;
     padding: 70px 40px;
@@ -625,7 +625,7 @@ body.pg-loja .navtop {
 }
 
 .loja-mini-card.is-active:not(.loja-mini-card--static) {
-    box-shadow: 0 0 0 2px #9402e8 inset, 0 16px 32px -24px rgba(0, 0, 0, .25);
+    box-shadow: 0 0 0 2px #E85002 inset, 0 16px 32px -24px rgba(0, 0, 0, .25);
 }
 
 .loja-mini-cover {
@@ -874,8 +874,8 @@ body.pg-loja .navtop {
 }
 
 .loja-cat-item.is-active .loja-cat-icon {
-    color: #9402e8;
-    box-shadow: 0 0 0 2px #9402e8, 0 16px 32px -24px rgba(0, 0, 0, .3);
+    color: #E85002;
+    box-shadow: 0 0 0 2px #E85002, 0 16px 32px -24px rgba(0, 0, 0, .3);
 }
 
 .loja-cat-item.is-active span:last-child {

@@ -124,7 +124,7 @@
             flex: 1 1 0;
             height: 100%;
             min-width: 0;
-            background: #9402e8;
+            background: #E85002;
             transform: translateY(-100%);
             margin-right: -1px;
 
@@ -288,7 +288,7 @@
             }
 
             span {
-                background: #9402e8;
+                background: #E85002;
                 color: #fff;
                 display: flex;
                 align-items: center;

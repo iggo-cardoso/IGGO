@@ -205,7 +205,7 @@ header {
             color: #fff;
             list-style-type: none;
             &.active {
-                color: #9402e8;
+                color: #E85002;
                 filter: invert(1);
                 font-weight: 700;
             }
@@ -218,7 +218,7 @@ header {
                     filter: invert(1);
                     z-index: -1;
                     content: 'Novo';
-                    background: #9402e8;
+                    background: #E85002;
                     color: #eee;
                     text-wrap: nowrap;
                     font-size: 10px;
@@ -235,7 +235,7 @@ header {
                     filter: invert(1);
                     z-index: -1;
                     content: 'Em breve';
-                    background: #9402e8;
+                    background: #E85002;
                     color: #eee;
                     text-wrap: nowrap;
                     font-size: 10px;
@@ -252,7 +252,7 @@ header {
             border: 0;
             &:last-of-type {
                 filter: invert(1);
-                background: #9402e8;
+                background: #E85002;
                 color: #fff;
             }
         }
@@ -282,7 +282,7 @@ header {
             color: #000000;
             font-weight: 500;
             .brand-color {
-                color: #9402e8;
+                color: #E85002;
             }
         }
         .asterisk {
@@ -367,7 +367,7 @@ header {
             }
 
             span {
-                background: #9402e8;
+                background: #E85002;
                 color: #fff;
                 display: flex;
                 align-items: center;
@@ -679,7 +679,7 @@ header {
     border-radius:1.4em;
     background:
     radial-gradient(ellipse 90% 80% at 100% 70%, #c64a1e33 0%, transparent 55%),
-    radial-gradient(ellipse 150% 90% at 93% 97%, #9402e8 0%, #000000 30%, transparent 78%),
+    radial-gradient(ellipse 150% 90% at 93% 97%, #E85002 0%, #000000 30%, transparent 78%),
     #000;
     color:#F1EDE8;
     position:relative;
@@ -704,7 +704,7 @@ header {
         max-width:1000px;
         em {
             font-style:normal;
-            color:#9402e8;
+            color:#E85002;
         }
     }
     .subtitle {
@@ -766,7 +766,7 @@ header {
             background: #00000000;
             color: #fff;
             border: 0;
-            background: #9402e8;
+            background: #E85002;
             padding: 5px 10px;
             border-radius: 10px;
         }
