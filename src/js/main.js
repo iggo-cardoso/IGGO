@@ -9,6 +9,8 @@ import './effects/scrollbar.js';
 import './effects/mouse-paint.js';
 import './effects/webgl-distortion-image.js';
 import './effects/scroll-band.js';
+import './effects/logo-cloud.js';
+import './effects/lar-sections.js';
 import './effects/scroll-expand-card.js';
 import './effects/scroll-expand-solo.js';
 import './effects/scroll-effects.js';

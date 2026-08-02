@@ -3,7 +3,7 @@
     height: 95vh;
     background:
   radial-gradient(ellipse 90% 80% at 100% 70%, #1a6fff33 0%, transparent 55%),
-  radial-gradient(ellipse 150% 90% at 93% 97%, #85b2ffee 0%, #000000 30%, transparent 78%),
+  radial-gradient(ellipse 150% 90% at 93% 97%, #85b2ffee 0%, #000 30%, transparent 78%),
   #000;
     margin: 20px;
     border-radius: 1em;
@@ -17,12 +17,12 @@
         inset: 0;
         width: 100%;
         height: 1000px;
-        background: #000000;
+        background: #000;
         position: absolute;
         z-index: 1;
         left: 50%;
         transform: rotate(-25deg) translateY(-750px);
-        box-shadow: 0px 0px 20px #000000;
+        box-shadow: 0px 0px 20px #000;
         filter: blur(100px) brightness(.3);
         opacity: .4;
 
@@ -276,10 +276,10 @@ header {
         font-size: 5.9rem;
         font-weight: 500;
         text-align: center;
-        color: #000000;
-        /* color: #000000; */
+        color: #000;
+        /* color: #000; */
         .opacity {
-            color: #000000;
+            color: #000;
             font-weight: 500;
             .brand-color {
                 color: #E85002;
@@ -288,7 +288,7 @@ header {
         .asterisk {
             display: none;
             span {
-                background: #000000;
+                background: #000;
                 /* background: rgb(174, 174, 178); */
             }
         }
@@ -310,7 +310,7 @@ header {
         padding: 10px;
         button {
             background: #f5f5f710;
-            color: #000000;
+            color: #000;
             font-weight: 600;
             font-size: 1.1rem;
             padding: 10px 15px;
@@ -319,7 +319,7 @@ header {
             -webkit-backdrop-filter: blur(1px);
             backdrop-filter: blur(1px);
             position: relative;
-            box-shadow: -3px 5px 5px #00000004,  -1px 3px 5px #ffffff4f;  
+            box-shadow: -3px 5px 5px #00004,  -1px 3px 5px #ffffff4f;  
             display: flex;
             align-items: center;
             gap: 10px;
@@ -377,8 +377,8 @@ header {
             }
 
             &:nth-of-type(1) {
-                background: #000000;
-                /* background: #000000; */
+                background: #000;
+                /* background: #000; */
                 color: rgb(216, 216, 220);
                 padding: 6px 15px 6px 6px;
                 &::before, 
@@ -525,10 +525,25 @@ header {
   }
 
 
+.logos-trust {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 0 24px 80px;
+
+    & .logos-trust__label {
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.45);
+    }
+}
+
 .skills {
     padding: 100px 0 0 50px;
     margin-bottom: 160px;
-    background: #000000;
+    background: #000;
     position: relative;
     h2 {
         font-size: 3.8rem;
@@ -633,7 +648,7 @@ header {
         user-select: none;
         width: 280px;
         height: 180px;
-        box-shadow: 10px 10px 15px 0px #0000005d;
+        box-shadow: 10px 10px 15px 0px #0005d;
         &:nth-of-type(1) {
             left: 6%;
             top: 3%;
@@ -679,7 +694,7 @@ header {
     border-radius:1.4em;
     background:
     radial-gradient(ellipse 90% 80% at 100% 70%, #c64a1e33 0%, transparent 55%),
-    radial-gradient(ellipse 150% 90% at 93% 97%, #E85002 0%, #000000 30%, transparent 78%),
+    radial-gradient(ellipse 150% 90% at 93% 97%, #E85002 0%, #000 30%, transparent 78%),
     #000;
     color:#F1EDE8;
     position:relative;
@@ -763,7 +778,7 @@ header {
             position: absolute;
             top: 10%;
             z-index: 100;
-            background: #00000000;
+            background: #00000;
             color: #fff;
             border: 0;
             background: #E85002;

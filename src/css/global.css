@@ -2,7 +2,7 @@
 @import url('https://fonts.cdnfonts.com/css/stretch-pro');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=optional');
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 :root {
     --scroll-band-color: rgba(162, 162, 165, 0.459);   /* cor do texto */
     --scroll-band-font: 'stretch pro';  /* fonte */
@@ -23,12 +23,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Figtree', sans-serif;
+    font-family: 'Fraunces', serif;
+    
     /* scroll-behavior gerenciado pelo momentum JS em index.js */
 }
 
 body {
-    background: #eeeeee;
+    background: #f2f0f3;
     /* background: #E9E9E9; */
     /* background: #F7EFEC; */
     /* background: #f0edeb; */
@@ -80,7 +81,7 @@ body {
                 font-weight: 800;
                 font-size: 18px;
                 letter-spacing: 0.06em;
-                color: #000000;
+                color: #000;
                 margin-bottom: 16px;
             }
 
@@ -270,7 +271,7 @@ body {
         display: block;
         width: 60px;
         height: 4px;
-        background: #000000;
+        background: #000;
         &:nth-of-type(2) {
             transform: rotate(45deg);
         }

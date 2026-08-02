@@ -35,7 +35,7 @@
         font-weight: 800;
         line-height: 1.08;
         text-transform: uppercase;
-        color: #000000;
+        color: #000;
         text-align: center;
 
         .brand-color {
@@ -102,7 +102,7 @@
             .num {
                 font-size: 2.2rem;
                 font-weight: 700;
-                color: #000000;
+                color: #000;
                 font-family: 'SUSE Mono', monospace;
             }
 
@@ -128,7 +128,7 @@
     .about-founder-img {
         border-radius: 1.2em;
         overflow: hidden;
-        background: linear-gradient(160deg, #1a1a1a, #000000);
+        background: linear-gradient(160deg, #1a1a1a, #000);
         aspect-ratio: 4 / 5;
 
         img {
@@ -144,7 +144,7 @@
         h3 {
             font-size: 2.4rem;
             font-weight: 700;
-            color: #000000;
+            color: #000;
             margin: 0 0 6px 0;
         }
 
@@ -164,7 +164,7 @@
             span {
                 font-size: .8rem;
                 font-family: 'SUSE Mono', monospace;
-                color: #000000;
+                color: #000;
                 padding: 7px 14px;
                 border: 1px solid rgba(95, 95, 95, 0.315);
                 border-radius: 8em;
@@ -203,7 +203,7 @@
         font-size: 1.3rem;
         line-height: 1.55;
         font-style: normal;
-        color: #000000;
+        color: #000;
         max-width: 820px;
     }
 
@@ -276,7 +276,7 @@
         .step-title {
             font-size: 1.15rem;
             font-weight: 600;
-            color: #000000;
+            color: #000;
             margin-bottom: 8px;
         }
 
@@ -316,7 +316,7 @@
         .case-name {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #000000;
+            color: #000;
             margin-bottom: 10px;
         }
 
@@ -366,7 +366,7 @@
             }
 
             strong {
-                color: #000000;
+                color: #000;
                 font-weight: 700;
             }
         }
@@ -418,7 +418,7 @@
             font-weight: 300;
 
             strong {
-                color: #000000;
+                color: #000;
                 font-weight: 600;
             }
         }
@@ -432,7 +432,7 @@
     border-radius: 1.4em;
     background:
         radial-gradient(ellipse 90% 80% at 100% 70%, #c64a1e33 0%, transparent 55%),
-        radial-gradient(ellipse 150% 90% at 93% 97%, #E85002 0%, #000000 30%, transparent 78%),
+        radial-gradient(ellipse 150% 90% at 93% 97%, #E85002 0%, #000 30%, transparent 78%),
         #000;
     color: #F1EDE8;
     text-align: center;

@@ -51,13 +51,13 @@ a{color:inherit;text-decoration:none;}
 .navcta{
   background:var(--ink);color:var(--off);font-weight:600;font-size:13px;
   padding:10px 18px;border-radius:2em;border:0;cursor:pointer;
-  box-shadow:-3px 5px 5px #00000004,-1px 3px 5px #ffffff4f;
+  box-shadow:-3px 5px 5px #00004,-1px 3px 5px #ffffff4f;
 }
 .btn-glass{
   position:relative;background:#f5f5f710;color:#fff;font-weight:600;font-size:1.02rem;
   padding:14px 24px;border-radius:1em;border:0;cursor:pointer;
   -webkit-backdrop-filter:blur(1px);backdrop-filter:blur(1px);
-  box-shadow:-3px 5px 5px #00000004,-1px 3px 5px #ffffff20;
+  box-shadow:-3px 5px 5px #00004,-1px 3px 5px #ffffff20;
 
   &::before{
     content:'';position:absolute;inset:0;border-radius:1em;border:2px solid transparent;
@@ -84,7 +84,7 @@ a{color:inherit;text-decoration:none;}
   border-radius:1.4em;
   background:
     radial-gradient(ellipse 90% 80% at 100% 70%, #c64a1e33 0%, transparent 55%),
-    radial-gradient(ellipse 150% 90% at 93% 97%, #f0a15cee 0%, #000000 30%, transparent 78%),
+    radial-gradient(ellipse 150% 90% at 93% 97%, #f0a15cee 0%, #000 30%, transparent 78%),
     #000;
   color:#F1EDE8;
   position:relative;overflow:hidden;
@@ -345,7 +345,7 @@ a{color:inherit;text-decoration:none;}
   width:calc(100% - 40px);margin:0 20px 20px;border-radius:1.4em;
   background:
     radial-gradient(ellipse 90% 80% at 0% 30%, #c64a1e33 0%, transparent 55%),
-    radial-gradient(ellipse 150% 90% at 7% 3%, #f0a15cee 0%, #000000 30%, transparent 78%),
+    radial-gradient(ellipse 150% 90% at 7% 3%, #f0a15cee 0%, #000 30%, transparent 78%),
     #000;
   color:#F1EDE8;padding:80px 40px;text-align:center;
 
