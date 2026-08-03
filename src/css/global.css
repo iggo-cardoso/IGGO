@@ -3,10 +3,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=optional');
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
     --scroll-band-color: rgba(162, 162, 165, 0.459);   /* cor do texto */
     --scroll-band-font: 'stretch pro';  /* fonte */
     --scroll-band-opacity: 0.85;    /* transparência */
+
+    --brand: #E85002;
+    /* --brand: #0ABAB5; */
 }
 
 ::selection {
@@ -23,7 +28,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter Tight', sans-serif;
+    /* font-family: 'Fraunces', serif; */
     
     /* scroll-behavior gerenciado pelo momentum JS em index.js */
 }
@@ -328,7 +334,7 @@ h2.title-sections {
         cursor:pointer;
         border: 0;
         border-radius: 10px;
-        background: #E85002;
+        background: var(--brand);
         color: #fff;
     }
 }
@@ -352,7 +358,7 @@ h2.title-sections {
     top: 50%;
     left: 50%;
     bottom: auto;
-    z-index: 100001;
+    z-index: 1000000001;
     color: #fff;
     opacity: 0;
     transform: translate(-50%, -50%);
@@ -373,7 +379,7 @@ h2.title-sections {
   flex: 1 1 0;
   height: 100%;
   min-width: 0;
-  background: #E85002;
+  background: var(--brand);
   will-change: transform;
   transform: translateY(-100%);
   /* leve sangria pra não deixar frestas de 1px entre as tiras durante a onda */
@@ -398,7 +404,7 @@ h2.title-sections {
 #scroll-progress__fill {
   height: 100%;
   width: 0%;
-  background: #E85002; /* ajusta pra cor do seu site */
+  background: var(--brand); /* ajusta pra cor do seu site */
   will-change: width;
 }
 
@@ -484,7 +490,7 @@ body.pt-noBrandArea header {
         transition: opacity 0.25s ease, transform 0.25s ease;
         opacity: 1;
         transform: translateY(0);
-        color: #E85002;
+        color: var(--brand);
 
         &.is-out {
             opacity: 0;

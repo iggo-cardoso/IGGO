@@ -3,8 +3,11 @@
 .lar-suite {
     color: #000;
     font-family: 'Figtree', sans-serif;
+    margin: 0 30px 0 30px;
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
 
     & .lar-divider {
+        position: relative;
         height: 40px;
         background-image: repeating-linear-gradient(
             45deg,
@@ -13,8 +16,19 @@
             transparent 1px,
             transparent 10px
         );
-        border-top: 1px solid rgba(0, 0, 0, 0.08);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        border-top: 1.3px dashed rgba(0, 0, 0, 0.08);
+        border-bottom: 1.3px dashed rgba(0, 0, 0, 0.08);
+        .iggo.plus {
+            position: absolute;
+            top: 0;
+            transform: translate(-50%, -50%) scale(.7);
+            --iggo-stroke: var(--brand);
+            &:nth-child(2) {
+                right: 0;
+                top: 100%;
+                bottom: 0;
+            }
+        }
     }
 
     & .lar-eyebrow {
@@ -464,4 +478,97 @@
             cursor: pointer;
         }
     }
+}
+
+
+.lar-marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+
+  & .lar-marquee-row {
+    display: flex;
+    overflow: hidden;
+
+    &:hover .lar-marquee-track {
+      animation-play-state: paused;
+    }
+
+    &[data-direction="left"] .lar-marquee-track {
+      animation-name: lar-marquee-left;
+    }
+
+    &[data-direction="right"] .lar-marquee-track {
+      animation-name: lar-marquee-right;
+    }
+  }
+
+  & .lar-marquee-track {
+    display: flex;
+    gap: 20px;
+    flex-shrink: 0;
+    animation-duration: 40s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    padding-right: 20px;
+  }
+}
+
+.lar-testimonial-card {
+  flex-shrink: 0;
+  width: 320px;
+  border-radius: 16px;
+  padding: 24px;
+  background: var(--lar-card-bg, #fafafa);
+  border: 1px solid var(--lar-border, #eaeaea);
+
+  & p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  & .lar-testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+
+    & img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    & strong {
+      display: block;
+      font-size: 0.9rem;
+    }
+
+    & span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--lar-muted, #888);
+    }
+  }
+}
+
+@keyframes lar-marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes lar-marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }

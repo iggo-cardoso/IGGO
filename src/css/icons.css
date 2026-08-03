@@ -1,0 +1,50 @@
+.iggo {
+  --iggo-stroke: #000;
+  position: relative;
+  background: var(--iggo-stroke);
+
+  &::before,
+  &::after {
+    background: var(--iggo-stroke);
+  }
+}
+
+.iggo.arrow-up-left {
+  width: 24px;
+  height: 2px;
+  transform: rotate(140deg) translateY(2px);
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    transform: rotate(-45deg);
+    top: -4px;
+    left: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    transform: rotate(45deg);
+    top: 4px;
+    left: 0;
+  }
+}
+
+.iggo.plus {
+  width: 2px;
+  height: 24px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    top: 50%;
+    left: -11px;
+  }
+}

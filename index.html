@@ -23,7 +23,7 @@
     <meta name="copyright" content="IGGO Studios">
 
 
-    <!-- Twitter Card -->
+    <!-- Twitter Card E8-5002 8-1D8D0 0-ABAB5 -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Studio IGGO – Automação inteligente com IA">
     <meta name="twitter:description" content="Plataformas com IA, design estratégico e presença digital impactante.">
@@ -448,8 +448,9 @@
           <p class="card-title">Educação & Conteúdo Tech</p>
           <p class="card-body">Criação de apresentações, materiais didáticos e workshops,  como a série de Scratch para educadores, com foco em clareza conceitual.</p>
         </div>
-
+        
       </div>
+      <div id="gallery-container"></div>
       <div class="boxes">
         <div data-effect="parallax" data-speed="0.18" data-origin="section" data-direction="down"></div>
         <div data-effect="parallax" data-speed="0.40" data-origin="section" data-direction="down"></div>
@@ -468,7 +469,7 @@
       <img class="conversion-img" data-effect="fade-viewport parallax" data-fade-zone="150" data-blur="8" data-speed="0.18" data-origin="section" data-direction="down" src="img/Brands/stem/captura_site_stem.png" alt="" loading="lazy" width="800" height="1000">
       <img class="conversion-img" data-effect="fade-viewport parallax" data-fade-zone="150" data-blur="8" data-speed="0.18" data-origin="section" data-direction="down" src="img/Brands/alex/captura_site_alex.png" alt="" loading="lazy" width="800" height="1000">
       <img class="conversion-img" data-effect="fade-viewport parallax" data-fade-zone="150" data-blur="8" data-speed="0.18" data-origin="section" data-direction="down" src="img/Brands/Bellavivele/bellavivele-card-1.jpg" alt="" loading="lazy" width="800" height="1000">
-      <div id="gallery-container"></div>
+      <!-- <div id="gallery-container"></div> -->
     </section>
     <h2 class="title-sections" data-effect="fade-viewport" data-fade-zone="150" style="mask-repeat: no-repeat; opacity: 1;">
       Materiais que compartilhamos, <span>do gratuito ao aprofundado.</span>
@@ -480,14 +481,19 @@
       <h1>Sessenta Vezes<br>por <em>Segundo</em></h1>
       <p class="subtitle">O ritmo da web. O que o navegador faz nos 16 milissegundos entre um frame e o outro, e por que isso decide se a sua animação funciona ou trava.</p>
       <div class="cta-row"> 
-        <a style="text-decoration: none;" href="/src/html/book-iggostudios.html" class="btn-solid">Visualizar Pagina de vendas</a> 
+        <a style="text-decoration: none;" href="/src/html/book-iggostudios.html" class="btn-solid">
+          Visualizar Pagina de vendas
+          <div class="iggo arrow-up-left"></div>
+        </a> 
       </div>
 
 
       <div class="cover-stage">
         <div class="cover-glow"></div>
         <button class="active_touch" type="button" onclick="this.nextElementSibling.style.pointerEvents = this.nextElementSibling.style.pointerEvents === 'auto' ? 'none' : 'auto'; this.textContent = this.textContent === 'Ativar interação' ? 'Desativar interação' : 'Ativar interação';">Ativar interação</button>
-        <iframe style="touch-action: none; pointer-events: none; mix-blend-mode: difference;" width="100%" height="700px" src="/src/html/livro-visualizador-3d.html" frameborder="0"></iframe>
+        <iframe style="touch-action: none; pointer-events: none; " width="80%" height="500px" src="/src/html/livro-visualizador-3d.html" frameborder="0">
+          
+        </iframe>
       </div>
       <div class="meta-line mono">116 PÁGINAS · 15 CAPÍTULOS + GLOSSÁRIO · PDF · IGOR OLIVEIRA CARDOSO</div>
     </section>
@@ -499,34 +505,8 @@
         </div>
     </div>
 
-    <section style="display:none;" class="lar-suite">
+    <section class="lar-suite">
       
-
-      <div class="lar-divider"></div>
-
-      <div class="lar-quote">
-        <!-- TODO Igor: troca por um depoimento real de cliente, com nome e cargo/empresa -->
-        <blockquote>"Substitua por um depoimento real de um cliente seu — algo curto, específico, que mostre resultado."</blockquote>
-        <p class="lar-quote-author"><strong>Cliente Exemplo</strong>Cargo · Empresa</p>
-      </div>
-
-      <div class="lar-feature-trio">
-        <div class="lar-feature-card">
-          <span class="lar-eyebrow">01</span>
-          <h3>Briefing vira protótipo</h3>
-          <p>Descreve o que precisa. A gente transforma em wireframe navegável em poucos dias, antes de escrever a primeira linha de produção.</p>
-        </div>
-        <div class="lar-feature-card">
-          <span class="lar-eyebrow">02</span>
-          <h3>Motion e código lado a lado</h3>
-          <p>Toda animação já nasce pensada pra performance — não é efeito bonito colado por cima, é parte da arquitetura.</p>
-        </div>
-        <div class="lar-feature-card">
-          <span class="lar-eyebrow">03</span>
-          <h3>Deploy e domínio inclusos</h3>
-          <p>DNS, WAF e infraestrutura Cloudflare já saem configurados. Você recebe o link, não uma lista de pendências.</p>
-        </div>
-      </div>
 
       <div class="lar-divider"></div>
 
@@ -548,8 +528,8 @@
             <div class="lar-stat-label">Anos de trajetória</div>
           </div>
           <div class="lar-stat">
-            <div class="lar-stat-value">100+</div>
-            <div class="lar-stat-label">Alunos formados no STEM Club</div>
+            <div class="lar-stat-value">+100%</div>
+            <div class="lar-stat-label">Melhor preço do mercado</div>
           </div>
         </div>
       </div>
@@ -559,40 +539,141 @@
       <div class="lar-testimonials">
         <span class="lar-eyebrow" style="display:block; text-align:center;">· Depoimentos</span>
         <h2 class="lar-headline">O que dizem sobre trabalhar com a gente.</h2>
-        <!-- placeholder genérico — troque pelos depoimentos reais -->
-        <div class="lar-testimonials-grid">
-          <div class="lar-testimonial-card">
-            <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
-            <div class="lar-testimonial-author">
-              <img src="" alt="" onerror="this.style.display='none'">
-              <div><strong>Cliente A</strong><span>Cargo, Empresa</span></div>
+
+        <div class="lar-marquee">
+          <div class="lar-marquee-row" data-direction="left">
+            <div class="lar-marquee-track">
+              <!-- placeholder genérico — troque pelos depoimentos reais -->
+              <div class="lar-testimonial-card">
+                <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente A</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Outro depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente B</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Mais um exemplo de depoimento. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente C</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente D</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="lar-marquee-track" aria-hidden="true">
+              <div class="lar-testimonial-card">
+                <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente A</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Outro depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente B</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Mais um exemplo de depoimento. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente C</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente D</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="lar-testimonial-card">
-            <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
-            <div class="lar-testimonial-author">
-              <img src="" alt="" onerror="this.style.display='none'">
-              <div><strong>Cliente B</strong><span>Cargo, Empresa</span></div>
+
+          <div class="lar-marquee-row" data-direction="right">
+            <div class="lar-marquee-track">
+              <div class="lar-testimonial-card">
+                <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente E</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Outro depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente F</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Mais um exemplo de depoimento. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente G</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente H</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="lar-testimonial-card">
-            <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
-            <div class="lar-testimonial-author">
-              <img src="" alt="" onerror="this.style.display='none'">
-              <div><strong>Cliente C</strong><span>Cargo, Empresa</span></div>
-            </div>
-          </div>
-          <div class="lar-testimonial-card">
-            <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
-            <div class="lar-testimonial-author">
-              <img src="" alt="" onerror="this.style.display='none'">
-              <div><strong>Cliente D</strong><span>Cargo, Empresa</span></div>
+            <div class="lar-marquee-track" aria-hidden="true">
+              <div class="lar-testimonial-card">
+                <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente E</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Outro depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente F</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Mais um exemplo de depoimento. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente G</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
+              <div class="lar-testimonial-card">
+                <p>"Depoimento de exemplo. Troque por uma fala real e específica de um cliente seu."</p>
+                <div class="lar-testimonial-author">
+                  <img src="" alt="" onerror="this.style.display='none'">
+                  <div><strong>Cliente H</strong><span>Cargo, Empresa</span></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="lar-divider"></div>
+      <div class="lar-divider">
+        <div class="iggo plus"></div>
+        <div class="iggo plus"></div>
+      </div>
 
       <div class="lar-pricing">
         <span class="lar-eyebrow" style="display:block; text-align:center;">· Investimento</span>
@@ -611,18 +692,18 @@
               <li>Até 5 seções</li>
               <li>Responsivo mobile/desktop</li>
               <li>1 rodada de revisão</li>
-              <li>Entrega em até X dias</li>
+              <li>Entrega em até 14 dias</li>
             </ul>
             <button type="button">Falar com a equipe</button>
           </div>
           <div class="lar-plan" data-popular="true">
             <span class="lar-plan-badge">Mais pedido</span>
             <h3>Site Institucional</h3>
-            <div class="lar-plan-price">R$ 3.200</div>
+            <div class="lar-plan-price">R$ 2.500</div>
             <p class="lar-plan-note">a partir de, pagamento único</p>
             <ul>
               <li>Estrutura completa multi-página</li>
-              <li>SEO técnico básico</li>
+              <li>SEO técnico avançado</li>
               <li>Formulário de contato integrado</li>
               <li>30 dias de suporte pós-entrega</li>
             </ul>
@@ -643,7 +724,10 @@
         </div>
       </div>
 
-      <div class="lar-divider"></div>
+      <div class="lar-divider">
+        <div class="iggo plus"></div>
+        <div class="iggo plus"></div>
+      </div>
 
       <div class="lar-faq">
         <span class="lar-eyebrow" style="display:block; text-align:center;">· Perguntas frequentes</span>

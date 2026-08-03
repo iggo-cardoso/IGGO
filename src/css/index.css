@@ -190,6 +190,17 @@ header {
     justify-content: space-between;
     padding: 0 50px 0 50px;
     height: 70px;
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 10%;
+        right: 0;
+        background: #ffffff1c;
+        height: .1px;
+        width: 80%;
+        z-index: 10;
+    }
     img {
         width: 100px;
     }
@@ -205,7 +216,7 @@ header {
             color: #fff;
             list-style-type: none;
             &.active {
-                color: #E85002;
+                color: var(--brand);
                 filter: invert(1);
                 font-weight: 700;
             }
@@ -218,7 +229,7 @@ header {
                     filter: invert(1);
                     z-index: -1;
                     content: 'Novo';
-                    background: #E85002;
+                    background: var(--brand);
                     color: #eee;
                     text-wrap: nowrap;
                     font-size: 10px;
@@ -235,7 +246,7 @@ header {
                     filter: invert(1);
                     z-index: -1;
                     content: 'Em breve';
-                    background: #E85002;
+                    background: var(--brand);
                     color: #eee;
                     text-wrap: nowrap;
                     font-size: 10px;
@@ -252,7 +263,7 @@ header {
             border: 0;
             &:last-of-type {
                 filter: invert(1);
-                background: #E85002;
+                background: var(--brand);
                 color: #fff;
             }
         }
@@ -274,6 +285,7 @@ header {
         position: relative;
         margin: 0px auto;
         font-size: 5.9rem;
+        
         font-weight: 500;
         text-align: center;
         color: #000;
@@ -282,7 +294,7 @@ header {
             color: #000;
             font-weight: 500;
             .brand-color {
-                color: #E85002;
+                color: var(--brand);
             }
         }
         .asterisk {
@@ -367,7 +379,7 @@ header {
             }
 
             span {
-                background: #E85002;
+                background: var(--brand);
                 color: #fff;
                 display: flex;
                 align-items: center;
@@ -397,7 +409,7 @@ header {
     margin: 50px 0 0 0;
     img {
         height: 70vh;
-        border-radius: 10px;
+        border-radius: 20px;
         mask-image: linear-gradient(
             to bottom,
             hsl(0, 0%, 0%) 0%,
@@ -560,7 +572,6 @@ header {
         overflow: hidden;
         margin: 100px 50px 0 0;
         padding: 0 0 260px 0;
-        border-bottom: 1px solid rgba(95, 95, 95, 0.315);
         .card {
             padding: 20px;
             border-right: 1px solid rgba(95, 95, 95, 0.315);
@@ -615,6 +626,7 @@ header {
     overflow: hidden;
     width: 100%;
     padding-top: 80px;
+    padding-bottom: 400px;
     .headlines {
         display: flex;
         flex-direction: column;
@@ -641,61 +653,60 @@ header {
 
     .conversion-img {
         position: absolute;
-        border-radius: 12px;
+        border-radius: 0;
         object-fit: cover;
         will-change: transform;
         pointer-events: none;
         user-select: none;
         width: 280px;
         height: 180px;
-        box-shadow: 10px 10px 15px 0px #0005d;
+        box-shadow: 10px 10px 15px 0px #22200027;
         &:nth-of-type(1) {
             left: 6%;
-            top: 3%;
+            top: 100px;
         }
         &:nth-of-type(2) {
             left: calc(50% - 90px);
-            top: 15%;
+            top: 350px;
             width: 315px;
             height: 180px;
         }
         &:nth-of-type(3) {
             right: 6%;
-            top: -4.2%;
+            top: 10px;
             width: 300px;
             height: 180px;
         }
         &:nth-of-type(4) {
             left: calc(20% - 90px);
-            top: 28%;
+            top: 480px;
             width: 250px;
             height: 150px;
         }
     }
 
-    #gallery-container {
-        margin-top: 450px;
-        width: 100%;
-        height: 1000px;
-        overflow: hidden;
-        cursor: grab;
-        
-    }
-    #gallery-container:active {
-        cursor: grabbing;
-    }
+    
 }
 
+#gallery-container {
+    margin: -400px 0 0 0;
+    padding: 0;
+    width: 100%;
+    height: 1000px;
+    overflow: hidden;
+    cursor: grab;
+    z-index: 100;
+    
+}
+#gallery-container:active {
+    cursor: grabbing;
+}
 
   /* ---------- HERO ---------- */
-.book{
+.book {
     width:calc(100% - 40px);
     margin:6px 20px 0;
     border-radius:1.4em;
-    background:
-    radial-gradient(ellipse 90% 80% at 100% 70%, #c64a1e33 0%, transparent 55%),
-    radial-gradient(ellipse 150% 90% at 93% 97%, #E85002 0%, #000 30%, transparent 78%),
-    #000;
     color:#F1EDE8;
     position:relative;
     overflow:hidden;
@@ -709,6 +720,7 @@ header {
         letter-spacing:.14em;
         opacity:.6;
         margin-bottom:26px;
+        display:none;
     }
     h1 {
         font-size:clamp(2.6rem, 7vw, 5.6rem);
@@ -717,9 +729,10 @@ header {
         line-height:1.02;
         letter-spacing:-.02em;
         max-width:1000px;
+        display:none;
         em {
             font-style:normal;
-            color:#E85002;
+            color:var(--brand);
         }
     }
     .subtitle {
@@ -730,32 +743,34 @@ header {
         font-weight:400;
         color:rgba(241,237,232,.68);
         line-height:1.55;
+        display:none;
     }
+    
     .cta-row{
-        margin-top:38px;
         display:flex;
         gap:16px;
         align-items:center;
-        flex-wrap:wrap;
+        flex-wrap: nowrap;
         justify-content:center;
         .btn-solid {
-            background:#fff;
             color:#000;
-            font-weight:700;
-            font-size:1.02rem;
+            font-weight: 400;
+            font-size: 1.25rem;
             padding:14px 26px;
             border-radius:1em;
             border:0;
             cursor:pointer;
-            box-shadow:0 8px 24px -8px rgba(0,0,0,.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
     }
     .cover-stage{
         position:relative;
-        margin:30px 0 10px 0;
-        width:100%;
-        display:flex;
-        justify-content:center;
+        margin: 30px 0 10px 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
         .cover-glow{
             position:absolute;
             bottom:-40px;
@@ -781,9 +796,15 @@ header {
             background: #00000;
             color: #fff;
             border: 0;
-            background: #E85002;
+            background: var(--brand);
             padding: 5px 10px;
             border-radius: 10px;
+        }
+        iframe {
+            border: 1px solid #00000021;
+            border-radius: 20px;
+            position: relative;
+            
         }
     }
     .meta-line{

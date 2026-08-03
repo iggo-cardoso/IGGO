@@ -254,7 +254,7 @@ class App {
     items,
     bend         = 3,
     textColor    = '#ffffff',
-    borderRadius = 0.05,
+    borderRadius = 0.00,
     font         = 'bold 30px Figtree',
     scrollSpeed  = .08,
     scrollEase   = 0.05
@@ -492,9 +492,9 @@ function initGallery(myGen) {
   container.innerHTML = '';
 
   currentApp = new App(container, {
-    bend:         3,
+    bend:         0,
     textColor:    '#ffffff',
-    borderRadius: 0.05,
+    borderRadius: 0.00,
     scrollSpeed:  2,
     scrollEase:   0.05
   });

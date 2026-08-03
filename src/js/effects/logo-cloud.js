@@ -185,7 +185,8 @@
       .logo-cloud {
         position: relative;
         margin: 0 auto;
-        max-width: 720px;
+        max-width: 7
+        20px;
         padding: 32px 0;
         background: linear-gradient(to right, rgba(0,0,0,0.03), transparent, rgba(0,0,0,0.03));
 
