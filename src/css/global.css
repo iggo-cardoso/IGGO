@@ -10,8 +10,8 @@
     --scroll-band-font: 'stretch pro';  /* fonte */
     --scroll-band-opacity: 0.85;    /* transparência */
 
-    --brand: #E85002;
-    /* --brand: #0ABAB5; */
+    /* --brand: #E85002; */
+    --brand: #0ABAB5;
 }
 
 ::selection {
