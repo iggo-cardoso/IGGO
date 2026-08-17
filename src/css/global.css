@@ -10,8 +10,11 @@
     --scroll-band-font: 'stretch pro';  /* fonte */
     --scroll-band-opacity: 0.85;    /* transparência */
 
+    /* --brand: #e8b202; */
+    /* --brand: #e80202; */
+    --brand: #F32509;
     /* --brand: #E85002; */
-    --brand: #0ABAB5;
+    /* --brand: #0ABAB5; */
 }
 
 ::selection {
@@ -28,8 +31,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* font-family: 'Inter Tight', sans-serif; */
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter Tight', sans-serif;
+    /* font-family: 'Fraunces', serif; */
     
     /* scroll-behavior gerenciado pelo momentum JS em index.js */
 }
