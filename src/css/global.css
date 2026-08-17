@@ -361,13 +361,11 @@ h2.title-sections {
     top: 50%;
     left: 50%;
     bottom: auto;
-    z-index: 1000000001;
+    z-index: 100000000001;
     color: #fff;
     opacity: 0;
     transform: translate(-50%, -50%);
     transition: opacity 0.2s ease;
-    pointer-events: none;
-
     &.is-visible {
       opacity: 1;
     }
@@ -487,6 +485,9 @@ body.pt-noBrandArea header {
     bottom: 15px;
     left: 15px;
     font-weight: 700;
+    color: #fff;
+    mix-blend-mode: difference;
+    z-index: 100000000001;
     .saying-suffix {
         margin-left: 5px;
         display: inline-block;
@@ -494,7 +495,7 @@ body.pt-noBrandArea header {
         opacity: 1;
         transform: translateY(0);
         color: var(--brand);
-
+        filter: invert(1);
         &.is-out {
             opacity: 0;
             transform: translateY(6px);
