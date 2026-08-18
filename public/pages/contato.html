@@ -1,0 +1,64 @@
+<section class="cont-hero">
+  <span class="cont-eyebrow">· Fale com a equipe</span>
+  <h1 class="cont-title">Conta pra gente o que você <span class="brand-color">precisa</span>.</h1>
+  <p class="cont-subtitle">
+    Preenche os campos abaixo. No final a gente te leva direto pro WhatsApp,
+    já com tudo prontinho pra continuar a conversa.
+  </p>
+</section>
+
+<section class="cont-form-section">
+  <form class="cont-form" novalidate>
+    <div class="cont-field">
+      <label for="cont-nome">Seu nome <em>*</em></label>
+      <input type="text" id="cont-nome" name="nome" maxlength="120" required autocomplete="name">
+    </div>
+
+    <div class="cont-field">
+      <label for="cont-whatsapp">WhatsApp <em>*</em></label>
+      <input type="tel" id="cont-whatsapp" name="whatsapp" maxlength="20" required autocomplete="tel" placeholder="(71) 99999-9999">
+    </div>
+
+    <div class="cont-field">
+      <label for="cont-email">E-mail</label>
+      <input type="email" id="cont-email" name="email" maxlength="254" autocomplete="email">
+    </div>
+
+    <div class="cont-field">
+      <label for="cont-tipo">O que você precisa <em>*</em></label>
+      <select id="cont-tipo" name="tipoProjeto" required>
+        <option value="" disabled selected>Escolhe uma opção</option>
+        <option value="landing">Landing Page</option>
+        <option value="institucional">Site institucional</option>
+        <option value="sistema">Sistema sob medida</option>
+        <option value="manutencao">Manutenção / suporte</option>
+        <option value="outro">Outro</option>
+      </select>
+    </div>
+
+    <div class="cont-field">
+      <label for="cont-mensagem">Conta rapidamente sobre o projeto <em>*</em></label>
+      <textarea id="cont-mensagem" name="mensagem" rows="4" maxlength="800" required></textarea>
+    </div>
+
+    <!-- honeypot, invisível pra humano -->
+    <div class="cont-hp">
+      <label for="cont-empresa">Empresa</label>
+      <input type="text" id="cont-empresa" name="empresa_confirmacao" tabindex="-1" autocomplete="off">
+    </div>
+
+    <label class="cont-checkbox">
+      <input type="checkbox" name="consentimento" required>
+      <span>Concordo em ser contatado por WhatsApp ou e-mail sobre esse projeto.</span>
+    </label>
+
+    <p class="cont-msg" role="status" aria-live="polite"></p>
+
+    <div class="cont-nav">
+      <button type="submit" class="cont-btn cont-btn-solid">
+        Continuar no WhatsApp
+        <i class="bx bx-arrow-up-right-stroke"></i>
+      </button>
+    </div>
+  </form>
+</section>
