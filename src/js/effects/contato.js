@@ -92,14 +92,18 @@ import '../../css/html/contato.css';
         const json = await res.json().catch(() => ({}));
 
         if (!res.ok) {
+          console.error('[contato] /api/contato retornou erro:', res.status, json);
           setMsg(json.error || 'Não deu pra enviar agora, tenta de novo.', 'error');
           submitBtn.disabled = false;
           return;
         }
       } catch (err) {
-        // falha de rede não deve travar o usuário no meio do caminho,
-        // o WhatsApp continua sendo o combinado final
-        console.error('[contato] falha ao salvar lead:', err);
+        // erro de rede/CORS/etc. NÃO mascara como sucesso: fica claro pro
+        // usuário e pra gente debugar (olha o Network tab do devtools)
+        console.error('[contato] falha ao chamar /api/contato:', err);
+        setMsg('Falha de conexão, tenta de novo em instantes.', 'error');
+        submitBtn.disabled = false;
+        return;
       }
 
       setMsg('Prontinho! Te levando pro WhatsApp...', 'success');
