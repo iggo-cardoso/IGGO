@@ -1,4 +1,5 @@
 import '../../css/html/contato.css';
+import { renderTurnstile } from '../utils/turnstile.js';
 
 // ═══════════════════════════════════════════════════════════════
 // CONTATO,  form de /pages/contato.html usado por todos os CTAs
@@ -54,6 +55,9 @@ import '../../css/html/contato.css';
 
     const submitBtn = form.querySelector('.cont-btn-solid');
     const msgEl = form.querySelector('.cont-msg');
+    const turnstileEl = form.querySelector('.cf-turnstile');
+
+    renderTurnstile(turnstileEl);
 
     function setMsg(text, kind) {
       if (!msgEl) return;

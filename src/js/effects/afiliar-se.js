@@ -1,4 +1,5 @@
 import '../../css/html/afiliar-se.css';
+import { renderTurnstile } from '../utils/turnstile.js';
 
 // ═══════════════════════════════════════════════════════════════
 // AFILIAR-SE,  form em etapas da página /pages/afiliar-se.html
@@ -47,6 +48,8 @@ import '../../css/html/afiliar-se.css';
     const submitBtn = form.querySelector('.afil-btn-submit');
     const reviewList = form.querySelector('.afil-review');
     const msgEl = form.querySelector('.afil-msg');
+    const turnstileEl = form.querySelector('.cf-turnstile');
+
 
     let current = 0;
 
@@ -69,7 +72,10 @@ import '../../css/html/afiliar-se.css';
       nextBtn.hidden = index === steps.length - 1;
       submitBtn.hidden = index !== steps.length - 1;
 
-      if (index === steps.length - 1) buildReview();
+      if (index === steps.length - 1) {
+        buildReview();
+        renderTurnstile(turnstileEl); // só agora o container fica visível (display:flex)
+      }
 
       current = index;
     }

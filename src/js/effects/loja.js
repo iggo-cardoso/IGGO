@@ -1,5 +1,6 @@
 
 import '../../css/html/loja.css';
+import { renderTurnstile } from '../utils/turnstile.js';
 
 // ═══════════════════════════════════════════════════════════════
 // LOJA IGGO,  funções da página /pages/loja.html
@@ -193,6 +194,10 @@ import '../../css/html/loja.css';
     const hpEl    = form.querySelector('.loja-subscribe-hp');
     const btnEl   = form.querySelector('.loja-card-btn');
     const msgEl   = form.querySelector('.loja-subscribe-msg');
+    const turnstileEl = form.querySelector('.cf-turnstile');
+
+    renderTurnstile(turnstileEl);
+
 
     function setMsg(text, kind) {
       if (!msgEl) return;
