@@ -73,6 +73,12 @@ import '../../css/html/contato.css';
       const email = String(data.get('email') || '').trim();
       const tipoProjeto = String(data.get('tipoProjeto') || '').trim();
       const mensagem = String(data.get('mensagem') || '').trim();
+      const turnstileToken = String(data.get('cf-turnstile-response') || '').trim();
+
+      if (!turnstileToken) {
+        setMsg('Aguarda a verificação de segurança terminar e tenta de novo.', 'error');
+        return;
+      }
 
       submitBtn.disabled = true;
       setMsg('Enviando...', null);
@@ -85,6 +91,7 @@ import '../../css/html/contato.css';
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             nome, whatsapp, email, tipoProjeto, mensagem,
+            'cf-turnstile-response': turnstileToken,
             empresa_confirmacao: data.get('empresa_confirmacao'), // honeypot
           }),
         });
@@ -94,6 +101,7 @@ import '../../css/html/contato.css';
         if (!res.ok) {
           console.error('[contato] /api/contato retornou erro:', res.status, json);
           setMsg(json.error || 'Não deu pra enviar agora, tenta de novo.', 'error');
+          if (window.turnstile) window.turnstile.reset();
           submitBtn.disabled = false;
           return;
         }
@@ -102,6 +110,7 @@ import '../../css/html/contato.css';
         // usuário e pra gente debugar (olha o Network tab do devtools)
         console.error('[contato] falha ao chamar /api/contato:', err);
         setMsg('Falha de conexão, tenta de novo em instantes.', 'error');
+        if (window.turnstile) window.turnstile.reset();
         submitBtn.disabled = false;
         return;
       }
@@ -109,6 +118,7 @@ import '../../css/html/contato.css';
       setMsg('Prontinho! Te levando pro WhatsApp...', 'success');
       window.open(whatsappUrl, '_blank', 'noopener');
       form.reset();
+      if (window.turnstile) window.turnstile.reset();
       submitBtn.disabled = false;
     }
 

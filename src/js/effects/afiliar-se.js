@@ -154,6 +154,12 @@ import '../../css/html/afiliar-se.css';
       }
 
       const data = new FormData(form);
+      const turnstileToken = String(data.get('cf-turnstile-response') || '').trim();
+      if (!turnstileToken) {
+        setMsg('Aguarda a verificação de segurança terminar e tenta de novo.', 'error');
+        return;
+      }
+
       submitBtn.disabled = true;
       setMsg('Enviando...', null);
 
@@ -173,6 +179,7 @@ import '../../css/html/afiliar-se.css';
             descricao: data.get('descricao'),
             tempoMercado: data.get('tempoMercado'),
             portfolio: data.get('portfolio'),
+            'cf-turnstile-response': turnstileToken,
             empresa_confirmacao: data.get('empresa_confirmacao'), // honeypot
           }),
         });
@@ -181,15 +188,18 @@ import '../../css/html/afiliar-se.css';
 
         if (!res.ok) {
           setMsg(json.error || 'Não deu pra enviar agora, tenta de novo.', 'error');
+          if (window.turnstile) window.turnstile.reset();
           submitBtn.disabled = false;
           return;
         }
 
         setMsg('Inscrição enviada! A gente entra em contato pelo WhatsApp ou e-mail.', 'success');
         form.reset();
+        if (window.turnstile) window.turnstile.reset();
         showStep(0);
       } catch (err) {
         setMsg('Falha de conexão, tenta de novo em instantes.', 'error');
+        if (window.turnstile) window.turnstile.reset();
         submitBtn.disabled = false;
       }
     }

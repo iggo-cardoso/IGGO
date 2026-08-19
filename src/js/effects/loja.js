@@ -212,6 +212,12 @@ import '../../css/html/loja.css';
         return;
       }
 
+      const turnstileToken = String(new FormData(form).get('cf-turnstile-response') || '').trim();
+      if (!turnstileToken) {
+        setMsg('Aguarda a verificação de segurança terminar e tenta de novo.', 'error');
+        return;
+      }
+
       btnEl.disabled = true;
       setMsg('Enviando...', null);
 
@@ -223,6 +229,7 @@ import '../../css/html/loja.css';
             email,
             tipo: tipoEl.value,
             empresa: hpEl.value, // honeypot, deve chegar vazio
+            'cf-turnstile-response': turnstileToken,
           }),
         });
 
@@ -230,13 +237,16 @@ import '../../css/html/loja.css';
 
         if (!res.ok) {
           setMsg(data.error || 'Não deu pra completar a inscrição, tenta de novo.', 'error');
+          if (window.turnstile) window.turnstile.reset();
           return;
         }
 
         setMsg('Inscrito! A gente avisa quando tiver novidade.', 'success');
         form.reset();
+        if (window.turnstile) window.turnstile.reset();
       } catch (err) {
         setMsg('Falha de conexão, tenta de novo em instantes.', 'error');
+        if (window.turnstile) window.turnstile.reset();
       } finally {
         btnEl.disabled = false;
       }

@@ -8,6 +8,7 @@
 // pelas Firestore Security Rules,  ver functions/utils/firestore.js).
 // ═══════════════════════════════════════════════════════════════
 import { firestoreCreate } from '../utils/firestore.js';
+import { verifyTurnstile } from '../utils/turnstile.js';
 
 const NICHOS = new Set(['grafica', 'video', 'foto', 'design', 'marketing', 'outro']);
 const TEMPOS = new Set(['', 'menos-1', '1-3', '3-5', 'mais-5']);
@@ -28,6 +29,13 @@ export async function onRequestPost(context) {
   if (honeypot) {
     // bot preencheu o campo escondido, finge sucesso sem gravar nada
     return json({ ok: true });
+  }
+
+  const turnstileToken = String(body['cf-turnstile-response'] || '').trim();
+  const turnstile = await verifyTurnstile(env, turnstileToken, request.headers.get('cf-connecting-ip'));
+  if (!turnstile.ok) {
+    console.error('Turnstile falhou em /api/afiliacao:', turnstile.reason);
+    return json({ error: 'Verificação de segurança falhou, tenta de novo.' }, 403);
   }
 
   const empresa = String(body.empresa || '').trim();

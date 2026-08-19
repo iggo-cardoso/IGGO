@@ -11,6 +11,7 @@
 // functions/utils/firestore.js).
 // ═══════════════════════════════════════════════════════════════
 import { firestoreCreate } from '../utils/firestore.js';
+import { verifyTurnstile } from '../utils/turnstile.js';
 
 const TIPOS = new Set(['landing', 'institucional', 'sistema', 'manutencao', 'outro']);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -29,6 +30,13 @@ export async function onRequestPost(context) {
   if (honeypot) {
     // bot preencheu o campo escondido, finge sucesso sem gravar nada
     return json({ ok: true });
+  }
+
+  const turnstileToken = String(body['cf-turnstile-response'] || '').trim();
+  const turnstile = await verifyTurnstile(env, turnstileToken, request.headers.get('cf-connecting-ip'));
+  if (!turnstile.ok) {
+    console.error('Turnstile falhou em /api/contato:', turnstile.reason);
+    return json({ error: 'Verificação de segurança falhou, tenta de novo.' }, 403);
   }
 
   const nome = String(body.nome || '').trim();
