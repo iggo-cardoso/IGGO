@@ -19,10 +19,11 @@
    mudar o comportamento do resto do site. */
 body.pg-loja .navtop {
     mix-blend-mode: normal;
-    background: #000;
+    background: transparent;
     position: absolute;
     top: 0;
     width: 100%;
+    mix-blend-mode: difference;
     img {
         position: relative;
         width: 100px;
@@ -37,7 +38,7 @@ body.pg-loja .navtop {
             list-style-type: none;
             &.active {
                 color: var(--brand);
-                filter: none;
+                filter: invert(1);
                 font-weight: 700;
             }
             &:nth-child(4),
@@ -47,7 +48,7 @@ body.pg-loja .navtop {
                 align-items: center;
                 gap: 5px;
                 &::after {
-                    filter: none;
+                    filter: invert(1);
                     z-index: -1;
                     content: 'Em breve';
                     background: var(--brand);
@@ -58,6 +59,12 @@ body.pg-loja .navtop {
                     border-radius: 4px;
                 }
             }
+            &:nth-child(4) {
+                &::after {
+                    content: 'Em breve';
+                    filter: none;
+                }
+            }
         }
     }
     .btn_area {
@@ -66,7 +73,7 @@ body.pg-loja .navtop {
             border-radius: 8px;
             border: 0;
             &:last-of-type {
-                filter: none;
+                filter: invert(1);
                 background: var(--brand);
                 color: #fff;
             }
@@ -93,9 +100,12 @@ body.pg-loja .navtop {
    no desktop). Só visual,  ainda sem lógica de filtro real. */
 .loja-subnav {
     position: sticky;
-    background: #000;
+    top: -2px;
+    background: transparent;
     margin-top: 70px;
-    border-top: .5px solid #eeeeee18;
+    border-top: 2px dashed #eeeeee36;
+    border-bottom: 2px dashed #eeeeee36;
+    mix-blend-mode: difference;
 }
 
 .loja-subnav ul {
