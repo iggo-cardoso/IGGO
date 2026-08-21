@@ -22,6 +22,7 @@ import './effects/circular-gallery.js'
 import './effects/loja.js';
 import './effects/afiliar-se.js';
 import './effects/contato.js';
+import './effects/sobre.js';
 import './page-styles.js';
 
 (function () {

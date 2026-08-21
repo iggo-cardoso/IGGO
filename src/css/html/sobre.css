@@ -1,8 +1,12 @@
 /* ═══════════════════════════════════════════════════════════════
-   SOBRE NÓS — estilos exclusivos desta página
+   SOBRE NÓS, estilos exclusivos desta página
    Carregado via <link> dentro do próprio fragmento (/pages/sobre.html),
    assim como o padrão já usado em src/css/html/book-iggostudios.css
    ═══════════════════════════════════════════════════════════════ */
+
+.mono {
+    font-family: 'SUSE Mono', monospace;
+}
 
 .about-eyebrow {
     font-size: 12.5px;
@@ -183,6 +187,224 @@
                 margin-bottom: 0;
             }
         }
+    }
+}
+
+/* ---------- SCORE (estilo placar / auditoria) ---------- */
+.about-score {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 50px 100px;
+
+    .score-eyebrow {
+        display: block;
+        font-size: 12px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: rgb(150, 150, 150);
+        margin-bottom: 22px;
+    }
+
+    .score-headline {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+        border-bottom: 1px solid rgba(95, 95, 95, 0.315);
+        padding-bottom: 30px;
+
+        h2 {
+            margin: 0;
+            font-size: clamp(2.4rem, 5.2vw, 4.6rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #000;
+            line-height: 1;
+        }
+    }
+
+    .score-value {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+
+        .score-arrow {
+            font-size: 2rem;
+            color: rgb(150, 150, 150);
+        }
+
+        .score-num {
+            font-size: clamp(3rem, 6vw, 5.4rem);
+            font-weight: 800;
+            color: #000;
+            line-height: 1;
+        }
+
+        .score-max {
+            font-size: 1.2rem;
+            color: rgb(150, 150, 150);
+        }
+    }
+
+    .score-link {
+        display: inline-block;
+        margin-top: 18px;
+        font-size: .9rem;
+        color: rgb(95, 95, 95);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        transition: color .3s ease;
+
+        &:hover {
+            color: var(--brand);
+        }
+    }
+
+    .score-bars {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0 32px;
+        margin-top: 46px;
+    }
+
+    .score-bar {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        .bar-label {
+            font-size: .85rem;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .bar-weight {
+            font-size: .72rem;
+            font-weight: 500;
+            color: var(--brand);
+            margin-left: 4px;
+        }
+
+        .bar-track {
+            width: 100%;
+            height: 7px;
+            border-radius: 4px;
+            background: rgba(95, 95, 95, 0.14);
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            width: 0;
+            border-radius: 4px;
+            background: #000;
+            transition: width 1.1s cubic-bezier(.16, .84, .44, 1);
+        }
+
+        .bar-value {
+            font-size: .78rem;
+            color: rgb(150, 150, 150);
+        }
+    }
+
+    .score-bars-6 {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+/* ---------- VOTES (avaliação de cases, estilo jury) ---------- */
+.about-votes {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 50px 100px;
+
+    h2 {
+        text-align: left;
+        margin-left: 0 !important;
+    }
+
+    .votes-table {
+        margin-top: 46px;
+        border-top: 1px solid rgba(95, 95, 95, 0.315);
+    }
+
+    .votes-row {
+        display: grid;
+        grid-template-columns: 1fr 90px 90px 90px 110px;
+        align-items: center;
+        gap: 16px;
+        padding: 22px 24px;
+        border-bottom: 1px solid rgba(95, 95, 95, 0.14);
+
+        span {
+            font-size: .95rem;
+            color: rgb(95, 95, 95);
+            text-align: center;
+        }
+    }
+
+    .votes-row-alt {
+        background: #f6f6f6;
+    }
+
+    .votes-head {
+        border-bottom: 1px solid rgba(95, 95, 95, 0.315);
+
+        span {
+            font-size: .72rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: rgb(150, 150, 150);
+            font-weight: 600;
+        }
+
+        .votes-client {
+            font-size: .72rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: rgb(150, 150, 150);
+            font-weight: 600;
+        }
+    }
+
+    .votes-client {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        text-align: left;
+    }
+
+    .votes-avatar {
+        flex: 0 0 auto;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: .8rem;
+        font-weight: 600;
+        color: #fff;
+        background: #000;
+    }
+
+    .votes-name {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #000;
+        margin: 0 0 3px 0;
+    }
+
+    .votes-role {
+        font-size: .8rem;
+        color: rgb(150, 150, 150);
+        margin: 0;
+    }
+
+    .votes-overall {
+        font-weight: 700;
+        color: #000;
     }
 }
 
@@ -415,6 +637,9 @@
     }
 
     .group-index {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 8px;
         font-size: 3.2rem;
         font-weight: 200;
         line-height: 1;
@@ -422,6 +647,16 @@
         color: rgba(0, 0, 0, .12);
         font-variant-numeric: tabular-nums;
         transition: color .6s ease;
+
+        .idx-arrow {
+            font-size: 1.3rem;
+            font-weight: 400;
+        }
+
+        .idx-total {
+            font-size: 1.3rem;
+            opacity: .55;
+        }
     }
 
     .group-title {
@@ -484,7 +719,7 @@
 .about-cta {
     width: calc(100% - 40px);
     margin: 40px 20px 60px;
-    border-radius: .6em;
+    border-radius: 1.4em;
     background:
         radial-gradient(ellipse 90% 80% at 100% 70%, #c64a1e33 0%, transparent 55%),
         radial-gradient(ellipse 150% 90% at 93% 97%, var(--brand) 0%, #000 30%, transparent 78%),
@@ -577,11 +812,62 @@
     }
 
     .about-diff,
+    .about-score,
+    .about-votes,
     .about-process,
     .about-services,
     .about-cases,
     .about-future {
         padding: 20px 20px 60px;
+    }
+
+    .about-score {
+        .score-headline {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .score-bars {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px 24px;
+        }
+
+        .score-bars-6 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .about-votes {
+        .votes-row {
+            grid-template-columns: 1fr;
+            gap: 14px;
+            padding: 20px 16px;
+        }
+
+        .votes-head {
+            display: none;
+        }
+
+        .votes-row span:not(.votes-overall) {
+            display: none;
+        }
+
+        .votes-client {
+            justify-content: space-between;
+        }
+
+        .votes-overall {
+            display: block !important;
+            text-align: left;
+            font-size: .85rem;
+            color: rgb(150, 150, 150);
+
+            &::before {
+                content: 'Overall ';
+                font-weight: 400;
+            }
+        }
     }
 
     .about-diff .about-diff-grid {
@@ -622,6 +908,15 @@
 
     .about-services .group-index {
         font-size: 2.2rem;
+        gap: 6px;
+
+        .idx-arrow {
+            font-size: 1rem;
+        }
+
+        .idx-total {
+            font-size: 1rem;
+        }
     }
 
     .about-services li {
