@@ -67,7 +67,7 @@
     padding-top: 12px;
     padding-bottom: 12px;
     justify-content: space-between;
-    position: relative;
+    position: sticky;
     img {
         width: 100px;
         margin-left: 0;
