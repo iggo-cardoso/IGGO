@@ -171,13 +171,12 @@ body.pg-loja .navtop {
     align-items: center;
     text-align: left;
     padding: 50px 20px 0;
-
     .loja-eyebrow { margin: 0 40px 18px; }
 
     .loja-title {
         margin: 0 40px;
         max-width: 1000px;
-        font-size: clamp(2.6rem, 3.8vw, 3.4rem);
+        font-size: clamp(5.6rem, 3.8vw, 3.4rem);
         font-weight: 800;
         line-height: 1.08;
         color: #000;
@@ -187,7 +186,8 @@ body.pg-loja .navtop {
         gap: 20px;
         text-transform: uppercase;
         img {
-            width: 120px;
+            margin-top: -25px;
+            width: 250px;
         }
     }
 
@@ -579,9 +579,10 @@ body.pg-loja .navtop {
             display: flex;
             align-items: center;
             justify-content: center;
-            
+            font-size: clamp(2.6rem, 3.8vw, 3.4rem);
             img {
-                margin-top: -10px;
+                width: 120px;
+                margin-top: -15px;
             }
         }
     }
