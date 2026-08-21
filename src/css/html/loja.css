@@ -93,8 +93,6 @@ body.pg-loja .navtop {
    no desktop). Só visual,  ainda sem lógica de filtro real. */
 .loja-subnav {
     position: sticky;
-    top: 0px;
-    z-index: 90;
     background: #000;
     margin-top: 70px;
     border-top: .5px solid #eeeeee18;
