@@ -567,6 +567,10 @@ body.pg-loja .navtop {
     }
 }
 
+.about-cta {
+    display: none;
+}
+
 @media (max-width: 600px) {
 
     .loja-hero {
