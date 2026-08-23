@@ -15,17 +15,26 @@
      ═══════════════════════════════════════════════════════════════ -->
 
 <section class="afil-wiz-section">
-  <div class="afil-wiz band-right" id="afilWiz" data-total-steps="12">
+  <div class="afil-wiz band-right" id="afilWiz" data-total-steps="13">
 
     <div class="afil-wiz-progress"><span class="afil-wiz-progress-fill"></span></div>
 
-    <div class="afil-wiz-panel afil-wiz-panel--band" aria-hidden="true"></div>
+    <!-- 2 camadas que alternam a cada passo (crossfade), imagem sorteada
+         do pool da categoria do passo (mesmo agrupamento dos
+         afil-wiz-eyebrow). No sucesso o JS substitui esse innerHTML
+         pelo check -->
+    <div class="afil-wiz-panel afil-wiz-panel--band" aria-hidden="true">
+      <div class="afil-wiz-band-media">
+        <img class="afil-wiz-band-img is-active" data-layer="a" src="https://images.pexels.com/photos/13451104/pexels-photo-13451104.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="">
+        <img class="afil-wiz-band-img" data-layer="b" src="" alt="">
+      </div>
+    </div>
 
     <div class="afil-wiz-panel afil-wiz-panel--info is-in">
       <form class="afil-form" novalidate>
 
-        <!-- 0 — empresa (junto com a introdução/hero) -->
-        <fieldset class="afil-step is-active" data-step="0">
+        <!-- 0 — intro/boas-vindas, mesmo layout de faixa lateral dos demais passos -->
+        <fieldset class="afil-step is-active afil-step--intro" data-step="0">
           <div class="afil-wiz-intro">
             <h1 class="afil-wiz-title">Sua empresa dentro do <span class="brand-color">site da IGGO.</span></h1>
             <p class="afil-wiz-subtitle">
@@ -35,6 +44,10 @@
               junto com quem já faz o trabalho bem feito.
             </p>
           </div>
+        </fieldset>
+
+        <!-- 1 — empresa -->
+        <fieldset class="afil-step" data-step="1">
           <div class="afil-wiz-eyebrow">Sobre a empresa</div>
           <h2 class="afil-wiz-question">Como se chama a sua empresa?</h2>
           <label class="afil-wiz-field">
@@ -43,8 +56,8 @@
           </label>
         </fieldset>
 
-        <!-- 1 — nicho -->
-        <fieldset class="afil-step" data-step="1">
+        <!-- 2 — nicho -->
+        <fieldset class="afil-step" data-step="2">
           <div class="afil-wiz-eyebrow">Sobre a empresa</div>
           <h2 class="afil-wiz-question">Qual é o segmento de vocês?</h2>
           <label class="afil-wiz-field afil-wiz-field--select">
@@ -61,8 +74,8 @@
           </label>
         </fieldset>
 
-        <!-- 2 — cidade -->
-        <fieldset class="afil-step" data-step="2">
+        <!-- 3 — cidade -->
+        <fieldset class="afil-step" data-step="3">
           <div class="afil-wiz-eyebrow">Sobre a empresa</div>
           <h2 class="afil-wiz-question">De onde vocês atuam?</h2>
           <label class="afil-wiz-field">
@@ -71,8 +84,8 @@
           </label>
         </fieldset>
 
-        <!-- 3 — tem site -->
-        <fieldset class="afil-step" data-step="3">
+        <!-- 4 — tem site -->
+        <fieldset class="afil-step" data-step="4">
           <div class="afil-wiz-eyebrow">Sobre a empresa</div>
           <h2 class="afil-wiz-question">Vocês já têm site?</h2>
           <div class="afil-wiz-field afil-wiz-radio-row">
@@ -82,8 +95,8 @@
           </div>
         </fieldset>
 
-        <!-- 4 — responsavel -->
-        <fieldset class="afil-step" data-step="4">
+        <!-- 5 — responsavel -->
+        <fieldset class="afil-step" data-step="5">
           <div class="afil-wiz-eyebrow">Contato</div>
           <h2 class="afil-wiz-question">Quem a gente fala por lá?</h2>
           <label class="afil-wiz-field">
@@ -92,8 +105,8 @@
           </label>
         </fieldset>
 
-        <!-- 5 — whatsapp -->
-        <fieldset class="afil-step" data-step="5">
+        <!-- 6 — whatsapp -->
+        <fieldset class="afil-step" data-step="6">
           <div class="afil-wiz-eyebrow">Contato</div>
           <h2 class="afil-wiz-question">Qual o melhor WhatsApp?</h2>
           <label class="afil-wiz-field">
@@ -102,8 +115,8 @@
           </label>
         </fieldset>
 
-        <!-- 6 — email -->
-        <fieldset class="afil-step" data-step="6">
+        <!-- 7 — email -->
+        <fieldset class="afil-step" data-step="7">
           <div class="afil-wiz-eyebrow">Contato</div>
           <h2 class="afil-wiz-question">E o melhor e-mail?</h2>
           <label class="afil-wiz-field">
@@ -112,8 +125,8 @@
           </label>
         </fieldset>
 
-        <!-- 7 — instagram -->
-        <fieldset class="afil-step" data-step="7">
+        <!-- 8 — instagram -->
+        <fieldset class="afil-step" data-step="8">
           <div class="afil-wiz-eyebrow">Contato</div>
           <h2 class="afil-wiz-question">Instagram ou outra rede?</h2>
           <label class="afil-wiz-field">
@@ -122,8 +135,8 @@
           </label>
         </fieldset>
 
-        <!-- 8 — descricao -->
-        <fieldset class="afil-step" data-step="8">
+        <!-- 9 — descricao -->
+        <fieldset class="afil-step" data-step="9">
           <div class="afil-wiz-eyebrow">Serviço</div>
           <h2 class="afil-wiz-question">O que vocês entregam pro cliente final?</h2>
           <label class="afil-wiz-field">
@@ -132,8 +145,8 @@
           </label>
         </fieldset>
 
-        <!-- 9 — tempo de mercado -->
-        <fieldset class="afil-step" data-step="9">
+        <!-- 10 — tempo de mercado -->
+        <fieldset class="afil-step" data-step="10">
           <div class="afil-wiz-eyebrow">Serviço</div>
           <h2 class="afil-wiz-question">Há quanto tempo vocês atuam?</h2>
           <label class="afil-wiz-field afil-wiz-field--select">
@@ -148,8 +161,8 @@
           </label>
         </fieldset>
 
-        <!-- 10 — portfolio -->
-        <fieldset class="afil-step" data-step="10">
+        <!-- 11 — portfolio -->
+        <fieldset class="afil-step" data-step="11">
           <div class="afil-wiz-eyebrow">Serviço</div>
           <h2 class="afil-wiz-question">Tem link de portfólio?</h2>
           <label class="afil-wiz-field">
@@ -158,8 +171,8 @@
           </label>
         </fieldset>
 
-        <!-- 11 — revisão + aceite + turnstile -->
-        <fieldset class="afil-step" data-step="11">
+        <!-- 12 — revisão + aceite + turnstile -->
+        <fieldset class="afil-step" data-step="12">
           <div class="afil-wiz-eyebrow">Revisão</div>
           <h2 class="afil-wiz-question">Confere antes de enviar.</h2>
 

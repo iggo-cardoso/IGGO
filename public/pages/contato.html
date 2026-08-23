@@ -1,66 +1,142 @@
-<section class="cont-hero">
-  <span class="cont-eyebrow">· Fale com a equipe</span>
-  <h1 class="cont-title">Conta pra gente o que você <span class="brand-color">precisa</span>.</h1>
-  <p class="cont-subtitle">
-    Preenche os campos abaixo. No final a gente te leva direto pro WhatsApp,
-    já com tudo prontinho pra continuar a conversa.
-  </p>
-</section>
+<!-- ═══════════════════════════════════════════════════════════════
+     CONTATO,  fragmento carregado pelo page-router em #page-root
 
-<section class="cont-form-section">
-  <form class="cont-form" novalidate>
-    <div class="cont-field">
-      <label for="cont-nome">Seu nome <em>*</em></label>
-      <input type="text" id="cont-nome" name="nome" maxlength="120" required autocomplete="name" placeholder=" ">
+     Wizard de 1 pergunta por tela (estilo Typeform), mesmo padrão do
+     afiliar-se.html: painel colorido desliza left/right a cada passo
+     e o conteúdo troca com crossfade.
+
+     CSS e JS NÃO ficam soltos aqui dentro, entram via
+     effects/contato.js (importado globalmente em main.js), porque
+     um fragmento injetado via innerHTML nunca executa <script>, e um
+     <link> apontando pra /src quebra no build (ver loja.js/page-styles.js
+     pro mesmo padrão).
+     ═══════════════════════════════════════════════════════════════ -->
+
+<section class="cont-wiz-section">
+  <div class="cont-wiz band-right" id="contWiz" data-total-steps="6">
+
+    <div class="cont-wiz-progress"><span class="cont-wiz-progress-fill"></span></div>
+
+    <!-- 2 camadas que alternam a cada passo (crossfade), imagem sorteada
+         do pool da categoria do passo (mesmo agrupamento dos
+         cont-wiz-eyebrow). No sucesso o JS substitui esse innerHTML
+         pelo check -->
+    <div class="cont-wiz-panel cont-wiz-panel--band" aria-hidden="true">
+      <div class="cont-wiz-band-media">
+        <img class="cont-wiz-band-img is-active" data-layer="a" src="https://images.pexels.com/photos/3862142/pexels-photo-3862142.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="">
+        <img class="cont-wiz-band-img" data-layer="b" src="" alt="">
+      </div>
     </div>
 
-    <div class="cont-field">
-      <label for="cont-whatsapp">WhatsApp <em>*</em></label>
-      <input type="tel" id="cont-whatsapp" name="whatsapp" maxlength="20" required autocomplete="tel" placeholder="(71) 99999-9999">
+    <div class="cont-wiz-panel cont-wiz-panel--info is-in">
+      <form class="cont-form" novalidate>
+
+        <!-- 0 — intro/boas-vindas, mesmo layout de faixa lateral dos demais passos -->
+        <fieldset class="cont-step is-active cont-step--intro" data-step="0">
+          <div class="cont-wiz-intro">
+            <span class="cont-wiz-eyebrow-static">· Fale com a equipe</span>
+            <h1 class="cont-wiz-title">Conta pra gente o que você <span class="brand-color">precisa</span>.</h1>
+            <p class="cont-wiz-subtitle">
+              Preenche os campos abaixo. No final a gente te leva direto pro WhatsApp,
+              já com tudo prontinho pra continuar a conversa.
+            </p>
+          </div>
+        </fieldset>
+
+        <!-- 1 — nome -->
+        <fieldset class="cont-step" data-step="1">
+          <div class="cont-wiz-eyebrow">Contato</div>
+          <h2 class="cont-wiz-question">Qual é o seu nome?</h2>
+          <label class="cont-wiz-field">
+            <span class="cont-wiz-sr-only">Seu nome</span>
+            <input type="text" name="nome" required maxlength="120" placeholder="Seu nome" autocomplete="name">
+          </label>
+        </fieldset>
+
+        <!-- 2 — whatsapp -->
+        <fieldset class="cont-step" data-step="2">
+          <div class="cont-wiz-eyebrow">Contato</div>
+          <h2 class="cont-wiz-question">Qual o melhor WhatsApp?</h2>
+          <label class="cont-wiz-field">
+            <span class="cont-wiz-sr-only">WhatsApp</span>
+            <input type="tel" name="whatsapp" required maxlength="20" placeholder="(71) 99999-9999" autocomplete="tel">
+          </label>
+        </fieldset>
+
+        <!-- 3 — email -->
+        <fieldset class="cont-step" data-step="3">
+          <div class="cont-wiz-eyebrow">Contato</div>
+          <h2 class="cont-wiz-question">E o seu e-mail?</h2>
+          <label class="cont-wiz-field">
+            <span class="cont-wiz-sr-only">E-mail</span>
+            <input type="email" name="email" maxlength="254" placeholder="voce@empresa.com" autocomplete="email">
+          </label>
+        </fieldset>
+
+        <!-- 4 — tipo de projeto -->
+        <fieldset class="cont-step" data-step="4">
+          <div class="cont-wiz-eyebrow">Projeto</div>
+          <h2 class="cont-wiz-question">O que você precisa?</h2>
+          <label class="cont-wiz-field cont-wiz-field--select">
+            <span class="cont-wiz-sr-only">O que você precisa</span>
+            <select name="tipoProjeto" required>
+              <option value="" disabled selected>Escolhe uma opção</option>
+              <option value="landing">Landing Page</option>
+              <option value="institucional">Site institucional</option>
+              <option value="sistema">Sistema sob medida</option>
+              <option value="manutencao">Manutenção / suporte</option>
+              <option value="outro">Outro</option>
+            </select>
+          </label>
+        </fieldset>
+
+        <!-- 5 — mensagem -->
+        <fieldset class="cont-step" data-step="5">
+          <div class="cont-wiz-eyebrow">Projeto</div>
+          <h2 class="cont-wiz-question">Conta rapidamente sobre o projeto.</h2>
+          <label class="cont-wiz-field">
+            <span class="cont-wiz-sr-only">Mensagem</span>
+            <textarea name="mensagem" required maxlength="800" rows="4" placeholder="O que você precisa, pra quando, e qualquer detalhe que ajude a gente a entender."></textarea>
+          </label>
+        </fieldset>
+
+        <!-- 6 — revisão + aceite + turnstile -->
+        <fieldset class="cont-step" data-step="6">
+          <div class="cont-wiz-eyebrow">Revisão</div>
+          <h2 class="cont-wiz-question">Confere antes de enviar.</h2>
+
+          <dl class="cont-wiz-review"></dl>
+
+          <label class="cont-wiz-checkbox">
+            <input type="checkbox" name="consentimento" required>
+            <span>Concordo em ser contatado por WhatsApp ou e-mail sobre esse projeto.</span>
+          </label>
+
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAEUtg40M8l6WWqxK"></div>
+
+          <!-- honeypot, invisível pra gente. Bots costumam preencher todo campo -->
+          <input type="text" name="empresa_confirmacao" class="cont-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        </fieldset>
+
+        <p class="cont-wiz-msg" aria-live="polite"></p>
+
+        <div class="cont-wiz-nav">
+          <button type="button" class="cont-wiz-btn cont-wiz-btn--back" hidden>Voltar</button>
+          <button type="button" class="cont-wiz-btn cont-wiz-btn--next">Continuar</button>
+        </div>
+
+      </form>
+
+      <div class="cont-wiz-loading" hidden>
+        <div class="cont-wiz-status">Enviando sua mensagem<span class="cont-wiz-dots"><span></span><span></span><span></span></span></div>
+      </div>
+
+      <div class="cont-wiz-success-screen" hidden>
+        <div class="cont-wiz-success">Mensagem enviada.</div>
+        <div class="cont-wiz-success-sub">Te levando pro WhatsApp pra continuar a conversa por lá.</div>
+        <a class="cont-wiz-success-link" href="#" target="_blank" rel="noopener" hidden>Não abriu? Clica aqui.</a>
+      </div>
     </div>
 
-    <div class="cont-field">
-      <label for="cont-email">E-mail</label>
-      <input type="email" id="cont-email" name="email" maxlength="254" autocomplete="email" placeholder=" ">
-    </div>
-
-    <div class="cont-field">
-      <label for="cont-tipo">O que você precisa <em>*</em></label>
-      <select id="cont-tipo" name="tipoProjeto" required>
-        <option value="" disabled selected>Escolhe uma opção</option>
-        <option value="landing">Landing Page</option>
-        <option value="institucional">Site institucional</option>
-        <option value="sistema">Sistema sob medida</option>
-        <option value="manutencao">Manutenção / suporte</option>
-        <option value="outro">Outro</option>
-      </select>
-    </div>
-
-    <div class="cont-field">
-      <label for="cont-mensagem">Conta rapidamente sobre o projeto <em>*</em></label>
-      <textarea id="cont-mensagem" name="mensagem" rows="4" maxlength="800" required placeholder=" "></textarea>
-    </div>
-
-    <!-- honeypot, invisível pra humano -->
-    <div class="cont-hp">
-      <label for="cont-empresa">Empresa</label>
-      <input type="text" id="cont-empresa" name="empresa_confirmacao" tabindex="-1" autocomplete="off">
-    </div>
-
-    <label class="cont-checkbox">
-      <input type="checkbox" name="consentimento" required>
-      <span>Concordo em ser contatado por WhatsApp ou e-mail sobre esse projeto.</span>
-    </label>
-
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAAEUtg40M8l6WWqxK"></div>
-
-    <p class="cont-msg" role="status" aria-live="polite"></p>
-
-    <div class="cont-nav">
-      <button type="submit" class="cont-btn cont-btn-solid">
-        Continuar no WhatsApp
-        <i class="bx bx-arrow-up-right-stroke"></i>
-      </button>
-    </div>
-  </form>
+  </div>
 </section>

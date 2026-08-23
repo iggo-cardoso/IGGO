@@ -9,9 +9,13 @@
    ═══════════════════════════════════════════════════════════════ */
 
 .afil-wiz-section {
+    position: fixed;
+    inset: 0;
     width: 100%;
+    height: 100vh;
     margin: 0;
     padding: 0;
+    z-index: 1;
 }
 
 /* página é full page (wizard ocupa o viewport inteiro),  o footer
@@ -21,11 +25,9 @@ body.pg-afiliar-se .footer {
 }
 
 .afil-wiz {
-    margin: 0;
-    position: absolute;
-    top: 0;
+    position: relative;
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
     background: #fff;
     overflow: hidden;
 }
@@ -53,7 +55,9 @@ body.pg-afiliar-se .footer {
     top: 0;
     bottom: 0;
     width: 50%;
-    transition: left .62s cubic-bezier(.76, 0, .24, 1);
+    transition: left .62s cubic-bezier(.76, 0, .24, 1),
+                width .62s cubic-bezier(.76, 0, .24, 1),
+                transform .62s cubic-bezier(.76, 0, .24, 1);
 }
 
 .afil-wiz-panel--band {
@@ -62,6 +66,7 @@ body.pg-afiliar-se .footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 
     &::after {
         content: '';
@@ -89,6 +94,39 @@ body.pg-afiliar-se .footer {
             width: 22px;
             height: 22px;
         }
+    }
+}
+
+/* imagens da faixa,  uma por categoria (empresa/contato/serviço/revisão),
+   crossfade por opacidade, tingidas com a cor da marca pra não brigar
+   com o círculo/check por cima */
+.afil-wiz-band-media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--brand);
+        mix-blend-mode: multiply;
+        opacity: .55;
+    }
+}
+
+.afil-wiz-band-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.05);
+    opacity: 0;
+    transition: opacity .5s ease;
+
+    &.is-active {
+        opacity: 1;
     }
 }
 
@@ -128,16 +166,15 @@ body.pg-afiliar-se .footer {
     .afil-wiz-intro {
         opacity: 0;
         transform: translateY(6px);
-        transition: opacity .35s ease .1s, transform .35s ease .1s;
-        margin-bottom: 36px;
+        transition: opacity .4s ease .12s, transform .4s ease .12s;
 
         .afil-wiz-title {
             font-family: 'Figtree', sans-serif;
-            font-size: clamp(2rem, 3.6vw, 3rem);
+            font-size: clamp(2.4rem, 5vw, 4rem);
             font-weight: 600;
             line-height: 1.15;
             color: #121512;
-            margin-bottom: 16px;
+            margin-bottom: 22px;
 
             .brand-color {
                 color: var(--brand);
@@ -145,10 +182,10 @@ body.pg-afiliar-se .footer {
         }
 
         .afil-wiz-subtitle {
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 1.1rem;
+            line-height: 1.65;
             color: rgb(95, 95, 95);
-            max-width: 480px;
+            max-width: 560px;
         }
     }
 
@@ -411,7 +448,7 @@ body.pg-afiliar-se .footer {
     }
 
     .afil-wiz {
-        min-height: 100vh;
+        height: 100%;
     }
 
     .afil-wiz-panel--band {
@@ -421,8 +458,8 @@ body.pg-afiliar-se .footer {
     .afil-wiz-panel--info {
         position: static !important;
         width: 100%;
-        min-height: 100vh;
-        padding: 56px 24px 40px;
+        height: 100%;
+        padding: 24px 24px 40px;
         max-height: none;
     }
 
