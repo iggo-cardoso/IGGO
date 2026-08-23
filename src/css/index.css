@@ -229,8 +229,8 @@ header {
                     filter: invert(1);
                     z-index: -1;
                     content: 'Novo';
-                    background: var(--brand);
-                    color: #eee;
+                    background: #0000001a;
+                    color: var(--brand);
                     text-wrap: nowrap;
                     font-size: 10px;
                     padding: 2px;
@@ -246,8 +246,8 @@ header {
                     filter: invert(1);
                     z-index: -1;
                     content: 'Em breve';
-                    background: var(--brand);
-                    color: #eee;
+                    background: #0000001a;
+                    color: var(--brand);
                     text-wrap: nowrap;
                     font-size: 10px;
                     padding: 2px;
@@ -263,8 +263,9 @@ header {
             border: 0;
             &:last-of-type {
                 filter: invert(1);
-                background: var(--brand);
-                color: #fff;
+                background: #0000001a;
+                color: var(--brand);
+                font-weight: 600;
             }
         }
     }
@@ -754,9 +755,10 @@ header {
         flex-wrap: nowrap;
         justify-content:center;
         .btn-solid {
-            color:#121512;
+            color: var(--brand);
+            background: #0000001a;
             font-weight: 400;
-            font-size: 1.25rem;
+            font-size: 1rem;
             padding:14px 26px;
             border-radius:1em;
             border:0;
@@ -764,6 +766,7 @@ header {
             display: flex;
             align-items: center;
             gap: 10px;
+            
         }
     }
     .cover-stage{

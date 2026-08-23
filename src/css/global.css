@@ -13,7 +13,8 @@
     /* --brand: #e8b202; */
     /* --brand: #e80202; */
     /* --brand: #F32509; */
-    --brand: #E85002;
+    /* --brand: #E85002; */
+    --brand: #0A84FF;
     /* --brand: #0ABAB5; */
 }
 
@@ -91,7 +92,7 @@ textarea {
   inset:0;
   z-index:100;
   pointer-events:none;
-  opacity:.50;
+  opacity:.35;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode: multiply;
 }

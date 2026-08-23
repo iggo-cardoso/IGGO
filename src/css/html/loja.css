@@ -51,8 +51,8 @@ body.pg-loja .navtop {
                     filter: invert(1);
                     z-index: -1;
                     content: 'Em breve';
-                    background: var(--brand);
-                    color: #eee;
+                    background: #0000001a;
+                    color: var(--brand);
                     text-wrap: nowrap;
                     font-size: 10px;
                     padding: 2px;
@@ -74,8 +74,9 @@ body.pg-loja .navtop {
             border: 0;
             &:last-of-type {
                 filter: invert(1);
-                background: var(--brand);
-                color: #fff;
+                background: #0000001a;
+                color: var(--brand);
+                font-weight: 600;
             }
         }
     }
