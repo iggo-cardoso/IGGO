@@ -207,15 +207,14 @@
 
         & li {
             font-size: 1.9rem;
-            font-weight: 600;
+            font-weight: 300;
             color: #fff;
             cursor: pointer;
             list-style-type: none;
 
             &.active {
                 color: #fff;
-                font-weight: 800;
-                text-shadow: 0px 2px 0px #000000;
+                font-weight: 500;
             }
         }
     }
