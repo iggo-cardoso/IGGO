@@ -295,7 +295,7 @@ header {
             color: #121512;
             font-weight: 500;
             .brand-color {
-                color: var(--brand);
+                color: #02020242
             }
         }
         .asterisk {
