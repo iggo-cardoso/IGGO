@@ -22,60 +22,6 @@
 
     setupFaq(suite);
     setupPricingToggle(suite);
-    setupStats(suite);
-  }
-
-  // ── contagem numérica (0 -> valor real) dos .lar-stat-value,  entra
-  //    em cascata quando a seção .lar-stats aparece na viewport ──────
-  function animateCount(el) {
-    const to = parseFloat(el.dataset.countTo);
-    if (Number.isNaN(to)) return;
-    const decimals = parseInt(el.dataset.countDecimals, 10) || 0;
-    const duration = parseFloat(el.dataset.countDuration) || 1300;
-    const prefix = el.dataset.countPrefix || '';
-    const suffix = el.dataset.countSuffix || '';
-
-    const start = performance.now();
-    const ease = (t) => 1 - Math.pow(1 - t, 3); // ease-out cubic
-    let rafId;
-
-    function tick(now) {
-      const p = Math.min(1, (now - start) / duration);
-      const val = to * ease(p);
-      el.textContent = prefix + val.toFixed(decimals) + suffix;
-      if (p < 1) {
-        rafId = requestAnimationFrame(tick);
-      } else {
-        el.textContent = prefix + to.toFixed(decimals) + suffix;
-      }
-    }
-    rafId = requestAnimationFrame(tick);
-    cleanupFns.push(() => cancelAnimationFrame(rafId));
-  }
-
-  function setupStats(suite) {
-    const section = suite.querySelector('.lar-stats');
-    if (!section) return;
-
-    let played = false;
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting || played) return;
-        played = true;
-        observer.unobserve(entry.target);
-
-        section.querySelectorAll('.lar-stat').forEach((stat, i) => {
-          setTimeout(() => stat.classList.add('is-in'), i * 90);
-        });
-
-        section.querySelectorAll('.count-num[data-count-to]').forEach((el, i) => {
-          setTimeout(() => animateCount(el), i * 90);
-        });
-      });
-    }, { threshold: 0.3, rootMargin: '0px 0px -10% 0px' });
-
-    observer.observe(section);
-    cleanupFns.push(() => observer.disconnect());
   }
 
   function setupFaq(suite) {

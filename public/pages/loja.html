@@ -257,14 +257,20 @@
 
   <form class="loja-subscribe" novalidate>
     <div class="loja-subscribe-row">
-      <input type="email" name="email" class="loja-subscribe-email" placeholder="seu@email.com" required autocomplete="email">
-      <select name="tipo" class="loja-subscribe-select" aria-label="O que te interessa">
-        <option value="geral">Novidades em geral</option>
-        <option value="livros">Livros</option>
-        <option value="templates">Templates</option>
-        <option value="presets">Presets &amp; Assets</option>
-        <option value="cursos">Cursos</option>
-      </select>
+      <div class="loja-subscribe-field loja-subscribe-field--email">
+        <label for="loja-sub-email">E-mail</label>
+        <input type="email" id="loja-sub-email" name="email" class="loja-subscribe-email" placeholder=" " required autocomplete="email">
+      </div>
+      <div class="loja-subscribe-field">
+        <label for="loja-sub-tipo">Interesse</label>
+        <select id="loja-sub-tipo" name="tipo" class="loja-subscribe-select">
+          <option value="geral">Novidades em geral</option>
+          <option value="livros">Livros</option>
+          <option value="templates">Templates</option>
+          <option value="presets">Presets &amp; Assets</option>
+          <option value="cursos">Cursos</option>
+        </select>
+      </div>
       <button type="submit" class="loja-card-btn">Inscrever-se</button>
     </div>
     <!-- honeypot,  invisível pra gente, bots costumam preencher todo campo -->

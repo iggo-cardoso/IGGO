@@ -23,7 +23,6 @@ import './effects/loja.js';
 import './effects/afiliar-se.js';
 import './effects/contato.js';
 import './effects/sobre.js';
-import './effects/projetos.js';
 import './page-styles.js';
 
 (function () {

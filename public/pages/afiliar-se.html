@@ -1,150 +1,199 @@
 <!-- ═══════════════════════════════════════════════════════════════
      AFILIAR-SE,  fragmento carregado pelo page-router em #page-root
 
-     Form em etapas (estilo Hotmart) pra empresas do nicho (gráficas,
-     produtoras de vídeo, fotógrafos, design, etc.) se candidatarem a
-     ter espaço dentro do site da IGGO. CSS e JS NÃO ficam soltos aqui
-     dentro,  entram via effects/afiliar-se.js (importado globalmente
-     em main.js), porque um fragmento injetado via innerHTML nunca
-     executa <script>, e um <link> apontando pra /src quebra no build
-     (ver loja.js/page-styles.js pro mesmo padrão).
+     Wizard de 1 pergunta por tela (estilo Typeform), painel colorido
+     desliza left/right a cada passo e o conteúdo troca com crossfade.
+     Baseado no protótipo isolado aprovado (mesmo comportamento de
+     transição), mas com os campos reais do form (nomes, required,
+     honeypot, revisão e Turnstile inalterados).
+
+     CSS e JS NÃO ficam soltos aqui dentro, entram via
+     effects/afiliar-se.js (importado globalmente em main.js), porque
+     um fragmento injetado via innerHTML nunca executa <script>, e um
+     <link> apontando pra /src quebra no build (ver loja.js/page-styles.js
+     pro mesmo padrão).
      ═══════════════════════════════════════════════════════════════ -->
 
-<section class="afil-hero">
-  <h1 class="afil-title">Sua empresa dentro do <span class="brand-color">site da IGGO.</span></h1>
-  <p class="afil-subtitle">
-    Gráfica, produtora de vídeo, fotógrafo, designer,  se você entrega serviço de
-    verdade e ainda não tem onde mostrar isso direito, a gente te dá vitrine
-    dentro do nosso site. Você ganha visibilidade sem precisar montar nada,
-    a gente cresce junto com quem já faz o trabalho bem feito.
-  </p>
-</section>
+<section class="afil-wiz-section">
+  <div class="afil-wiz band-right" id="afilWiz" data-total-steps="12">
 
-<section class="afil-form-section">
+    <div class="afil-wiz-progress"><span class="afil-wiz-progress-fill"></span></div>
 
-  <div class="afil-progress">
-    <div class="afil-progress-bar"><span class="afil-progress-fill"></span></div>
-    <div class="afil-progress-steps">
-      <span class="afil-progress-step is-active" data-step-target="1"><em>1</em><span>Empresa</span></span>
-      <span class="afil-progress-step" data-step-target="2"><em>2</em><span>Contato</span></span>
-      <span class="afil-progress-step" data-step-target="3"><em>3</em><span>Serviço</span></span>
-      <span class="afil-progress-step" data-step-target="4"><em>4</em><span>Revisão</span></span>
-    </div>
-  </div>
+    <div class="afil-wiz-panel afil-wiz-panel--band" aria-hidden="true"></div>
 
-  <form class="afil-form" novalidate>
+    <div class="afil-wiz-panel afil-wiz-panel--info is-in">
+      <form class="afil-form" novalidate>
 
-    <!-- STEP 1 — Sobre a empresa -->
-    <fieldset class="afil-step is-active" data-step="1">
-      <h2 class="afil-step-title">Fala sobre a empresa.</h2>
+        <!-- 0 — empresa (junto com a introdução/hero) -->
+        <fieldset class="afil-step is-active" data-step="0">
+          <div class="afil-wiz-intro">
+            <h1 class="afil-wiz-title">Sua empresa dentro do <span class="brand-color">site da IGGO.</span></h1>
+            <p class="afil-wiz-subtitle">
+              Gráfica, produtora de vídeo, fotógrafo, designer,  se você entrega serviço de
+              verdade e ainda não tem onde mostrar isso direito, a gente te dá vitrine dentro
+              do nosso site. Você ganha visibilidade sem precisar montar nada, a gente cresce
+              junto com quem já faz o trabalho bem feito.
+            </p>
+          </div>
+          <div class="afil-wiz-eyebrow">Sobre a empresa</div>
+          <h2 class="afil-wiz-question">Como se chama a sua empresa?</h2>
+          <label class="afil-wiz-field">
+            <span class="afil-wiz-sr-only">Nome da empresa</span>
+            <input type="text" name="empresa" required maxlength="120" placeholder="Ex: Gráfica Horizonte" autocomplete="organization">
+          </label>
+        </fieldset>
 
-      <label class="afil-field">
-        <span>Nome da empresa <em>*</em></span>
-        <input type="text" name="empresa" required maxlength="120" placeholder="Ex: Gráfica Horizonte">
-      </label>
+        <!-- 1 — nicho -->
+        <fieldset class="afil-step" data-step="1">
+          <div class="afil-wiz-eyebrow">Sobre a empresa</div>
+          <h2 class="afil-wiz-question">Qual é o segmento de vocês?</h2>
+          <label class="afil-wiz-field afil-wiz-field--select">
+            <span class="afil-wiz-sr-only">Nicho</span>
+            <select name="nicho" required>
+              <option value="" disabled selected>Escolha o segmento</option>
+              <option value="grafica">Gráfica</option>
+              <option value="video">Produção de vídeo</option>
+              <option value="foto">Fotografia</option>
+              <option value="design">Design</option>
+              <option value="marketing">Marketing &amp; Publicidade</option>
+              <option value="outro">Outro</option>
+            </select>
+          </label>
+        </fieldset>
 
-      <label class="afil-field">
-        <span>Nicho <em>*</em></span>
-        <select name="nicho" required>
-          <option value="" disabled selected>Escolha o segmento</option>
-          <option value="grafica">Gráfica</option>
-          <option value="video">Produção de vídeo</option>
-          <option value="foto">Fotografia</option>
-          <option value="design">Design</option>
-          <option value="marketing">Marketing &amp; Publicidade</option>
-          <option value="outro">Outro</option>
-        </select>
-      </label>
+        <!-- 2 — cidade -->
+        <fieldset class="afil-step" data-step="2">
+          <div class="afil-wiz-eyebrow">Sobre a empresa</div>
+          <h2 class="afil-wiz-question">De onde vocês atuam?</h2>
+          <label class="afil-wiz-field">
+            <span class="afil-wiz-sr-only">Cidade / Estado</span>
+            <input type="text" name="cidade" required placeholder="Ex: Camaçari, BA" autocomplete="address-level2">
+          </label>
+        </fieldset>
 
-      <label class="afil-field">
-        <span>Cidade / Estado <em>*</em></span>
-        <input type="text" name="cidade" required placeholder="Ex: Camaçari, BA">
-      </label>
+        <!-- 3 — tem site -->
+        <fieldset class="afil-step" data-step="3">
+          <div class="afil-wiz-eyebrow">Sobre a empresa</div>
+          <h2 class="afil-wiz-question">Vocês já têm site?</h2>
+          <div class="afil-wiz-field afil-wiz-radio-row">
+            <label><input type="radio" name="temSite" value="sim">Sim</label>
+            <label><input type="radio" name="temSite" value="redes">Só redes sociais</label>
+            <label><input type="radio" name="temSite" value="nao" checked>Não</label>
+          </div>
+        </fieldset>
 
-      <div class="afil-field">
-        <span>Vocês já têm site?</span>
-        <div class="afil-radio-row">
-          <label><input type="radio" name="temSite" value="sim">Sim</label>
-          <label><input type="radio" name="temSite" value="redes">Só redes sociais</label>
-          <label><input type="radio" name="temSite" value="nao" checked>Não</label>
+        <!-- 4 — responsavel -->
+        <fieldset class="afil-step" data-step="4">
+          <div class="afil-wiz-eyebrow">Contato</div>
+          <h2 class="afil-wiz-question">Quem a gente fala por lá?</h2>
+          <label class="afil-wiz-field">
+            <span class="afil-wiz-sr-only">Nome do responsável</span>
+            <input type="text" name="responsavel" required placeholder="Seu nome" autocomplete="name">
+          </label>
+        </fieldset>
+
+        <!-- 5 — whatsapp -->
+        <fieldset class="afil-step" data-step="5">
+          <div class="afil-wiz-eyebrow">Contato</div>
+          <h2 class="afil-wiz-question">Qual o melhor WhatsApp?</h2>
+          <label class="afil-wiz-field">
+            <span class="afil-wiz-sr-only">WhatsApp</span>
+            <input type="tel" name="whatsapp" required placeholder="(71) 99999-9999" autocomplete="tel">
+          </label>
+        </fieldset>
+
+        <!-- 6 — email -->
+        <fieldset class="afil-step" data-step="6">
+          <div class="afil-wiz-eyebrow">Contato</div>
+          <h2 class="afil-wiz-question">E o melhor e-mail?</h2>
+          <label class="afil-wiz-field">
+            <span class="afil-wiz-sr-only">E-mail</span>
+            <input type="email" name="email" required placeholder="voce@empresa.com" autocomplete="email">
+          </label>
+        </fieldset>
+
+        <!-- 7 — instagram -->
+        <fieldset class="afil-step" data-step="7">
+          <div class="afil-wiz-eyebrow">Contato</div>
+          <h2 class="afil-wiz-question">Instagram ou outra rede?</h2>
+          <label class="afil-wiz-field">
+            <span class="afil-wiz-sr-only">Instagram</span>
+            <input type="text" name="instagram" placeholder="@suaempresa">
+          </label>
+        </fieldset>
+
+        <!-- 8 — descricao -->
+        <fieldset class="afil-step" data-step="8">
+          <div class="afil-wiz-eyebrow">Serviço</div>
+          <h2 class="afil-wiz-question">O que vocês entregam pro cliente final?</h2>
+          <label class="afil-wiz-field">
+            <span class="afil-wiz-sr-only">Descreva o serviço</span>
+            <textarea name="descricao" required maxlength="800" rows="4" placeholder="O que a empresa faz, pra quem, e o que torna o trabalho de vocês bom."></textarea>
+          </label>
+        </fieldset>
+
+        <!-- 9 — tempo de mercado -->
+        <fieldset class="afil-step" data-step="9">
+          <div class="afil-wiz-eyebrow">Serviço</div>
+          <h2 class="afil-wiz-question">Há quanto tempo vocês atuam?</h2>
+          <label class="afil-wiz-field afil-wiz-field--select">
+            <span class="afil-wiz-sr-only">Tempo de mercado</span>
+            <select name="tempoMercado">
+              <option value="" selected>Prefere não dizer</option>
+              <option value="menos-1">Menos de 1 ano</option>
+              <option value="1-3">1 a 3 anos</option>
+              <option value="3-5">3 a 5 anos</option>
+              <option value="mais-5">Mais de 5 anos</option>
+            </select>
+          </label>
+        </fieldset>
+
+        <!-- 10 — portfolio -->
+        <fieldset class="afil-step" data-step="10">
+          <div class="afil-wiz-eyebrow">Serviço</div>
+          <h2 class="afil-wiz-question">Tem link de portfólio?</h2>
+          <label class="afil-wiz-field">
+            <span class="afil-wiz-sr-only">Link de portfólio</span>
+            <input type="text" name="portfolio" placeholder="https://... (site, Instagram, Behance...)">
+          </label>
+        </fieldset>
+
+        <!-- 11 — revisão + aceite + turnstile -->
+        <fieldset class="afil-step" data-step="11">
+          <div class="afil-wiz-eyebrow">Revisão</div>
+          <h2 class="afil-wiz-question">Confere antes de enviar.</h2>
+
+          <dl class="afil-wiz-review"></dl>
+
+          <label class="afil-wiz-checkbox">
+            <input type="checkbox" name="aceite" required>
+            <span>Li e concordo em ser contatado pela IGGO Studios pra avaliação da parceria.</span>
+          </label>
+
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAEUtg40M8l6WWqxK"></div>
+
+          <!-- honeypot, invisível pra gente. Bots costumam preencher todo campo -->
+          <input type="text" name="empresa_confirmacao" class="afil-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        </fieldset>
+
+        <p class="afil-wiz-msg" aria-live="polite"></p>
+
+        <div class="afil-wiz-nav">
+          <button type="button" class="afil-wiz-btn afil-wiz-btn--back" hidden>Voltar</button>
+          <button type="button" class="afil-wiz-btn afil-wiz-btn--next">Continuar</button>
         </div>
+
+      </form>
+
+      <div class="afil-wiz-loading" hidden>
+        <div class="afil-wiz-status">Enviando sua inscrição<span class="afil-wiz-dots"><span></span><span></span><span></span></span></div>
       </div>
-    </fieldset>
 
-    <!-- STEP 2 — Contato -->
-    <fieldset class="afil-step" data-step="2">
-      <h2 class="afil-step-title">Quem a gente fala?</h2>
-
-      <label class="afil-field">
-        <span>Nome do responsável <em>*</em></span>
-        <input type="text" name="responsavel" required placeholder="Seu nome">
-      </label>
-
-      <label class="afil-field">
-        <span>WhatsApp <em>*</em></span>
-        <input type="tel" name="whatsapp" required placeholder="(71) 99999-9999">
-      </label>
-
-      <label class="afil-field">
-        <span>E-mail <em>*</em></span>
-        <input type="email" name="email" required placeholder="voce@empresa.com">
-      </label>
-
-      <label class="afil-field">
-        <span>Instagram ou outra rede</span>
-        <input type="text" name="instagram" placeholder="@suaempresa">
-      </label>
-    </fieldset>
-
-    <!-- STEP 3 — Sobre o serviço -->
-    <fieldset class="afil-step" data-step="3">
-      <h2 class="afil-step-title">O que vocês entregam.</h2>
-
-      <label class="afil-field">
-        <span>Descreva o serviço <em>*</em></span>
-        <textarea name="descricao" required maxlength="800" rows="5" placeholder="O que a empresa faz, pra quem, e o que torna o trabalho de vocês bom."></textarea>
-      </label>
-
-      <label class="afil-field">
-        <span>Há quanto tempo atuam</span>
-        <select name="tempoMercado">
-          <option value="" selected>Prefere não dizer</option>
-          <option value="menos-1">Menos de 1 ano</option>
-          <option value="1-3">1 a 3 anos</option>
-          <option value="3-5">3 a 5 anos</option>
-          <option value="mais-5">Mais de 5 anos</option>
-        </select>
-      </label>
-
-      <label class="afil-field">
-        <span>Link de portfólio (site, Instagram, Behance...)</span>
-        <input type="text" name="portfolio" placeholder="https://...">
-      </label>
-
-      <!-- honeypot, invisível pra gente. Bots costumam preencher todo campo -->
-      <input type="text" name="empresa_confirmacao" class="afil-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-    </fieldset>
-
-    <!-- STEP 4 — Revisão -->
-    <fieldset class="afil-step" data-step="4">
-      <h2 class="afil-step-title">Confere antes de enviar.</h2>
-
-      <dl class="afil-review"></dl>
-
-      <label class="afil-checkbox">
-        <input type="checkbox" name="aceite" required>
-        <span>Li e concordo em ser contatado pela IGGO Studios pra avaliação da parceria.</span>
-      </label>
-
-      <div class="cf-turnstile" data-sitekey="0x4AAAAAAEUtg40M8l6WWqxK"></div>
-
-      <p class="afil-msg" aria-live="polite"></p>
-    </fieldset>
-
-    <div class="afil-nav">
-      <button type="button" class="afil-btn afil-btn-back" hidden>Voltar</button>
-      <button type="button" class="afil-btn afil-btn-solid afil-btn-next">Avançar</button>
-      <button type="submit" class="afil-btn afil-btn-solid afil-btn-submit" hidden>Enviar inscrição</button>
+      <div class="afil-wiz-success-screen" hidden>
+        <div class="afil-wiz-success">Inscrição enviada.</div>
+        <div class="afil-wiz-success-sub">A gente entra em contato pelo WhatsApp ou e-mail.</div>
+      </div>
     </div>
-  </form>
+
+  </div>
 </section>
