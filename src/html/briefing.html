@@ -126,6 +126,46 @@
         letter-spacing: 0.05em;
       }
 
+      .save-status {
+        position: absolute;
+        left: 50%;
+        top: 22px;
+        transform: translate(-50%, -4px);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font:
+          500 11px "Inter Tight",
+          sans-serif;
+        color: var(--muted);
+        letter-spacing: 0.03em;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.4s var(--ease),
+          transform 0.4s var(--ease);
+      }
+      .save-status.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      .save-status .save-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: block;
+        flex: none;
+      }
+
+      .save-note {
+        max-width: 570px;
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
       .progress {
         position: absolute;
         z-index: 11;
@@ -522,6 +562,9 @@
             alt="IGGO"
           />
         </div>
+        <div class="save-status" id="saveStatus">
+          <i class="save-dot"></i><span>Salvo</span>
+        </div>
         <div class="counter" id="counter">00 de 33</div>
       </header>
       <div class="progress"><i id="progress"></i></div>
@@ -555,6 +598,11 @@
             /></label>
           </div>
           <button class="start" id="start">Começar</button>
+          <p class="save-note">
+            Suas respostas vão sendo salvas automaticamente neste
+            dispositivo, se fechar a página ou a internet cair, quando
+            voltar aqui vai continuar de onde parou.
+          </p>
         </div>
       </section>
 
@@ -807,7 +855,18 @@
       // Guarda o que a pessoa já digitou, pra não perder nada se a aba
       // fechar, a internet cair ou o dispositivo travar antes do envio.
       const DRAFT_KEY = "iggo_briefing_draft_v1";
+      const saveStatus = document.getElementById("saveStatus");
       let saveTimeout = null;
+      let saveStatusHideTimeout = null;
+
+      function flashSaveStatus() {
+        if (!saveStatus) return;
+        saveStatus.classList.add("show");
+        clearTimeout(saveStatusHideTimeout);
+        saveStatusHideTimeout = setTimeout(() => {
+          saveStatus.classList.remove("show");
+        }, 1400);
+      }
 
       function saveDraft() {
         clearTimeout(saveTimeout);
@@ -824,6 +883,7 @@
                 savedAt: Date.now(),
               }),
             );
+            flashSaveStatus();
           } catch (e) {
             // localStorage pode falhar (modo privado, quota etc.); não é crítico.
             console.warn("[briefing] não deu pra salvar o rascunho:", e);
