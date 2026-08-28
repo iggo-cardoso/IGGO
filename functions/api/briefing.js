@@ -1,18 +1,20 @@
 // ═══════════════════════════════════════════════════════════════
 // POST /api/briefing
 //
-// Recebe as respostas do questionário de discovery (ex: MAYZE, mas
-// endpoint genérico pra reaproveitar em outros clientes) e grava um
-// documento na coleção `briefings` do mesmo Firestore do iggo-dash
-// (CRM), com status "novo" pra revisar manualmente. Escreve via
-// service account (Admin API, não passa pelas Firestore Security
-// Rules,  ver functions/utils/firestore.js). Mesmo padrão de
-// /api/contato e /api/afiliacao.
+// Recebe as respostas de um questionário de discovery (genérico,
+// reaproveitável pra qualquer cliente) e grava um documento na
+// coleção `briefings` do mesmo Firestore do iggo-dash (CRM). O ID
+// do documento é o nome da empresa (slugificado), não um ID
+// aleatório,  reenvio da mesma empresa sobrescreve o documento
+// anterior em vez de criar duplicata. Escreve via service account
+// (Admin API, não passa pelas Firestore Security Rules,  ver
+// functions/utils/firestore.js). Mesmo padrão de anti-bot de
+// /api/contato e /api/afiliacao (honeypot + Turnstile).
 // ═══════════════════════════════════════════════════════════════
-import { firestoreCreate } from '../utils/firestore.js';
+import { firestoreSet } from '../utils/firestore.js';
 import { verifyTurnstile } from '../utils/turnstile.js';
 
-const MAX_ANSWERS = 60; // teto de segurança, o form atual tem 33 perguntas
+const MAX_ANSWERS = 60; // teto de segurança
 const MAX_ANSWER_LEN = 4000;
 const MAX_QUESTION_LEN = 400;
 
@@ -39,14 +41,10 @@ export async function onRequestPost(context) {
     return json({ error: 'Verificação de segurança falhou, tenta de novo.' }, 403);
   }
 
-  const projeto = String(body.projeto || '').trim();
   const respondentName = String(body.respondentName || '').trim();
   const companyName = String(body.companyName || '').trim();
   const answersRaw = Array.isArray(body.answers) ? body.answers : [];
 
-  if (!projeto || projeto.length > 120) {
-    return json({ error: 'Projeto inválido.' }, 400);
-  }
   if (!respondentName || respondentName.length > 120) {
     return json({ error: 'Nome inválido.' }, 400);
   }
@@ -68,11 +66,15 @@ export async function onRequestPost(context) {
     answers.push({ section, question, answer });
   }
 
+  const docId = slugify(companyName);
+  if (!docId) {
+    return json({ error: 'Nome da empresa inválido.' }, 400);
+  }
+
   try {
-    const res = await firestoreCreate(env, 'briefings', {
-      projeto: { stringValue: projeto },
+    const res = await firestoreSet(env, 'briefings', docId, {
+      empresa: { stringValue: companyName },
       respondentName: { stringValue: respondentName },
-      companyName: { stringValue: companyName },
       answers: {
         arrayValue: {
           values: answers.map((a) => ({
@@ -101,6 +103,16 @@ export async function onRequestPost(context) {
     console.error('Erro em /api/briefing:', err);
     return json({ error: 'Erro interno.' }, 500);
   }
+}
+
+// "Empresa Exemplo & Cia." -> "empresa-exemplo-cia"
+function slugify(str) {
+  return String(str)
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // remove acentos
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 200);
 }
 
 function json(data, status = 200) {

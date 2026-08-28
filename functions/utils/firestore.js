@@ -1,7 +1,8 @@
 // ═══════════════════════════════════════════════════════════════
 // Helper compartilhado das Pages Functions que escrevem no Firestore
 // via service account (Admin API, não passa pelas Security Rules).
-// Usado por /api/inscricao-loja e /api/afiliacao.
+// Usado por /api/inscricao-loja, /api/afiliacao, /api/contato e
+// /api/briefing.
 //
 // Cloudflare Workers roda em V8 isolado sem Node/gRPC, então não dá
 // pra usar `firebase-admin`. Em vez disso: assina um JWT com a chave
@@ -22,6 +23,31 @@ export async function firestoreCreate(env, collection, fields) {
     `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${collection}`,
     {
       method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ fields }),
+    }
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ADIÇÃO: grava (cria ou substitui) um documento com ID explícito,
+// em vez de deixar o Firestore gerar um ID aleatório. Usado por
+// /api/briefing, que quer um doc por empresa em vez de um doc por
+// envio,  reenvio da mesma empresa sobrescreve o anterior em vez
+// de criar duplicata. PATCH sem updateMask substitui o documento
+// inteiro (cria se ainda não existir).
+// ═══════════════════════════════════════════════════════════════
+export async function firestoreSet(env, collection, docId, fields) {
+  const accessToken = await getGoogleAccessToken(env);
+  const projectId = env.FIREBASE_PROJECT_ID;
+
+  return fetch(
+    `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${collection}/${encodeURIComponent(docId)}`,
+    {
+      method: 'PATCH',
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',

@@ -13,11 +13,17 @@
   scroll/overflow controlado, então plugar no scroll-lerp/scrollbar
   customizados do site ia só gerar conflito sem nenhum ganho.
 - `functions/api/briefing.js` — nova Pages Function, endpoint `POST /api/briefing`.
-  Segue **exatamente** o padrão de `contato.js`/`afiliacao.js`: honeypot →
-  Turnstile server-side → validação → grava no Firestore via
-  `functions/utils/firestore.js` (service account, ignora as Security Rules).
-  O campo `projeto` vem do nome de empresa preenchido no form — não tem nada
-  fixo aqui, o mesmo endpoint serve qualquer briefing.
+  Segue o mesmo anti-bot de `contato.js`/`afiliacao.js` (honeypot + Turnstile
+  server-side), mas grava com **ID de documento = nome da empresa
+  (slugificado)**, não ID aleatório — reenvio da mesma empresa sobrescreve o
+  documento anterior em vez de criar duplicata, então cada empresa tem um só
+  doc com todas as perguntas/respostas dentro.
+- `functions/utils/firestore.js` — adicionei a função `firestoreSet`
+  (grava com ID explícito via PATCH) do lado da `firestoreCreate` que já
+  existia. **Isso substitui o arquivo inteiro** — mas só acrescentei a
+  função nova, não toquei em nada do que já tinha, pode sobrescrever sem
+  medo de quebrar `/api/contato`, `/api/afiliacao` ou `/api/inscricao-loja`
+  (todos continuam usando só `firestoreCreate`, que ficou idêntica).
 - `firestore.rules` — adicionada a coleção `briefings` com o mesmo padrão de
   `contatos`/`afiliacoes`/`inscricoesLoja` (`create: if false`, só o
   service account grava; leitura/edição só pra você via `isAuthorized()`).
@@ -37,13 +43,16 @@ O site key do Turnstile no HTML é o mesmo público que já está nas outras
 páginas (`0x4AAAAAAEUtg40M8l6WWqxK`) — site key não é segredo, é
 por-domínio.
 
-## Como fica o documento no Firestore (coleção `briefings`)
+## Como fica no Firestore (coleção `briefings`)
+
+Um documento por empresa, com **ID = nome da empresa slugificado**
+(ex: empresa "Empresa Exemplo & Cia." vira o doc `briefings/empresa-exemplo-cia`):
 
 ```
+briefings/{slug-da-empresa}
 {
-  projeto: "<nome da empresa que a pessoa digitou>",
+  empresa: "<nome da empresa como digitado>",
   respondentName: "...",
-  companyName: "...",
   answers: [ { section, question, answer }, ... ],
   status: "novo",
   criadoEm: <timestamp>,
@@ -51,8 +60,10 @@ por-domínio.
 }
 ```
 
-`status: "novo"` pra você poder filtrar/mudar depois no CRM, igual já faz
-com `contatos` e `afiliacoes`.
+`status: "novo"` pra você filtrar/mudar depois no CRM, igual já faz com
+`contatos` e `afiliacoes`. Se a mesma empresa responder de novo, o doc é
+sobrescrito (não cria um segundo) — assim fica sempre um lugar único pra
+achar o briefing de cada cliente.
 
 ## Como acessar
 
