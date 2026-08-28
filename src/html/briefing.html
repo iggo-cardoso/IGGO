@@ -279,6 +279,8 @@
         font-size: 15px;
         line-height: 1.55;
       }
+
+      /* ---- Identity fields (floating iOS-style labels) ---- */
       .identity-fields {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -286,25 +288,21 @@
         max-width: 700px;
         margin-bottom: 14px;
       }
-      .identity-fields label {
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-        font:
-          500 11px "Inter Tight",
-          sans-serif;
-        color: var(--muted);
+      .field-group {
+        position: relative;
       }
-      .identity-fields input {
+      .field-group input {
+        width: 100%;
         height: 54px;
-        border: 0.1px solid var(--line);
-        border-radius: 12px;
-        background: var(--control);
+        border: 0;
+        border-bottom: 0.1px solid var(--line);
+        border-radius: 0;
+        background: none;
         background-image: linear-gradient(var(--accent), var(--accent));
         background-repeat: no-repeat;
         background-size: 0% 2px;
         background-position: center bottom;
-        padding: 0 15px;
+        padding: 20px 15px 6px;
         outline: 0;
         color: var(--fg);
         font:
@@ -312,12 +310,31 @@
           sans-serif;
         transition: background-size 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       }
-      .identity-fields input:focus {
+      .field-group input:focus {
         background-size: 100% 2px;
       }
-      .identity-fields input::placeholder {
-        color: #aaa69d;
+      .field-group label {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--muted);
+        font:
+          500 15px "Inter Tight",
+          sans-serif;
+        letter-spacing: 0;
+        pointer-events: none;
+        transition: 0.2s var(--ease);
       }
+      .field-group input:focus + label,
+      .field-group input:not(:placeholder-shown) + label {
+        top: 12px;
+        transform: translateY(0);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+      }
+
       .start {
         border-radius: 8em;
         width: 100%;
@@ -395,9 +412,10 @@
       .field {
         width: 100%;
         min-height: 145px;
-        background: var(--control);
-        border: 0.1px solid var(--line);
-        border-radius: 8em;
+        background: none;
+        border: none;
+        border-bottom: 0.1px solid var(--line);
+        border-radius: 0;
         background-image: linear-gradient(var(--accent), var(--accent));
         background-repeat: no-repeat;
         background-size: 0% 2px;
@@ -465,16 +483,16 @@
         margin: 14px auto 0;
       }
       .next {
-        border-radius: 999px;
-        background: var(--fg);
-        color: var(--bg);
+        border-radius: 1em;
+        background: color-mix(in srgb, var(--fg), transparent 90%);
+        color: var(--accent);
         min-width: 150px;
-        height: 48px;
+        height: 40px;
         border: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 14px;
+        padding: 0 10px;
         cursor: pointer;
         font-family: "Inter Tight", sans-serif;
         font-size: 13px;
@@ -709,22 +727,24 @@
             querem construir daqui pra frente.
           </p>
           <div class="identity-fields">
-            <label
-              ><span>Seu nome</span
-              ><input
+            <div class="field-group">
+              <input
                 id="respondentName"
                 type="text"
                 autocomplete="name"
-                placeholder="Como podemos te chamar?"
-            /></label>
-            <label
-              ><span>Nome da empresa</span
-              ><input
+                placeholder=" "
+              />
+              <label for="respondentName">Seu nome</label>
+            </div>
+            <div class="field-group">
+              <input
                 id="companyName"
                 type="text"
                 autocomplete="organization"
-                placeholder="Qual empresa você representa?"
-            /></label>
+                placeholder=" "
+              />
+              <label for="companyName">Nome da empresa</label>
+            </div>
           </div>
           <button class="start" id="start">Começar</button>
           <p class="save-note">
@@ -1006,8 +1026,6 @@
       const answers = Array(questions.length).fill("");
 
       // --- Rascunho local (localStorage) ---------------------------------
-      // Guarda o que a pessoa já digitou, pra não perder nada se a aba
-      // fechar, a internet cair ou o dispositivo travar antes do envio.
       const DRAFT_KEY = "iggo_briefing_draft_v1";
       const saveStatus = document.getElementById("saveStatus");
       let saveTimeout = null;
@@ -1039,7 +1057,6 @@
             );
             flashSaveStatus();
           } catch (e) {
-            // localStorage pode falhar (modo privado, quota etc.); não é crítico.
             console.warn("[briefing] não deu pra salvar o rascunho:", e);
           }
         }, 200);
@@ -1134,7 +1151,6 @@
         }, 320);
       });
 
-      // Salva enquanto a pessoa digita (nome, empresa e cada resposta)
       respondentName.addEventListener("input", saveDraft);
       companyName.addEventListener("input", saveDraft);
       answer.addEventListener("input", () => {
@@ -1187,7 +1203,6 @@
         applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
       });
 
-      // Tenta restaurar um rascunho salvo (se a pessoa já tinha começado antes)
       restoreDraft();
 
       const submitBtn = document.getElementById("submit");
@@ -1221,9 +1236,6 @@
 
       const consentCheck = document.getElementById("consentCheck");
 
-      // --- Limpar tudo -----------------------------------------------------
-      // Apaga o rascunho salvo e volta o formulário pro estado inicial,
-      // disponível em qualquer uma das telas (intro, pergunta, final).
       function resetAll() {
         const hasSomethingToClear =
           started ||
