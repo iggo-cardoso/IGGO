@@ -803,6 +803,75 @@
       let started = false;
       const answers = Array(questions.length).fill("");
 
+      // --- Rascunho local (localStorage) ---------------------------------
+      // Guarda o que a pessoa já digitou, pra não perder nada se a aba
+      // fechar, a internet cair ou o dispositivo travar antes do envio.
+      const DRAFT_KEY = "iggo_briefing_draft_v1";
+      let saveTimeout = null;
+
+      function saveDraft() {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(() => {
+          try {
+            localStorage.setItem(
+              DRAFT_KEY,
+              JSON.stringify({
+                respondentName: respondentName.value,
+                companyName: companyName.value,
+                answers,
+                index,
+                started,
+                savedAt: Date.now(),
+              }),
+            );
+          } catch (e) {
+            // localStorage pode falhar (modo privado, quota etc.); não é crítico.
+            console.warn("[briefing] não deu pra salvar o rascunho:", e);
+          }
+        }, 200);
+      }
+
+      function loadDraft() {
+        try {
+          const raw = localStorage.getItem(DRAFT_KEY);
+          if (!raw) return null;
+          return JSON.parse(raw);
+        } catch (e) {
+          console.warn("[briefing] não deu pra ler o rascunho salvo:", e);
+          return null;
+        }
+      }
+
+      function clearDraft() {
+        try {
+          localStorage.removeItem(DRAFT_KEY);
+        } catch (e) {
+          // ignora
+        }
+      }
+
+      function restoreDraft() {
+        const draft = loadDraft();
+        if (!draft) return;
+
+        if (draft.respondentName) respondentName.value = draft.respondentName;
+        if (draft.companyName) companyName.value = draft.companyName;
+        if (Array.isArray(draft.answers) && draft.answers.length === answers.length) {
+          draft.answers.forEach((a, i) => {
+            answers[i] = a || "";
+          });
+        }
+
+        const hasAnyAnswer = answers.some((a) => a && a.trim());
+        if (draft.started && (draft.respondentName || draft.companyName || hasAnyAnswer)) {
+          index = Math.min(draft.index || 0, questions.length - 1);
+          started = true;
+          intro.classList.add("hide");
+          form.classList.add("active");
+          render();
+        }
+      }
+
       function render(direction = 1) {
         const [group, rawTitle, rawHint] = questions[index];
         const name = respondentName.value.trim() || "vocês";
@@ -822,6 +891,7 @@
 
       function transition(nextIndex) {
         answers[index] = answer.value.trim();
+        saveDraft();
         const old = form;
         old.style.transform = `translateX(${nextIndex > index ? -18 : 18}px)`;
         old.style.opacity = "0";
@@ -843,10 +913,19 @@
         }
         started = true;
         intro.classList.add("hide");
+        saveDraft();
         setTimeout(() => {
           form.classList.add("active");
           render();
         }, 320);
+      });
+
+      // Salva enquanto a pessoa digita (nome, empresa e cada resposta)
+      respondentName.addEventListener("input", saveDraft);
+      companyName.addEventListener("input", saveDraft);
+      answer.addEventListener("input", () => {
+        answers[index] = answer.value;
+        saveDraft();
       });
 
       document.getElementById("next").addEventListener("click", () => {
@@ -873,6 +952,9 @@
         if ((e.metaKey || e.ctrlKey) && e.key === "Enter")
           document.getElementById("next").click();
       });
+
+      // Tenta restaurar um rascunho salvo (se a pessoa já tinha começado antes)
+      restoreDraft();
 
       const submitBtn = document.getElementById("submit");
       const formMsg = document.getElementById("formMsg");
@@ -963,6 +1045,7 @@
 
           submitBtn.textContent = "Respostas prontas ✓";
           setFormMsg("Recebemos suas respostas, obrigado!", "success");
+          clearDraft();
         } catch (err) {
           console.error("[briefing] falha ao chamar /api/briefing:", err);
           setFormMsg("Falha de conexão, tenta de novo em instantes.", "error");
