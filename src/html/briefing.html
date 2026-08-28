@@ -679,15 +679,9 @@
           padding: 24px 34px;
         }
         .progress {
-          left: 34px;
-          right: 34px;
-          top: 72px;
-        }
-        .intro,
-        .complete,
-        .form {
-          padding-left: 7vw;
-          padding-right: 7vw;
+          left: 0;
+          right: 0;
+          top: 0;
         }
         .intro-copy {
           font-size: 16px;
@@ -703,6 +697,119 @@
         .theme-toggle {
           height: 36px;
           padding: 0 13px;
+        }
+      }
+
+      /* ---- Desktop: layout em duas colunas de verdade, não mobile esticado ---- */
+      @media (min-width: 1024px) {
+        .intro,
+        .complete {
+          justify-content: center;
+        }
+
+        /* Intro: headline+copy à esquerda, identidade+CTA à direita, alinhados no mesmo eixo */
+        .intro-inner {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          column-gap: 72px;
+          align-items: center;
+          width: 100%;
+        }
+        .intro-inner h1 {
+          grid-column: 1;
+          grid-row: 1;
+          font-size: clamp(64px, 6.4vw, 108px);
+          max-width: none;
+        }
+        .intro-inner .intro-copy {
+          grid-column: 1;
+          grid-row: 2;
+          font-size: 17px;
+          max-width: 480px;
+        }
+        .intro-inner .identity-fields,
+        .intro-inner .start,
+        .intro-inner .save-note,
+        .intro-inner .clear-all.is-intro {
+          grid-column: 2;
+        }
+        .intro-inner .identity-fields {
+          grid-row: 1;
+          align-self: end;
+          max-width: none;
+        }
+        .intro-inner .start {
+          grid-row: 2;
+          width: 100%;
+        }
+        .intro-inner .save-note {
+          grid-row: 3;
+          max-width: none;
+        }
+        .intro-inner .clear-all.is-intro {
+          grid-row: 4;
+        }
+
+        /* Form: pergunta à esquerda, campo de resposta e ações à direita */
+        .form-inner {
+          max-width: 1180px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          column-gap: 80px;
+          align-items: center;
+        }
+        .form-inner .question {
+          grid-column: 1;
+          grid-row: 1 / 3;
+          font-size: clamp(38px, 3.6vw, 60px);
+          max-width: 520px;
+          margin: 0;
+        }
+        .form-inner .field {
+          grid-column: 2;
+          grid-row: 1;
+          min-height: 260px;
+        }
+        .form-inner .actions {
+          grid-column: 2;
+          grid-row: 2;
+          margin-top: 22px;
+        }
+
+        /* Complete: mensagem de fechamento à esquerda, formulário de envio à direita */
+        .complete-inner {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          column-gap: 80px;
+          align-items: center;
+          max-width: 1180px;
+          margin-top: 200px;
+          margin-left: 100px;
+          margin-right: 100px;
+        }
+        .complete-inner h2 {
+          font-size: clamp(50px, 3.4vw, 92px);
+        }
+        .complete-inner h2,
+        .complete-inner p,
+        .complete-inner .icon-terms {
+          grid-column: 1;
+        }
+        .complete-inner .turnstile-box,
+        .complete-inner .consent,
+        .complete-inner .submit,
+        .complete-inner .form-msg,
+        .complete-inner .clear-all.is-complete {
+          grid-column: 2;
+        }
+        .complete-inner .icon-terms {
+          margin-top: 32px;
+        }
+        .complete-inner .submit {
+          width: 100%;
+        }
+        .complete-inner .clear-all.is-complete {
+          margin: 14px 0 0;
         }
       }
       @media (prefers-reduced-motion: reduce) {
@@ -745,7 +852,7 @@
       <aside class="side">Discovery · 2026</aside>
 
       <section class="intro" id="intro">
-        <div>
+        <div class="intro-inner">
           <h1>Antes de<br /><em>criar.</em><br />entender.</h1>
           <p class="intro-copy">
             A ideia aqui não é preencher um briefing genérico. Queremos entender
@@ -807,7 +914,7 @@
       </main>
 
       <section class="complete" id="complete">
-        <div>
+        <div class="complete-inner">
           <h2>Agora<br /><span>é com a gente.</span></h2>
           <p>
             Suas respostas foram reunidas. Elas vão servir como matéria-prima
