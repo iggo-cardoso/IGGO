@@ -7,7 +7,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         eBookPage: resolve(__dirname, 'src/html/book-iggostudios.html'),
-        eBookView3D: resolve(__dirname, 'src/html/livro-visualizador-3d.html')
+        eBookView3D: resolve(__dirname, 'src/html/livro-visualizador-3d.html'),
+        briefing: resolve(__dirname, 'src/html/briefing.html')
       },
     },
   },

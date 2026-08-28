@@ -63,5 +63,9 @@ service cloud.firestore {
       allow read, update, delete: if isAuthorized();
       allow create: if false;
     }
+    match /briefings/{id} {
+      allow read, update, delete: if isAuthorized();
+      allow create: if false;
+    }
   }
 }

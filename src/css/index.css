@@ -216,6 +216,7 @@ header {
             color: #fff;
             list-style-type: none;
             font-weight: 300;
+            font-size: .86em;
             &.active {
                 color: var(--brand);
                 filter: invert(1);
@@ -267,6 +268,7 @@ header {
                 background: #0000001a;
                 color: var(--brand);
                 font-weight: 600;
+                font-size: .86em !important;
             }
         }
     }
@@ -775,6 +777,7 @@ header {
                     text-wrap: wrap;
                     max-width: 320px;
                     margin-bottom: 20px;
+                    font-weight: 500;
                 }
                 a {
                     text-align: right;
