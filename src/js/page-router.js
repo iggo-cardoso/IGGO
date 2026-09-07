@@ -120,7 +120,7 @@
     }
 
     // saindo da home pela 1ª vez: guarda o snapshot SÓ AGORA, depois que
-    // os módulos de efeito (scroll-expand-card etc.) já rodaram e
+    // os módulos de efeito já rodaram e
     // popularam o conteúdo dinâmico,  snapshot pego cedo demais capturava
     // a home ainda vazia/pré-efeitos
     if (currentPage === DEFAULT_PAGE && homeSnapshot === null) {

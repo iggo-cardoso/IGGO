@@ -235,6 +235,8 @@
         box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
         opacity: 0;
         will-change: transform, opacity;
+        contain: layout paint style;
+        backface-visibility: hidden;
       }
 
       .loader-morph__card img {
@@ -276,19 +278,21 @@
         width: min(58vw, 460px);
         overflow: visible;
         opacity: 0;
-        animation: hello-stage-in .75s 7.1s ease-out forwards;
+        animation: hello-stage-in .8s 12.2s ease-out forwards;
+        animation-play-state: paused;
       }
 
       .hello-loader__stroke {
         fill: none;
-        stroke: #000;
+        stroke: url(#hello-brand-gradient);
         stroke-width: 14;
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-dasharray: 1;
         stroke-dashoffset: 1;
         vector-effect: non-scaling-stroke;
-        animation: hello-draw 4.15s 7.2s linear forwards;
+        animation: hello-draw 4.15s 12.3s linear forwards;
+        animation-play-state: paused;
       }
 
       .hello-loader__dot {
@@ -297,7 +301,14 @@
         transform: scale(0);
         transform-box: fill-box;
         transform-origin: center;
-        animation: hello-dot .3s 11.32s cubic-bezier(.2, .8, .2, 1.2) forwards;
+        animation: hello-dot .3s 16.42s cubic-bezier(.2, .8, .2, 1.2) forwards;
+        animation-play-state: paused;
+      }
+
+      #site-loader.loader-ready .hello-loader__signature,
+      #site-loader.loader-ready .hello-loader__stroke,
+      #site-loader.loader-ready .hello-loader__dot {
+        animation-play-state: running;
       }
 
       @keyframes hello-stage-in {
@@ -348,32 +359,39 @@
     </div>
     <div id="site-loader" role="status" aria-label="Carregando IGGO Studios">
       <div class="loader-morph" aria-hidden="true">
-        <figure class="loader-morph__card" style="--i:0;--line-x:-286px;--angle:0deg;--angle-back:0deg;--scatter-x:-48vw;--scatter-y:-34vh;--scatter-r:-38deg"><img src="/img/656900578_18096368711081486_3010327440897751882_n.jpg" alt=""></figure>
-        <figure class="loader-morph__card" style="--i:1;--line-x:-234px;--angle:30deg;--angle-back:-30deg;--scatter-x:35vw;--scatter-y:-39vh;--scatter-r:42deg"><img src="/img/A_Criação_de_Adão_-_Michelangelo_Buonarroti.jpg" alt=""></figure>
-        <figure class="loader-morph__card" style="--i:2;--line-x:-182px;--angle:60deg;--angle-back:-60deg;--scatter-x:-39vw;--scatter-y:31vh;--scatter-r:25deg"><img src="/img/ai-gerou-o-conceito-de-ser-humano.jpg" alt=""></figure>
-        <figure class="loader-morph__card" style="--i:3;--line-x:-130px;--angle:90deg;--angle-back:-90deg;--scatter-x:46vw;--scatter-y:26vh;--scatter-r:-31deg"><img src="/img/ai-gerou-o-conceito-de-ser-humano2.jpg" alt=""></figure>
-        <figure class="loader-morph__card" style="--i:4;--line-x:-78px;--angle:120deg;--angle-back:-120deg;--scatter-x:-23vw;--scatter-y:-45vh;--scatter-r:57deg"><img src="/img/Great_Wave_off_Kanagawa2.jpg" alt=""></figure>
-        <figure class="loader-morph__card" style="--i:5;--line-x:-26px;--angle:150deg;--angle-back:-150deg;--scatter-x:14vw;--scatter-y:43vh;--scatter-r:-48deg"><img src="/img/image-3-4.jpg" alt=""></figure>
-        <figure class="loader-morph__card" style="--i:6;--line-x:26px;--angle:180deg;--angle-back:-180deg;--scatter-x:49vw;--scatter-y:-12vh;--scatter-r:34deg"><img src="/img/me_da_so_202604211709.jpg" alt=""></figure>
-        <figure class="loader-morph__card" style="--i:7;--line-x:78px;--angle:210deg;--angle-back:-210deg;--scatter-x:-46vw;--scatter-y:8vh;--scatter-r:-62deg"><img src="/img/profie-iggo.png" alt=""></figure>
-        <figure class="loader-morph__card" style="--i:8;--line-x:130px;--angle:240deg;--angle-back:-240deg;--scatter-x:28vw;--scatter-y:-45vh;--scatter-r:69deg"><img src="/img/SaveClip.App_521595054_3718353808297350_6794486123611387478_n.jpg" alt=""></figure>
-        <figure class="loader-morph__card" style="--i:9;--line-x:182px;--angle:270deg;--angle-back:-270deg;--scatter-x:-12vw;--scatter-y:46vh;--scatter-r:-27deg"><img src="/img/SaveClip.App_522391437_1260538368434639_3984265600288654363_n.jpg" alt=""></figure>
-        <figure class="loader-morph__card" style="--i:10;--line-x:234px;--angle:300deg;--angle-back:-300deg;--scatter-x:43vw;--scatter-y:37vh;--scatter-r:51deg"><img src="/img/SaveClip.App_529725139_1368202197613270_1138078286895111295_n.jpg" alt=""></figure>
-        <figure class="loader-morph__card" style="--i:11;--line-x:286px;--angle:330deg;--angle-back:-330deg;--scatter-x:-44vw;--scatter-y:-18vh;--scatter-r:-44deg"><img src="/img/SaveClip.App_529738016_1295122242235954_2658113368214668503_n.jpg" alt=""></figure>
-        <figure class="loader-morph__card"><img src="/img/SnapInsta.to_522986697_598657303037873_814123073384418217_n.jpg" alt=""></figure>
-        <figure class="loader-morph__card"><img src="/img/thomas.jpg" alt=""></figure>
-        <figure class="loader-morph__card"><img src="/img/vista-de-baixo-angulo-da-claraboia-na-arquitetura-antiga-residencial-de-hong-kong.jpg" alt=""></figure>
-        <figure class="loader-morph__card"><img src="/img/complete_a_cena,_202604240847.jpeg" alt=""></figure>
-        <figure class="loader-morph__card"><img src="/img/Brands/alex/captura_site_alex.png" alt=""></figure>
-        <figure class="loader-morph__card"><img src="/img/Brands/Bellavivele/bellavivele-card-1.jpg" alt=""></figure>
-        <figure class="loader-morph__card"><img src="/img/Brands/stem/captura_site_stem.png" alt=""></figure>
-        <figure class="loader-morph__card"><img src="/img/Brands/Yatsar/2784b3be8b18ef74cf32da65d5601f5b.jpg" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/01.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/02.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/03.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/04.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/05.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/06.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/07.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/08.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/09.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/10.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/11.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/12.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/13.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/14.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/15.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/16.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/17.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/18.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/19.webp" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/loader-thumbs/20.webp" alt=""></figure>
         <div class="loader-morph__copy">
           <strong>O futuro é construído agora.</strong>
           <span>IGGO STUDIOS</span>
         </div>
       </div>
       <svg class="hello-loader__signature" viewBox="0 0 1000 344.5" aria-hidden="true">
+        <defs>
+          <linearGradient id="hello-brand-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="var(--brand)" />
+            <stop offset="52%" stop-color="var(--brand-2, var(--brand))" />
+            <stop offset="100%" stop-color="#000" />
+          </linearGradient>
+        </defs>
         <path
           class="hello-loader__stroke"
           pathLength="1"
@@ -501,18 +519,17 @@
           </div>
         </section>
 
-        <div class="section" id="section">
-          <div class="sticky" id="sticky">
-            <div class="slides" id="slides"></div>
+        <section class="zoom-parallax" data-zoom-parallax aria-label="Portfólio visual IGGO">
+          <div class="zoom-parallax__sticky">
+            <div class="zoom-parallax__layer" data-zoom-scale="4"><figure class="zoom-parallax__frame"><img src="/img/IGGO/publi/Portrait_wearing_round_202604231958a.png" alt="Retrato editorial IGGO"></figure></div>
+            <div class="zoom-parallax__layer" data-zoom-scale="5"><figure class="zoom-parallax__frame"><img src="/img/Great_Wave_off_Kanagawa2.jpg" alt="Direção de arte inspirada em gravura japonesa"></figure></div>
+            <div class="zoom-parallax__layer" data-zoom-scale="6"><figure class="zoom-parallax__frame"><img src="/img/vista-de-baixo-angulo-da-claraboia-na-arquitetura-antiga-residencial-de-hong-kong.jpg" alt="Fotografia arquitetônica"></figure></div>
+            <div class="zoom-parallax__layer" data-zoom-scale="5"><figure class="zoom-parallax__frame"><img src="/img/ai-gerou-o-conceito-de-ser-humano.jpg" alt="Experimentação visual com inteligência artificial"></figure></div>
+            <div class="zoom-parallax__layer" data-zoom-scale="6"><figure class="zoom-parallax__frame"><img src="/img/Brands/alex/captura_site_alex.png" alt="Projeto digital Alex Junior"></figure></div>
+            <div class="zoom-parallax__layer" data-zoom-scale="8"><figure class="zoom-parallax__frame"><img src="/img/Brands/Bellavivele/bellavivele-card-1.jpg" alt="Identidade Bellavivelle"></figure></div>
+            <div class="zoom-parallax__layer" data-zoom-scale="9"><figure class="zoom-parallax__frame"><img src="/img/Brands/stem/captura_site_stem.png" alt="Projeto digital STEM Club"></figure></div>
           </div>
-        </div>
-        
-        <!--<div class="expand-solo">
-          <div class="expand-solo-sticky">
-            <img class="expand-solo-img" src="img/IGGO/publi/Portrait_wearing_round_202604231958a.png" alt="">
-            <div class="expand-solo-text">IGGO.</div>
-          </div>
-        </div>--> 
+        </section>
         <section class="skills">
           <h2 data-effect="fade-viewport" data-fade-zone="350">
             <span>Estúdio de desenvolvimento e design digital</span>

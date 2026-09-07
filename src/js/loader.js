@@ -52,8 +52,8 @@ function startLoaderMorph() {
   const cards = [...(stage?.querySelectorAll('.loader-morph__card') || [])];
   if (!stage || !cards.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const stiffness = 18;
-  const damping = 9;
+  const stiffness = 10;
+  const damping = 6;
   const states = cards.map((card, index) => {
     const seed = index + 1;
     const state = {
@@ -69,8 +69,8 @@ function startLoaderMorph() {
   });
 
   const targetFor = (index, elapsed) => {
-    if (elapsed < 700) return states[index];
-    if (elapsed < 3400) {
+    if (elapsed < 1000) return states[index];
+    if (elapsed < 5500) {
       const spacing = 70;
       return {
         x: index * spacing - cards.length * spacing / 2,
@@ -107,7 +107,7 @@ function startLoaderMorph() {
     const dt = Math.min((now - previous) / 1000, .033);
     previous = now;
 
-    if (elapsed >= 3400 && !circleAnnounced) {
+    if (elapsed >= 5500 && !circleAnnounced) {
       circleAnnounced = true;
       stage.classList.add('is-circle');
     }
@@ -123,7 +123,7 @@ function startLoaderMorph() {
       cards[index].style.transform = `translate3d(${state.x}px, ${state.y}px, 0) rotate(${state.rotation}deg) scale(${state.scale})`;
     });
 
-    if (elapsed < 6500) requestAnimationFrame(frame);
+    if (elapsed < 11500) requestAnimationFrame(frame);
     else stage.classList.add('is-complete');
   };
 
@@ -142,7 +142,6 @@ export const assetsReady = new Promise(r => { resolveReady = r; });
 
 async function run() {
   document.body.style.overflow = 'hidden';
-  startLoaderMorph();
 
   const loaderImages = [...document.querySelectorAll('.loader-morph__card img')].map(img => img.currentSrc || img.src);
   const images = [...CRITICAL_IMAGES, ...loaderImages, ...getCardImages()];
@@ -151,8 +150,11 @@ async function run() {
   await Promise.all([
     ...images.map(preloadAndDecode),
     ...fonts.map(preloadFont),
-    new Promise(r => setTimeout(r, 12200)),
   ]);
+
+  overlay?.classList.add('loader-ready');
+  startLoaderMorph();
+  await new Promise(r => setTimeout(r, 17000));
 
   hideLoader();
   await new Promise(r => setTimeout(r, 900));
