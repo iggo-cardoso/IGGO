@@ -194,51 +194,135 @@
         position: fixed;
         inset: 0;
         z-index: 99999;
-        background: #ebebf0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        transition: opacity 0.6s ease, visibility 0.6s ease;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background: var(--page-background, #f2f0f3);
+        opacity: 1;
+        filter: blur(0);
+        transition: opacity 0.9s cubic-bezier(.4, 0, .2, 1), filter 0.9s cubic-bezier(.4, 0, .2, 1), visibility 0s 0.9s;
       }
 
       #site-loader.loader-done {
         opacity: 0;
+        filter: blur(18px);
         visibility: hidden;
         pointer-events: none;
       }
 
-      .loader-wordmark {
-        font-family: 'Figtree', sans-serif;
-        font-weight: 900;
-        font-size: clamp(2.4rem, 8vw, 5rem);
-        letter-spacing: -0.04em;
-        color: #1a1a1a;
+      .loader-morph {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        perspective: 900px;
+        transition: opacity .9s ease, filter .9s ease, visibility 0s .9s;
+      }
+
+      .loader-morph.is-complete {
         opacity: 0;
-        transform: translateY(10px);
-        animation: loader-fadein 0.5s ease 0.1s forwards;
+        filter: blur(10px);
+        visibility: hidden;
       }
 
-      .loader-track {
-        width: clamp(120px, 30vw, 240px);
-        height: 1px;
-        background: rgba(0,0,0,0.12);
+      .loader-morph__card {
+        position: absolute;
+        width: 60px;
+        height: 85px;
         overflow: hidden;
-        border-radius: 1px;
+        border-radius: 10px;
+        background: #d9d7da;
+        box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+        opacity: 0;
+        will-change: transform, opacity;
       }
 
-      #loader-bar {
+      .loader-morph__card img {
+        width: 100%;
         height: 100%;
-        background: #1a1a1a;
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.15s ease;
-        border-radius: 1px;
+        display: block;
+        object-fit: cover;
       }
 
-      @keyframes loader-fadein {
-        to { opacity: 1; transform: translateY(0); }
+      .loader-morph__copy {
+        opacity: 0;
+        text-align: center;
+        transform: translateY(18px);
+        transition: opacity .9s ease, transform .9s cubic-bezier(.16, 1, .3, 1);
+      }
+
+      .loader-morph.is-circle .loader-morph__copy {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .loader-morph__copy strong {
+        display: block;
+        font-size: clamp(1.5rem, 3vw, 2.6rem);
+        font-weight: 500;
+        letter-spacing: -.04em;
+      }
+
+      .loader-morph__copy span {
+        display: block;
+        margin-top: 12px;
+        color: rgb(18 21 18 / 48%);
+        font-size: .68rem;
+        font-weight: 650;
+        letter-spacing: .18em;
+      }
+
+      .hello-loader__signature {
+        width: min(58vw, 460px);
+        overflow: visible;
+        opacity: 0;
+        animation: hello-stage-in .75s 7.1s ease-out forwards;
+      }
+
+      .hello-loader__stroke {
+        fill: none;
+        stroke: #000;
+        stroke-width: 14;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        vector-effect: non-scaling-stroke;
+        animation: hello-draw 4.15s 7.2s linear forwards;
+      }
+
+      .hello-loader__dot {
+        fill: #000;
+        opacity: 0;
+        transform: scale(0);
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: hello-dot .3s 11.32s cubic-bezier(.2, .8, .2, 1.2) forwards;
+      }
+
+      @keyframes hello-stage-in {
+        to { opacity: 1; }
+      }
+
+      @keyframes hello-draw {
+        to { stroke-dashoffset: 0; }
+      }
+
+      @keyframes hello-dot {
+        to { opacity: 1; transform: scale(1); }
+      }
+
+      @media (max-width: 700px) {
+        .hello-loader__signature { width: 72vw; }
+        .loader-morph__card { width: 46px; height: 65px; border-radius: 8px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .loader-morph { display: none; }
+        .hello-loader__signature { animation-duration: .1s; animation-delay: 0s; }
+        .hello-loader__stroke { animation-duration: .15s; animation-delay: 0s; }
+        .hello-loader__dot { animation-duration: .1s; animation-delay: .15s; }
+        #site-loader { transition-duration: .1s; }
       }
     </style>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -262,11 +346,41 @@
       </p>
       <button id="cookie-accept">Aceitar tudo</button>
     </div>
-    <div id="site-loader" aria-hidden="true">
-      <span class="loader-wordmark">IGGO.</span>
-      <div class="loader-track">
-        <div id="loader-bar"></div>
+    <div id="site-loader" role="status" aria-label="Carregando IGGO Studios">
+      <div class="loader-morph" aria-hidden="true">
+        <figure class="loader-morph__card" style="--i:0;--line-x:-286px;--angle:0deg;--angle-back:0deg;--scatter-x:-48vw;--scatter-y:-34vh;--scatter-r:-38deg"><img src="/img/656900578_18096368711081486_3010327440897751882_n.jpg" alt=""></figure>
+        <figure class="loader-morph__card" style="--i:1;--line-x:-234px;--angle:30deg;--angle-back:-30deg;--scatter-x:35vw;--scatter-y:-39vh;--scatter-r:42deg"><img src="/img/A_Criação_de_Adão_-_Michelangelo_Buonarroti.jpg" alt=""></figure>
+        <figure class="loader-morph__card" style="--i:2;--line-x:-182px;--angle:60deg;--angle-back:-60deg;--scatter-x:-39vw;--scatter-y:31vh;--scatter-r:25deg"><img src="/img/ai-gerou-o-conceito-de-ser-humano.jpg" alt=""></figure>
+        <figure class="loader-morph__card" style="--i:3;--line-x:-130px;--angle:90deg;--angle-back:-90deg;--scatter-x:46vw;--scatter-y:26vh;--scatter-r:-31deg"><img src="/img/ai-gerou-o-conceito-de-ser-humano2.jpg" alt=""></figure>
+        <figure class="loader-morph__card" style="--i:4;--line-x:-78px;--angle:120deg;--angle-back:-120deg;--scatter-x:-23vw;--scatter-y:-45vh;--scatter-r:57deg"><img src="/img/Great_Wave_off_Kanagawa2.jpg" alt=""></figure>
+        <figure class="loader-morph__card" style="--i:5;--line-x:-26px;--angle:150deg;--angle-back:-150deg;--scatter-x:14vw;--scatter-y:43vh;--scatter-r:-48deg"><img src="/img/image-3-4.jpg" alt=""></figure>
+        <figure class="loader-morph__card" style="--i:6;--line-x:26px;--angle:180deg;--angle-back:-180deg;--scatter-x:49vw;--scatter-y:-12vh;--scatter-r:34deg"><img src="/img/me_da_so_202604211709.jpg" alt=""></figure>
+        <figure class="loader-morph__card" style="--i:7;--line-x:78px;--angle:210deg;--angle-back:-210deg;--scatter-x:-46vw;--scatter-y:8vh;--scatter-r:-62deg"><img src="/img/profie-iggo.png" alt=""></figure>
+        <figure class="loader-morph__card" style="--i:8;--line-x:130px;--angle:240deg;--angle-back:-240deg;--scatter-x:28vw;--scatter-y:-45vh;--scatter-r:69deg"><img src="/img/SaveClip.App_521595054_3718353808297350_6794486123611387478_n.jpg" alt=""></figure>
+        <figure class="loader-morph__card" style="--i:9;--line-x:182px;--angle:270deg;--angle-back:-270deg;--scatter-x:-12vw;--scatter-y:46vh;--scatter-r:-27deg"><img src="/img/SaveClip.App_522391437_1260538368434639_3984265600288654363_n.jpg" alt=""></figure>
+        <figure class="loader-morph__card" style="--i:10;--line-x:234px;--angle:300deg;--angle-back:-300deg;--scatter-x:43vw;--scatter-y:37vh;--scatter-r:51deg"><img src="/img/SaveClip.App_529725139_1368202197613270_1138078286895111295_n.jpg" alt=""></figure>
+        <figure class="loader-morph__card" style="--i:11;--line-x:286px;--angle:330deg;--angle-back:-330deg;--scatter-x:-44vw;--scatter-y:-18vh;--scatter-r:-44deg"><img src="/img/SaveClip.App_529738016_1295122242235954_2658113368214668503_n.jpg" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/SnapInsta.to_522986697_598657303037873_814123073384418217_n.jpg" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/thomas.jpg" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/vista-de-baixo-angulo-da-claraboia-na-arquitetura-antiga-residencial-de-hong-kong.jpg" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/complete_a_cena,_202604240847.jpeg" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/Brands/alex/captura_site_alex.png" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/Brands/Bellavivele/bellavivele-card-1.jpg" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/Brands/stem/captura_site_stem.png" alt=""></figure>
+        <figure class="loader-morph__card"><img src="/img/Brands/Yatsar/2784b3be8b18ef74cf32da65d5601f5b.jpg" alt=""></figure>
+        <div class="loader-morph__copy">
+          <strong>O futuro é construído agora.</strong>
+          <span>IGGO STUDIOS</span>
+        </div>
       </div>
+      <svg class="hello-loader__signature" viewBox="0 0 1000 344.5" aria-hidden="true">
+        <path
+          class="hello-loader__stroke"
+          pathLength="1"
+          d="M18 268 C58 272 112 231 158 178 C178 150 191 114 201 73 C207 49 212 28 208 17 C205 9 200 8 196 12 C178 21 171 49 168 75 C163 117 162 151 158 179 C151 222 142 274 139 317 C143 273 151 225 171 202 C191 179 219 184 225 207 C232 232 213 259 218 277 C223 297 249 307 275 299 C311 289 349 256 356 224 C361 201 351 188 338 193 C323 199 321 225 331 248 C347 286 383 306 420 295 C466 282 503 250 528 214 C547 174 538 73 549 29 C559 14 575 13 584 28 C601 57 582 139 543 213 C529 239 519 254 514 262 C527 292 552 307 577 302 C615 294 650 260 671 219 C696 170 681 85 698 43 C707 20 722 12 734 25 C755 60 731 155 686 222 C676 244 670 257 669 263 C682 293 710 309 739 302 C776 293 798 260 809 224 C817 196 837 185 857 193 C882 203 895 231 887 260 C880 286 857 301 835 294 C813 287 805 263 811 238 C818 209 844 194 869 202 C895 210 921 218 945 204 C958 197 970 188 982 176"
+        />
+        <circle class="hello-loader__dot" cx="967" cy="307" r="8" />
+      </svg>
     </div>
 
     <div id="trail-layer"></div>
