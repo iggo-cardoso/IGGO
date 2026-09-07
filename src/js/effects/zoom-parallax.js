@@ -11,7 +11,6 @@ function renderZoomParallax() {
   document.querySelectorAll('[data-zoom-parallax]').forEach(section => {
     const rect = section.getBoundingClientRect();
     const inRenderRange = rect.bottom >= -viewportHeight && rect.top <= viewportHeight * 2;
-    section.classList.toggle('is-active', inRenderRange);
     if (!inRenderRange) return;
 
     const distance = Math.max(1, rect.height - viewportHeight);

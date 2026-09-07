@@ -476,12 +476,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: translateZ(0) scale(var(--zoom-scale, 1));
+    transform: scale(var(--zoom-scale, 1));
     transform-origin: center;
-  }
-
-  .zoom-parallax.is-active .zoom-parallax__layer {
-    will-change: transform;
   }
 
   .zoom-parallax__frame {
@@ -497,6 +493,7 @@ header {
     height: 100%;
     object-fit: cover;
     object-position: top center;
+    image-rendering: auto;
   }
 
   .zoom-parallax__layer:nth-child(2) .zoom-parallax__frame { top: -30vh; left: 5vw; width: 35vw; height: 30vh; }

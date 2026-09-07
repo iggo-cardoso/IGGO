@@ -58,6 +58,7 @@
     }
 
     let lastScrollY      = window.scrollY;
+    let lastFrameTime    = performance.now();
     let visible          = false;
     let rafId            = null;
     const targetOffsets = Array.from(bands).map((band, i) =>
@@ -67,18 +68,26 @@
 
     const SPEED = 0.4;
     const FOLLOW = 0.16;
+    const AUTO_SPEED = 0.045;
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
 
-    function tick() {
+    function tick(now) {
       rafId = null;
       const scrollY = window.scrollY;
-      const delta   = scrollY - lastScrollY;
+      const automatic = mobileQuery.matches;
+      const frameDelta = Math.min(34, Math.max(0, now - lastFrameTime));
+      const scrollDelta = scrollY - lastScrollY;
       lastScrollY   = scrollY;
+      lastFrameTime = now;
 
       bands.forEach((band, i) => {
         const direction   = parseInt(band.dataset.direction);
         const singleWidth = parseFloat(band.dataset.singleWidth) || band.scrollWidth / 3;
+        const movement = automatic
+          ? frameDelta * AUTO_SPEED * direction
+          : scrollDelta * SPEED * direction;
 
-        targetOffsets[i] += delta * SPEED * direction;
+        targetOffsets[i] += movement;
         if (targetOffsets[i] < -singleWidth) {
           targetOffsets[i] += singleWidth;
           currentOffsets[i] += singleWidth;
@@ -99,6 +108,7 @@
     function scheduleTick() {
       if (!visible) return;
       lastScrollY = window.scrollY; // evita "salto" ao reentrar na viewport
+      lastFrameTime = performance.now();
       if (!rafId) rafId = requestAnimationFrame(tick);
     }
 
