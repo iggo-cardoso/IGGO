@@ -60,11 +60,13 @@
     let lastScrollY      = window.scrollY;
     let visible          = false;
     let rafId            = null;
-    const currentOffsets = Array.from(bands).map((band, i) =>
+    const targetOffsets = Array.from(bands).map((band, i) =>
       i % 2 === 0 ? 0 : -parseFloat(band.dataset.singleWidth || 0)
     );
+    const currentOffsets = [...targetOffsets];
 
     const SPEED = 0.4;
+    const FOLLOW = 0.16;
 
     function tick() {
       rafId = null;
@@ -76,11 +78,19 @@
         const direction   = parseInt(band.dataset.direction);
         const singleWidth = parseFloat(band.dataset.singleWidth) || band.scrollWidth / 3;
 
-        currentOffsets[i] += delta * SPEED * direction;
-        if (currentOffsets[i] < -singleWidth) currentOffsets[i] += singleWidth;
-        if (currentOffsets[i] > 0)            currentOffsets[i] -= singleWidth;
+        targetOffsets[i] += delta * SPEED * direction;
+        if (targetOffsets[i] < -singleWidth) {
+          targetOffsets[i] += singleWidth;
+          currentOffsets[i] += singleWidth;
+        }
+        if (targetOffsets[i] > 0) {
+          targetOffsets[i] -= singleWidth;
+          currentOffsets[i] -= singleWidth;
+        }
 
-        band.style.transform = `translateX(${currentOffsets[i]}px)`;
+        currentOffsets[i] += (targetOffsets[i] - currentOffsets[i]) * FOLLOW;
+
+        band.style.transform = `translate3d(${currentOffsets[i].toFixed(2)}px, 0, 0)`;
       });
 
       if (visible) rafId = requestAnimationFrame(tick);

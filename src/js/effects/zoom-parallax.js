@@ -1,6 +1,7 @@
 const clamp01 = value => Math.max(0, Math.min(1, value));
 
 let frame = 0;
+const renderedProgress = new WeakMap();
 
 function renderZoomParallax() {
   frame = 0;
@@ -14,7 +15,11 @@ function renderZoomParallax() {
     if (!inRenderRange) return;
 
     const distance = Math.max(1, rect.height - viewportHeight);
-    const progress = clamp01(-rect.top / distance);
+    const targetProgress = clamp01(-rect.top / distance);
+    const previousProgress = renderedProgress.get(section) ?? targetProgress;
+    const progress = previousProgress + (targetProgress - previousProgress) * .16;
+    renderedProgress.set(section, progress);
+    if (Math.abs(targetProgress - progress) > .0001) requestRender();
 
     section.querySelectorAll('[data-zoom-scale]').forEach(layer => {
       const configuredScale = Number(layer.dataset.zoomScale) || 1;

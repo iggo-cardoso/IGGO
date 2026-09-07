@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   let scrollY   = window.scrollY;
+  let visualScrollY = scrollY;
   let vh        = window.innerHeight;
   let rafActive = false;
 
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       let delta = 0;
       if (origin === 'global') {
-        delta = scrollY * speed;
+        delta = visualScrollY * speed;
       } else {
         const parent = el.closest('[data-parallax-section]') || el.parentElement;
         const rect   = parent.getBoundingClientRect();
@@ -91,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const maxScroll = parseFloat(el.dataset.fadeDistance) || 600;
       const blur      = parseFloat(el.dataset.blur)         || 0;
-      const opacity   = Math.max(0, Math.min(1, 1 - scrollY / maxScroll));
+      const opacity   = Math.max(0, Math.min(1, 1 - visualScrollY / maxScroll));
       return { el, opacity, filter: blur ? `blur(${(1 - opacity) * blur}px)` : '' };
     });
   }
@@ -230,6 +231,8 @@ document.addEventListener('DOMContentLoaded', function () {
   function masterTick() {
     rafActive = false;
 
+    visualScrollY += (scrollY - visualScrollY) * 0.16;
+
     const parallaxData   = parallaxEls.length     ? parallaxRead()      : [];
     const fadeScrollData = fadeScrollEls.length   ? fadeScrollRead()    : [];
     const fadeViewData   = fadeViewportEls.length  ? fadeViewportRead() : [];
@@ -237,6 +240,8 @@ document.addEventListener('DOMContentLoaded', function () {
     parallaxWrite(parallaxData);
     fadeScrollWrite(fadeScrollData);
     fadeViewportWrite(fadeViewData);
+
+    if (Math.abs(scrollY - visualScrollY) > 0.1) scheduleFrame();
   }
 
   document.addEventListener('pagechange', refreshEls);
