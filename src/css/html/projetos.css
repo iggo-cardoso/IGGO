@@ -1028,3 +1028,6 @@
 .cycle-gallery__slide img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #e9ecee; border-radius: 16px; }
 .cycle-gallery__slide figcaption { margin-top: 10px; font-size: .85rem; color: #6a6a6a; }
 @media (max-width: 700px) { .cycle-gallery { width: calc(100% - 32px); margin: 70px auto; } .cycle-gallery__heading { align-items: start; flex-direction: column; } .cycle-gallery__controls { align-self: flex-end; } .cycle-gallery__slide img { border-radius: 10px; } }
+
+.cycle-gallery--fashion .cycle-gallery__eyebrow { color: #6b5c55; }
+.cycle-gallery--fashion .cycle-gallery__slide img { background: #e9e6e3; }
