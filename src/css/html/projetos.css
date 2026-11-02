@@ -1450,6 +1450,12 @@
 .cycle-gallery .cycle-gallery__slide--square { height: min(80dvh, 840px); }
 .cycle-gallery .cycle-gallery__slide img { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(100% - 32px); aspect-ratio: auto; object-fit: cover; object-position: center; background: transparent; border-radius: 12px; }
 .cycle-gallery .cycle-gallery__slide figcaption { align-self: flex-start; margin-top: 12px; color: #fff; }
+@media (max-width: 700px) {
+  .cycle-gallery .cycle-gallery__track { height: auto; overflow-x: hidden; scroll-snap-type: none; touch-action: pan-y; transition: none; }
+  .cycle-gallery .cycle-gallery__slide,
+  .cycle-gallery .cycle-gallery__slide--portrait,
+  .cycle-gallery .cycle-gallery__slide--square { height: clamp(360px, 76svh, 760px); }
+}
 .proj-tile .proj-tile-img--mayze img,
 .proj-tile .proj-tile-img--vitrine-store img { filter: none; }
 

@@ -19,9 +19,12 @@ function initConceptGalleries() {
       count.textContent = `${String(active + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
       prev.disabled = active === 0;
       next.disabled = active === slides.length - 1;
-      track.style.height = `${slides[active].offsetHeight}px`;
+      track.style.height = window.matchMedia('(max-width: 700px)').matches ? '' : `${slides[active].offsetHeight}px`;
     };
-    const go = index => slides[Math.max(0, Math.min(slides.length - 1, index))]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    const go = index => {
+      const slide = slides[Math.max(0, Math.min(slides.length - 1, index))];
+      if (slide) track.scrollTo({ left: slide.offsetLeft - slides[0].offsetLeft, behavior: 'smooth' });
+    };
     prev.addEventListener('click', () => go(active - 1), { signal: events.signal });
     next.addEventListener('click', () => go(active + 1), { signal: events.signal });
     track.addEventListener('scroll', update, { signal: events.signal, passive: true });
