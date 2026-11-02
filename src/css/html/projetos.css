@@ -1444,12 +1444,13 @@
 .cycle-gallery--fashion .cycle-gallery__slide img { background: #e9e6e3; }
 
 .cycle-gallery--mayze .cycle-gallery__slide,
-.cycle-gallery--vitrine-store .cycle-gallery__slide { display: grid; place-items: center; padding: clamp(14px, 3vw, 38px); background: #e6e6e6; border-radius: 18px; }
+.cycle-gallery--vitrine-store .cycle-gallery__slide { display: block; padding: 0; background: transparent; border-radius: 0; }
+.cycle-gallery--mayze .cycle-gallery__track,
+.cycle-gallery--vitrine-store .cycle-gallery__track { align-items: flex-start; transition: height .25s ease; }
 .cycle-gallery--mayze .cycle-gallery__slide img,
-.cycle-gallery--vitrine-store .cycle-gallery__slide img { display: block; width: 100%; height: min(76vh, 820px); aspect-ratio: auto; object-fit: cover; object-position: center; background: transparent; border-radius: 0; }
+.cycle-gallery--vitrine-store .cycle-gallery__slide img { display: block; width: 100%; height: auto; aspect-ratio: auto; object-fit: cover; object-position: center; background: transparent; border-radius: 16px; }
 .cycle-gallery--mayze .cycle-gallery__slide figcaption,
-.cycle-gallery--vitrine-store .cycle-gallery__slide figcaption { justify-self: start; margin-top: 12px; color: #555; }
-.cycle-gallery--vitrine-store .cycle-gallery__slide { background: #dedee0; }
+.cycle-gallery--vitrine-store .cycle-gallery__slide figcaption { margin-top: 12px; color: #555; }
 .proj-tile .proj-tile-img--mayze img,
 .proj-tile .proj-tile-img--vitrine-store img { filter: none; }
 
