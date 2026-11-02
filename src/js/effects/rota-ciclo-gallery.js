@@ -9,6 +9,10 @@ function initConceptGalleries() {
     const next = gallery.querySelector('[data-cycle-next]');
     const count = gallery.querySelector('[data-cycle-count]');
     const adaptiveHeight = gallery.matches('.cycle-gallery--mayze, .cycle-gallery--vitrine-store');
+    if (adaptiveHeight) slides.forEach(slide => {
+      const image = slide.querySelector('img');
+      if (image) slide.style.setProperty('--gallery-image', `url("${image.getAttribute('src')}")`);
+    });
     let active = 0;
     const update = () => {
       const step = slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth;
