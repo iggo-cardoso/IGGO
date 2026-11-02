@@ -1,48 +1,4 @@
-// loader.js,  v2
-// Pré-carrega E pré-decodifica todos os assets críticos antes de liberar a página.
-// img.decode() força o decode JPEG/PNG/WebP na GPU antes da primeira exibição,
-// eliminando o jank de ~200-400ms que ocorre quando o browser decodifica on-demand.
-
-const CRITICAL_IMAGES = [
-  'img/profie-iggo.png',
-  'img/me_da_so_202604211709.png',
-];
-
-function getCardImages() {
-  const imgs = [];
-  document.querySelectorAll('[data-slides]').forEach(el => {
-    try {
-      JSON.parse(el.dataset.slides || '[]').forEach(s => {
-        if (s.img) imgs.push(s.img);
-      });
-    } catch(e) {}
-  });
-  return imgs;
-}
-
-// Faz download + decode completo antes de resolver.
-// img.decode() retorna Promise que só resolve quando a imagem
-// está totalmente decodificada e pronta para composite,  zero jank depois.
-function preloadAndDecode(src) {
-  return new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => {
-      // decode() após load garante que o raster está na memória da GPU
-      if (typeof img.decode === 'function') {
-        img.decode().then(resolve).catch(resolve); // nunca bloqueia em erro
-      } else {
-        resolve();
-      }
-    };
-    img.onerror = resolve; // imagem quebrada não bloqueia o loader
-    img.src = src;
-  });
-}
-
-function preloadFont(family) {
-  if (!document.fonts) return Promise.resolve();
-  return document.fonts.load('1em ' + family).catch(() => {});
-}
+// Entrada curta: imagens e fontes carregam sem bloquear a navegação.
 
 // ── Overlay ───────────────────────────────────────────────────
 const overlay = document.getElementById('site-loader');
@@ -69,8 +25,8 @@ function startLoaderMorph() {
   });
 
   const targetFor = (index, elapsed) => {
-    if (elapsed < 1000) return states[index];
-    if (elapsed < 5500) {
+    if (elapsed < 80) return states[index];
+    if (elapsed < 500) {
       const spacing = 70;
       return {
         x: index * spacing - cards.length * spacing / 2,
@@ -107,7 +63,7 @@ function startLoaderMorph() {
     const dt = Math.min((now - previous) / 1000, .033);
     previous = now;
 
-    if (elapsed >= 5500 && !circleAnnounced) {
+    if (elapsed >= 500 && !circleAnnounced) {
       circleAnnounced = true;
       stage.classList.add('is-circle');
     }
@@ -123,7 +79,7 @@ function startLoaderMorph() {
       cards[index].style.transform = `translate3d(${state.x}px, ${state.y}px, 0) rotate(${state.rotation}deg) scale(${state.scale})`;
     });
 
-    if (elapsed < 11500) requestAnimationFrame(frame);
+    if (elapsed < 1000) requestAnimationFrame(frame);
     else stage.classList.add('is-complete');
   };
 
@@ -143,21 +99,11 @@ export const assetsReady = new Promise(r => { resolveReady = r; });
 async function run() {
   document.body.style.overflow = 'hidden';
 
-  const loaderImages = [...document.querySelectorAll('.loader-morph__card img')].map(img => img.currentSrc || img.src);
-  const images = [...CRITICAL_IMAGES, ...loaderImages, ...getCardImages()];
-  const fonts  = ['Figtree', 'Stretch Pro'];
-
-  await Promise.all([
-    ...images.map(preloadAndDecode),
-    ...fonts.map(preloadFont),
-  ]);
-
   overlay?.classList.add('loader-ready');
   startLoaderMorph();
-  await new Promise(r => setTimeout(r, 17000));
+  await new Promise(r => setTimeout(r, 1000));
 
   hideLoader();
-  await new Promise(r => setTimeout(r, 900));
   document.body.style.overflow = '';
   resolveReady();
 }
