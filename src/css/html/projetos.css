@@ -1010,3 +1010,21 @@
 .proj-editorial-slide img[src$="/mockups/alex.png"] {
   object-position: center 55%;
 }
+
+/* Galeria do conceito Rota Ciclo. */
+.cycle-gallery { width: min(1200px, calc(100% - 40px)); margin: 100px auto; color: #121512; }
+.cycle-gallery__heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.cycle-gallery__eyebrow { display: block; margin-bottom: 10px; color: #a54018; font: 700 11px/1.4 'Inter Tight', sans-serif; letter-spacing: .12em; }
+.cycle-gallery h2 { margin: 0; font: 700 clamp(2.6rem, 5vw, 5rem)/1 'Inter Tight', sans-serif; letter-spacing: -.055em; }
+.cycle-gallery__heading p { margin: 12px 0 0; color: #595b5c; font-size: 1rem; }
+.cycle-gallery__controls { display: flex; align-items: center; gap: 12px; white-space: nowrap; }
+.cycle-gallery__controls button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #bbb; border-radius: 50%; background: transparent; color: #121512; font-size: 22px; cursor: pointer; }
+.cycle-gallery__controls button:disabled { opacity: .35; cursor: default; }
+.cycle-gallery__controls button:focus-visible, .cycle-gallery__track:focus-visible { outline: 2px solid var(--brand, #e85002); outline-offset: 3px; }
+.cycle-gallery__controls span { min-width: 62px; text-align: center; font-size: 12px; font-weight: 700; }
+.cycle-gallery__track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-inline: contain; }
+.cycle-gallery__track::-webkit-scrollbar { display: none; }
+.cycle-gallery__slide { flex: 0 0 100%; margin: 0; scroll-snap-align: start; }
+.cycle-gallery__slide img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #e9ecee; border-radius: 16px; }
+.cycle-gallery__slide figcaption { margin-top: 10px; font-size: .85rem; color: #6a6a6a; }
+@media (max-width: 700px) { .cycle-gallery { width: calc(100% - 32px); margin: 70px auto; } .cycle-gallery__heading { align-items: start; flex-direction: column; } .cycle-gallery__controls { align-self: flex-end; } .cycle-gallery__slide img { border-radius: 10px; } }

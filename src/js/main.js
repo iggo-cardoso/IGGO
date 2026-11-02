@@ -1,3 +1,4 @@
+import './effects/rota-ciclo-gallery.js';
 import './loader.js';
 
 import './index.js';
