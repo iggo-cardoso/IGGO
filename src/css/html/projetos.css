@@ -1443,16 +1443,15 @@
 .cycle-gallery--fashion .cycle-gallery__eyebrow { color: #6b5c55; }
 .cycle-gallery--fashion .cycle-gallery__slide img { background: #e9e6e3; }
 
-.cycle-gallery--mayze .cycle-gallery__slide { padding: clamp(14px, 3vw, 38px); background: #171717; border-radius: 18px; }
-.cycle-gallery--mayze .cycle-gallery__slide figcaption { color: #dedede; }
-.proj-tile-img--mayze { display: grid; place-items: center; padding: clamp(18px, 4vw, 46px); background: #292929; }
-.mayze-mockup { width: min(100%, 1080px); margin: 0 auto; }
-.mayze-mockup__screen { position: relative; padding: 1.4%; border: 7px solid #111; border-bottom-width: 10px; border-radius: 15px 15px 4px 4px; background: #050505; box-shadow: 0 16px 38px #0005; }
-.mayze-mockup__screen img { display: block; width: 100%; aspect-ratio: 1365 / 767; object-fit: cover; object-position: center; border-radius: 0; background: #111; }
-.mayze-mockup__base { width: 107%; height: clamp(9px, 1.6vw, 20px); margin-left: -3.5%; border-radius: 2px 2px 50% 50%; background: linear-gradient(#9c9c9c, #4a4a4a 48%, #151515 75%, #777); box-shadow: 0 12px 18px #0003; }
-.proj-tile-img--mayze .mayze-mockup__screen { border-width: 4px 4px 7px; border-radius: 9px 9px 3px 3px; padding: 1%; }
-.proj-tile .proj-tile-img--mayze .mayze-mockup__screen img { position: static; height: auto; filter: none; }
-.proj-tile-img--mayze .mayze-mockup__base { height: 9px; }
+.cycle-gallery--mayze .cycle-gallery__slide,
+.cycle-gallery--vitrine-store .cycle-gallery__slide { display: grid; place-items: center; padding: clamp(14px, 3vw, 38px); background: #e6e6e6; border-radius: 18px; }
+.cycle-gallery--mayze .cycle-gallery__slide img,
+.cycle-gallery--vitrine-store .cycle-gallery__slide img { display: block; width: 100%; height: min(76vh, 820px); aspect-ratio: auto; object-fit: contain; background: transparent; border-radius: 0; }
+.cycle-gallery--mayze .cycle-gallery__slide figcaption,
+.cycle-gallery--vitrine-store .cycle-gallery__slide figcaption { justify-self: start; margin-top: 12px; color: #555; }
+.cycle-gallery--vitrine-store .cycle-gallery__slide { background: #dedee0; }
+.proj-tile .proj-tile-img--mayze img,
+.proj-tile .proj-tile-img--vitrine-store img { filter: none; }
 
 /* Primeira parte preserva a grade do portfólio anterior. */
 #page-projetos .proj-legacy,
