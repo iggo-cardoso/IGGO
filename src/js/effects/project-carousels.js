@@ -4,7 +4,7 @@ function initProjectCarousels() {
   cleanups.forEach(cleanup => cleanup());
   cleanups = [];
 
-  document.querySelectorAll('.proj-highlight-grid, .proj-winners-grid').forEach(rail => {
+  document.querySelectorAll('.proj-showcase-frame .proj-winners-grid').forEach(rail => {
     let startX = 0;
     let startScroll = 0;
     let dragging = false;

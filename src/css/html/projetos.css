@@ -1326,6 +1326,9 @@
   mask-image: linear-gradient(to bottom, #000 0%, #000 34%, transparent 100%);
 }
 .proj-showcase-frame .proj-editorial-slide figcaption { z-index: 2; }
+.proj-showcase-frame .proj-editorial-link { position: absolute; z-index: 3; inset: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: 20px; color: #fff; text-decoration: none; cursor: pointer; }
+.proj-showcase-frame .proj-editorial-link span { padding: 10px 14px; border-radius: 999px; background: #111c; font-size: .85rem; font-weight: 650; backdrop-filter: blur(8px); }
+.proj-showcase-frame .proj-editorial-link:focus-visible { outline: 3px solid var(--brand); outline-offset: -4px; }
 .proj-showcase-frame .proj-editorial-slide.proj-showcase-card--dark figcaption { color: #fff; text-shadow: 0 1px 13px #0008; }
 .proj-showcase-frame .proj-editorial-slide.proj-showcase-card--light figcaption { color: #111; text-shadow: 0 1px 13px #fff9; }
 .proj-showcase-frame .proj-editorial-slide.proj-showcase-card--orange figcaption { color: #fff; text-shadow: 0 1px 13px #0007; }
