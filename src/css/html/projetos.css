@@ -1073,3 +1073,39 @@
 .proj-card:has(> .proj-macbook) {
   background: radial-gradient(circle at 50% 36%, #525860, #171a1d 70%);
 }
+
+/* Algumas capturas seguem a referência: notebook amplo, inclinado e recortado. */
+.proj-tile-img:has(> .proj-macbook--angled) {
+  overflow: hidden;
+  background: radial-gradient(circle at 83% 12%, #ffe7d1 0, #ffc090 42%, #e76922 100%);
+  perspective: 1100px;
+}
+.proj-tile-img > .proj-macbook--angled {
+  width: 106%;
+  margin: 22% -12% -16% 6%;
+  transform: rotateY(-17deg) rotateX(5deg) rotateZ(5deg);
+  transform-origin: left bottom;
+  filter: drop-shadow(-18px 26px 18px rgba(32, 22, 18, .28));
+}
+.proj-tile-img > .proj-macbook--angled .proj-macbook__screen {
+  border-width: 8px 8px 12px;
+  border-color: #25282c;
+  border-radius: 26px 26px 8px 8px;
+  box-shadow: -5px 0 0 #77797b, inset 0 0 0 2px #08090b;
+}
+.proj-tile-img > .proj-macbook--angled::after {
+  height: 5%;
+  background: linear-gradient(#707276, #252629 55%, #101113);
+}
+#projetos-selecao .proj-tile .proj-tile-img > .proj-macbook--angled {
+  width: 112%;
+  margin: 22% -14% -13% 5%;
+}
+@media (max-width: 700px) {
+  .proj-tile-img > .proj-macbook--angled,
+  #projetos-selecao .proj-tile .proj-tile-img > .proj-macbook--angled {
+    width: 118%;
+    margin: 28% -18% -12% 5%;
+    transform: rotateY(-11deg) rotateX(3deg) rotateZ(3deg);
+  }
+}
