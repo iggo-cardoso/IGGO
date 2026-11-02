@@ -989,7 +989,7 @@
 .proj-card img[src*="/mockups/"],
 .proj-editorial-slide > img[src*="/mockups/"],
 #projetos-selecao .proj-tile .proj-tile-img img[src*="/mockups/"] {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   filter: none;
   transform: none;
@@ -1001,4 +1001,12 @@
 .proj-showcase .proj-showcase-frame > img[src*="/mockups/"] {
   opacity: 1;
   filter: none;
+}
+
+/* Ajuste de foco para fotos verticais; o notebook permanece no enquadramento. */
+.proj-tile-img img[src$="/mockups/crm.png"],
+.proj-tile-img img[src$="/mockups/save.png"],
+.proj-card img[src$="/mockups/alex.png"],
+.proj-editorial-slide img[src$="/mockups/alex.png"] {
+  object-position: center 55%;
 }
