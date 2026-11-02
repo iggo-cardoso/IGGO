@@ -1456,6 +1456,7 @@
 /* Primeira parte preserva a grade do portfólio anterior. */
 #page-projetos .proj-legacy,
 #page-projetos .proj-legacy * { font-family: 'Inter Tight', sans-serif; }
+#page-projetos :is(h1, h2, h3, h4, p, span, a, button, figcaption, td, th, small, strong) { font-family: 'Inter Tight', sans-serif; }
 #page-projetos .proj-legacy .proj-topbar { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 75px 20px 0; }
 #page-projetos .proj-legacy .proj-pill { font-size: .8rem; font-weight: 700; color: #121512; }
 #page-projetos .proj-legacy .proj-pill.solid { padding: 8px 15px; border-radius: 999px; background: var(--brand, #ed4c16); color: #fff; }
