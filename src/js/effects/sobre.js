@@ -137,7 +137,6 @@
     const groups = [
       '.about-diff-grid',
       '.about-process-list',
-      '.about-service-groups',
     ];
 
     groups.forEach((selector) => {
@@ -161,13 +160,49 @@
     });
   }
 
+  let serviceFrame = 0;
+  let releaseServiceMarker = () => {};
+
+  function watchServiceMarker() {
+    releaseServiceMarker();
+    const section = document.querySelector('.about-services');
+    const groups = [...(section?.querySelectorAll('.service-group') || [])];
+    if (!groups.length) return;
+
+    const update = () => {
+      serviceFrame = 0;
+      const center = window.innerHeight / 2;
+      const bounds = section.getBoundingClientRect();
+      let active = -1;
+      if (bounds.top < window.innerHeight && bounds.bottom > 0) {
+        active = 0;
+        groups.forEach((group, index) => {
+          if (group.getBoundingClientRect().top <= center) active = index;
+        });
+      }
+      groups.forEach((group, index) => group.classList.toggle('is-current', index === active));
+    };
+    const schedule = () => { if (!serviceFrame) serviceFrame = requestAnimationFrame(update); };
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    update();
+    releaseServiceMarker = () => {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      if (serviceFrame) cancelAnimationFrame(serviceFrame);
+      serviceFrame = 0;
+    };
+  }
+
   function init() {
     runCleanup();
+    releaseServiceMarker();
     if (!document.querySelector('.about-hero')) return; // não estamos na página Sobre
 
     watchScoreSections();
     watchVotesTable();
     watchGenericGroups();
+    watchServiceMarker();
   }
 
   document.addEventListener('pagechange', init);

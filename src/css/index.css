@@ -460,6 +460,7 @@ header {
   .zoom-parallax {
     position: relative;
     height: 300vh;
+    margin-top: clamp(180px, 30vh, 360px);
     background: var(--page-background);
   }
 
@@ -620,7 +621,7 @@ header {
 
     .conversion-img {
         position: absolute;
-        border-radius: 0;
+        border-radius: 18px;
         object-fit: cover;
         will-change: transform;
         pointer-events: none;
@@ -653,20 +654,6 @@ header {
     }
 
     
-}
-
-#gallery-container {
-    margin: -400px 0 0 0;
-    padding: 0;
-    width: 100%;
-    height: 1000px;
-    overflow: hidden;
-    cursor: grab;
-    z-index: 100;
-    
-}
-#gallery-container:active {
-    cursor: grabbing;
 }
 
   /* ---------- HERO ---------- */
@@ -821,4 +808,19 @@ header {
         text-align:center;
         padding-bottom:52px;
     }
+}
+
+/* Abertura do livro em composição ampla, como seção editorial de loja. */
+.book-section-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 390px); align-items: center; gap: 60px; width: min(calc(100% - 80px), 1200px); margin: 0 auto; padding: clamp(62px, 8vw, 115px) 0 32px; color: #18191b; }
+.book-section-heading h2 { margin: 0; color: inherit; font: 700 clamp(4.8rem, 8vw, 7.6rem)/.95 'Google Sans', sans-serif; letter-spacing: -.075em; }
+.book-section-heading__aside { text-align: right; }
+.book-section-heading__aside p { max-width: 390px; margin: 0 0 17px auto; color: #1b1c1e; font: 600 clamp(1.45rem, 2.1vw, 1.9rem)/1.15 'Google Sans', sans-serif; letter-spacing: -.035em; }
+.book-section-heading__aside a { color: var(--brand); font: 500 .9rem/1.3 'Outfit', sans-serif; text-decoration: none; }
+.book-section-heading__aside a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.book { padding-top: 0; }
+@media (max-width: 700px) {
+  .book-section-heading { display: block; width: calc(100% - 40px); padding: 55px 0 22px; }
+  .book-section-heading h2 { font-size: clamp(4.4rem, 18vw, 6.4rem); }
+  .book-section-heading__aside { margin-top: 26px; text-align: left; }
+  .book-section-heading__aside p { max-width: 25ch; margin-left: 0; font-size: 1.38rem; }
 }

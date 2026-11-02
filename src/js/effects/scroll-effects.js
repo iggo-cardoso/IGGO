@@ -46,6 +46,20 @@ document.addEventListener('DOMContentLoaded', function () {
   let fadeViewportEls  = [];
 
   function refreshEls() {
+    // A animação de texto do projeto é a mesma em todas as páginas.
+    document.querySelectorAll('#page-root h1, #page-root h2, #page-root h3, #page-root p, #page-root blockquote, #page-root figcaption').forEach(el => {
+      if (el.closest('.scroll-band, .zoom-parallax, .brand-editorial__names, .lar-price-card, .lar-faq-answer, .about-services')) return;
+      const effects = new Set((el.dataset.effect || '').split(/\s+/).filter(Boolean));
+      effects.add('fade-viewport');
+      el.dataset.effect = [...effects].join(' ');
+      if (!el.dataset.fadeZone) el.dataset.fadeZone = '190';
+    });
+    document.querySelectorAll('.about-services [data-effect]').forEach(el => {
+      el.dataset.effect = (el.dataset.effect || '').split(/\s+/).filter(effect => effect && effect !== 'fade-viewport').join(' ');
+      el.style.opacity = '';
+      el.style.maskImage = '';
+      el.style.webkitMaskImage = '';
+    });
     parallaxEls     = Array.from(document.querySelectorAll('[data-effect~="parallax"]'));
     fadeScrollEls   = Array.from(document.querySelectorAll('[data-effect~="fade-scroll"]'));
     fadeViewportEls = Array.from(document.querySelectorAll('[data-effect~="fade-viewport"]'));

@@ -1,0 +1,13 @@
+
+.drift-wall { position: relative; overflow: hidden; width: 100%; height: 620px; perspective: var(--dw-perspective); isolation: isolate; background: #efede7; }
+.drift-wall__plane { position: absolute; top: 50%; left: 50%; display: flex; gap: var(--dw-gap); width: max-content; transform-style: preserve-3d; will-change: transform; }
+.drift-wall__col { width: var(--dw-tile-w); height: 1400px; overflow: hidden; }
+.drift-wall__track { display: flex; flex-direction: column; gap: var(--dw-gap); width: var(--dw-tile-w); will-change: transform; }
+.drift-wall__tile { position: relative; display: block; flex: none; width: var(--dw-tile-w); height: var(--dw-tile-h); overflow: hidden; border-radius: var(--dw-radius); cursor: pointer; transition: transform .4s ease, box-shadow .4s ease; }
+
+.drift-wall__inner,.drift-wall__inner img,.drift-wall__overlay { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.drift-wall__inner img { object-fit: cover; filter: grayscale(var(--dw-gray)); }
+.drift-wall__overlay { background: var(--dw-overlay); opacity: var(--dw-dim); transition: opacity .3s ease; }
+
+.drift-wall__tile:focus-visible { outline: 3px solid #e64b20; outline-offset: 3px; }
+.drift-wall--reduced .drift-wall__track { transform: none !important; }

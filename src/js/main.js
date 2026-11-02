@@ -10,7 +10,6 @@ import './effects/scrollbar.js';
 import './effects/mouse-paint.js';
 import './effects/webgl-distortion-image.js';
 import './effects/scroll-band.js';
-import './effects/logo-cloud.js';
 import './effects/lar-sections.js';
 
 
@@ -19,12 +18,16 @@ import './effects/lar-sections.js';
 import './effects/zoom-parallax.js';
 import './effects/crm-deck.js';
 import './effects/scroll-effects.js';
-import './effects/circular-gallery.js'
 import './effects/loja.js';
 import './effects/afiliar-se.js';
 import './effects/contato.js';
 import './effects/sobre.js';
+import './effects/about-journey.js';
 import './page-styles.js';
+import './effects/portfolio-motion.js';
+import './effects/project-carousels.js';
+import './effects/brand-reel.js';
+import './react-effects/mount.jsx';
 
 (function () {
     const KEY = 'cookies_accepted';

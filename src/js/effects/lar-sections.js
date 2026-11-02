@@ -66,7 +66,7 @@
       // hook pronto pra quando os planos tiverem preço mensal x anual/único
       // de verdade,  troca os valores em .lar-plan-price conforme o period
       const period = e.currentTarget.dataset.period;
-      suite.querySelectorAll('.lar-plan-price[data-period-value]').forEach((el) => {
+      suite.querySelectorAll('.lar-plan-price[data-period-unico], .lar-plan-note[data-period-unico]').forEach((el) => {
         const value = el.dataset[`period${period.charAt(0).toUpperCase()}${period.slice(1)}`];
         if (value) el.textContent = value;
       });

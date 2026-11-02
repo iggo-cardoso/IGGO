@@ -8,8 +8,8 @@ function startLoaderMorph() {
   const cards = [...(stage?.querySelectorAll('.loader-morph__card') || [])];
   if (!stage || !cards.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const stiffness = 10;
-  const damping = 6;
+  const stiffness = 22;
+  const damping = 9;
   const states = cards.map((card, index) => {
     const seed = index + 1;
     const state = {
@@ -53,7 +53,6 @@ function startLoaderMorph() {
     state[velocityKey] += acceleration * dt;
     state[key] += state[velocityKey] * dt;
   };
-
   const startedAt = performance.now();
   let previous = startedAt;
   let circleAnnounced = false;
