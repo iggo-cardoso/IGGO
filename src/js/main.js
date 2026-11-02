@@ -16,6 +16,7 @@ import './effects/lar-sections.js';
 
 
 import './effects/zoom-parallax.js';
+import './effects/crm-deck.js';
 import './effects/scroll-effects.js';
 import './effects/circular-gallery.js'
 import './effects/loja.js';

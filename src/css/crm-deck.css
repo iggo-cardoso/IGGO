@@ -1,0 +1,111 @@
+.crm.crm-deck {
+  position: relative;
+  display: block;
+  width: min(1040px, 92vw);
+  height: clamp(265px, 58vw, 630px);
+  margin: 55px auto 70px;
+  perspective: 1400px;
+  isolation: isolate;
+}
+
+.crm.crm-deck .crm-deck__card {
+  position: absolute;
+  top: 3%;
+  left: 6%;
+  width: 88%;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 15%);
+  border-radius: 18px;
+  background: #090909;
+  box-shadow: 0 25px 55px rgb(0 0 0 / 25%);
+  backface-visibility: hidden;
+  transform-origin: center 85%;
+  transition: transform .8s cubic-bezier(.2, .8, .2, 1), opacity .8s ease;
+}
+
+.crm.crm-deck .crm-deck__card[data-position="front"] {
+  z-index: 3;
+  opacity: 1;
+  transform: translate3d(0, 0, 40px) rotate(-4deg) scale(1);
+}
+
+.crm.crm-deck .crm-deck__card[data-position="next"] {
+  z-index: 2;
+  opacity: .88;
+  transform: translate3d(7%, 7%, 0) rotate(7deg) scale(.94);
+}
+
+.crm.crm-deck .crm-deck__card[data-position="back"] {
+  z-index: 1;
+  opacity: .7;
+  transform: translate3d(-7%, 13%, -20px) rotate(-9deg) scale(.88);
+}
+
+.crm.crm-deck .crm-deck__card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  object-fit: cover;
+  object-position: top center;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+.crm-deck__card figcaption {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  padding: 8px 13px;
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: 999px;
+  background: rgb(0 0 0 / 72%);
+  color: #fff;
+  font: 600 .78rem/1.1 'Figtree', sans-serif;
+  letter-spacing: .02em;
+}
+
+.crm-deck__controls {
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.crm-deck__controls button {
+  width: 28px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #12151255;
+  cursor: pointer;
+  transition: width .25s ease, background .25s ease;
+}
+
+.crm-deck__controls button[aria-pressed="true"] {
+  width: 52px;
+  background: #121512;
+}
+
+.crm-deck__controls button:focus-visible {
+  outline: 2px solid #e64b20;
+  outline-offset: 5px;
+}
+
+@media (max-width: 700px) {
+  .crm.crm-deck { width: 100%; margin: 30px auto 40px; }
+  .crm.crm-deck .crm-deck__card { left: 7%; width: 86%; border-radius: 11px; }
+  .crm-deck__card figcaption { left: 10px; bottom: 10px; padding: 5px 8px; font-size: .62rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crm.crm-deck .crm-deck__card,
+  .crm-deck__controls button { transition: none; }
+}
