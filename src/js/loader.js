@@ -1,7 +1,7 @@
 import { LiquidGlassLogo } from './components/liquid-glass-logo.js';
 
 const overlay = document.getElementById('site-loader');
-const speed = 2.85;
+const duration = 3000;
 
 let resolveReady;
 export const assetsReady = new Promise(resolve => { resolveReady = resolve; });
@@ -14,16 +14,17 @@ async function run() {
 
   const previousOverflow = document.body.style.overflow;
   document.body.style.overflow = 'hidden';
-  overlay.replaceChildren(LiquidGlassLogo({
+  const animation = LiquidGlassLogo({
     logo: '/logos/png/logo-dark.png',
     ending: 'logo',
     theme: 'light',
-    speed,
+    duration,
     style: { height: 480 },
-  }));
+  });
+  overlay.replaceChildren(animation);
 
-  const duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 120 : Math.round(2400 / speed) + 140;
-  await new Promise(resolve => setTimeout(resolve, duration));
+  await Promise.race([animation.finished, new Promise(resolve => setTimeout(resolve, duration + 700))]);
+  animation.dispose();
   overlay.classList.add('loader-done');
   document.body.style.overflow = previousOverflow;
   resolveReady();
