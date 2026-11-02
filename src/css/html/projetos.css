@@ -980,132 +980,25 @@
 .proj-bottom-space {
     height: 70px;
 }
-/* Capturas de sites exibidas dentro de um MacBook. */
-.proj-macbook {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: min(88%, 760px);
-  margin: auto;
-  padding-bottom: 3.6%;
-  filter: drop-shadow(0 24px 28px rgba(0, 0, 0, .28));
-}
-.proj-macbook__screen {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  padding: 2.2%;
-  border: 2px solid #555b63;
-  border-bottom-width: 5px;
-  border-radius: 16px 16px 6px 6px;
-  background: #111318;
-  box-shadow: inset 0 0 0 2px #08090b;
-}
-.proj-macbook__screen::before {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  top: .65%;
-  left: calc(50% - 2px);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #4a4d55;
-}
-.proj-macbook::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: -8%;
-  width: 116%;
-  height: 3.9%;
-  border-radius: 2px 2px 45% 45% / 2px 2px 100% 100%;
-  background: linear-gradient(#e4e5e8, #a8aab0 52%, #74777d 78%, #bec0c4);
-  box-shadow: 0 3px 4px #0004;
-}
-.proj-macbook__screen > img,
-.proj-tile .proj-tile-img .proj-macbook__screen > img,
-.proj-showcase-frame .proj-showcase-card .proj-macbook__screen > img,
-#projetos-selecao .proj-tile .proj-macbook__screen > img,
-.proj-editorial-slide .proj-macbook__screen > img {
-  position: relative;
-  inset: auto;
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-height: none;
-  aspect-ratio: auto;
-  object-fit: cover;
-  object-position: top center;
-  border-radius: 2px;
-  opacity: 1;
+
+/* Fotografias finais dos mockups, sem molduras vetoriais ou CSS. */
+.proj-tile .proj-tile-img:has(img[src*="/mockups/"]),
+.proj-showcase-frame:has(> img[src*="/mockups/"]) { background: #d8d8d8; }
+.proj-tile .proj-tile-img img[src*="/mockups/"],
+.proj-showcase-frame > img[src*="/mockups/"],
+.proj-card img[src*="/mockups/"],
+.proj-editorial-slide > img[src*="/mockups/"],
+#projetos-selecao .proj-tile .proj-tile-img img[src*="/mockups/"] {
+  object-fit: contain;
+  object-position: center;
   filter: none;
   transform: none;
-  transition: none;
-  will-change: auto;
 }
-.proj-tile:hover .proj-macbook__screen > img { transform: none; }
-.proj-tile-img:has(> .proj-macbook),
-.proj-showcase-frame:has(> .proj-macbook) {
-  display: grid;
-  place-items: center;
-}
-.proj-tile-img > .proj-macbook,
-.proj-showcase-frame > .proj-macbook {
-  width: min(78%, 760px);
-}
-.proj-editorial-slide > .proj-macbook {
-  position: absolute;
-  left: 12%;
-  bottom: 8%;
-  width: 76%;
-}
-@media (max-width: 700px) {
-  .proj-macbook__screen { border-radius: 9px 9px 4px 4px; }
-  .proj-tile-img > .proj-macbook,
-  .proj-showcase-frame > .proj-macbook { width: 84%; }
-}
+.proj-tile:hover .proj-tile-img img[src*="/mockups/"] { transform: none; }
+.proj-tile-img.proj-photo--vitrine { background: #273650; }
+.proj-tile-img.proj-photo--crm { background: #ffb87f; }
 
-.proj-card > .proj-macbook {
-  width: 74%;
-  margin: 12% auto 16%;
-}
-.proj-card:has(> .proj-macbook) {
-  background: radial-gradient(circle at 50% 36%, #525860, #171a1d 70%);
-}
-
-/* Algumas capturas seguem a referência: notebook amplo, inclinado e recortado. */
-.proj-tile-img:has(> .proj-macbook--angled) {
-  overflow: hidden;
-  background: radial-gradient(circle at 83% 12%, #ffe7d1 0, #ffc090 42%, #e76922 100%);
-  perspective: 1100px;
-}
-.proj-tile-img > .proj-macbook--angled {
-  width: 106%;
-  margin: 22% -12% -16% 6%;
-  transform: rotateY(-17deg) rotateX(5deg) rotateZ(5deg);
-  transform-origin: left bottom;
-  filter: drop-shadow(-18px 26px 18px rgba(32, 22, 18, .28));
-}
-.proj-tile-img > .proj-macbook--angled .proj-macbook__screen {
-  border-width: 8px 8px 12px;
-  border-color: #25282c;
-  border-radius: 26px 26px 8px 8px;
-  box-shadow: -5px 0 0 #77797b, inset 0 0 0 2px #08090b;
-}
-.proj-tile-img > .proj-macbook--angled::after {
-  height: 5%;
-  background: linear-gradient(#707276, #252629 55%, #101113);
-}
-#projetos-selecao .proj-tile .proj-tile-img > .proj-macbook--angled {
-  width: 112%;
-  margin: 22% -14% -13% 5%;
-}
-@media (max-width: 700px) {
-  .proj-tile-img > .proj-macbook--angled,
-  #projetos-selecao .proj-tile .proj-tile-img > .proj-macbook--angled {
-    width: 118%;
-    margin: 28% -18% -12% 5%;
-    transform: rotateY(-11deg) rotateX(3deg) rotateZ(3deg);
-  }
+.proj-showcase .proj-showcase-frame > img[src*="/mockups/"] {
+  opacity: 1;
+  filter: none;
 }
