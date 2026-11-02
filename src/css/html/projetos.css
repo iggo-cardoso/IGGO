@@ -1446,7 +1446,7 @@
 .cycle-gallery--mayze .cycle-gallery__slide,
 .cycle-gallery--vitrine-store .cycle-gallery__slide { display: grid; place-items: center; padding: clamp(14px, 3vw, 38px); background: #e6e6e6; border-radius: 18px; }
 .cycle-gallery--mayze .cycle-gallery__slide img,
-.cycle-gallery--vitrine-store .cycle-gallery__slide img { display: block; width: 100%; height: min(76vh, 820px); aspect-ratio: auto; object-fit: contain; background: transparent; border-radius: 0; }
+.cycle-gallery--vitrine-store .cycle-gallery__slide img { display: block; width: 100%; height: min(76vh, 820px); aspect-ratio: auto; object-fit: cover; object-position: center; background: transparent; border-radius: 0; }
 .cycle-gallery--mayze .cycle-gallery__slide figcaption,
 .cycle-gallery--vitrine-store .cycle-gallery__slide figcaption { justify-self: start; margin-top: 12px; color: #555; }
 .cycle-gallery--vitrine-store .cycle-gallery__slide { background: #dedee0; }
